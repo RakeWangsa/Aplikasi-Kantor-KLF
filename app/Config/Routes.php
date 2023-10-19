@@ -13,6 +13,6 @@ $routes->post('simpanData', 'Home::simpanData');
 
 $routes->get('dashboard', 'Dashboard::index');
 $routes->get('listOrder', 'ListOrder::index');
-$routes->get('inputOrder', 'ListOrder::inputOrder');
+$routes->get('listOrder/inputOrder', 'ListOrder::inputOrder');
 
 

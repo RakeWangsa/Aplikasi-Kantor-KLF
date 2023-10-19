@@ -14,7 +14,7 @@
 
         <label for="no_telfon">No. Telfon:</label>
         <input type="text" name="no_telfon" required><br>
-        <input type="file" name="gambar" accept="image/*" required><br>
+        <input type="file" name="gambar[]" accept="image/*" multiple required><br>
 
         <input type="submit" value="Simpan">
     </form>

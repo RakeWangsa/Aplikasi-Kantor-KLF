@@ -23,43 +23,61 @@ class Home extends BaseController
     }
 
     public function simpanData()
-    {
-        // Ambil data dari form
-        $nama = $this->request->getPost('nama');
-        $alamat = $this->request->getPost('alamat');
-        $no_telfon = $this->request->getPost('no_telfon');
+{
+    // Ambil data dari form
+    $nama = $this->request->getPost('nama');
+    $alamat = $this->request->getPost('alamat');
+    $no_telfon = $this->request->getPost('no_telfon');
 
-        // Validasi data jika diperlukan
+    // Validasi data jika diperlukan
 
-       
+    // Ambil file gambar
+    $gambarFiles = $this->request->getFiles();
 
-        // Redirect ke halaman lain atau tampilkan pesan sukses
-        // return redirect()->to(base_url('tesdb'))->with('success', 'Data berhasil disimpan.');
+    // Buat direktori penyimpanan jika tidak ada
+    // $targetDir = WRITEPATH . 'uploads/';
 
-        // Validasi gambar jika diperlukan
+    // if (!is_dir($targetDir)) {
+    //     mkdir($targetDir, 0777, true);
+    // }
 
-        $gambar = $this->request->getFile('gambar');
+    // Simpan nama-nama file yang diunggah
+    $gambarNames = [];
 
-        // Pastikan nama file unik
-        $namaFile = $gambar->getRandomName();
+    // Loop untuk mengunggah setiap file gambar
+    foreach ($gambarFiles['gambar'] as $gambar) {
+        // Pastikan ada file yang diunggah
+        if ($gambar->isValid() && !$gambar->hasMoved()) {
+            // Pastikan nama file unik
+            $namaFile = $gambar->getRandomName();
 
-        // Pindahkan file ke direktori penyimpanan (misalnya, writable/uploads)
-        $gambar->move(ROOTPATH . 'public/uploads', $namaFile);
+            // Pindahkan file ke direktori penyimpanan
+            $gambar->move(ROOTPATH . 'public/uploads', $namaFile);
 
-         // Simpan data ke database menggunakan model
-         $model = new NamaModel();
-         $data = [
-             'nama' => $nama,
-             'alamat' => $alamat,
-             'no_telfon' => $no_telfon,
-             'foto' => $namaFile
-         ];
- 
-         $model->insert($data);
-
-        // Tampilkan pesan sukses atau lakukan tindakan lain jika diperlukan
-        return redirect()->to(base_url('tesdb'))->with('success', 'Gambar berhasil diunggah.');
+            // Simpan nama file ke array
+            $gambarNames[] = $namaFile;
+        }
     }
+
+    // Simpan data ke database menggunakan model
+    $model = new NamaModel();
+
+    foreach ($gambarNames as $namaFile) {
+        $data = [
+            'nama' => $nama,
+            'alamat' => $alamat,
+            'no_telfon' => $no_telfon,
+            'foto' => $namaFile
+        ];
+
+        $model->insert($data);
+    }
+
+    // Tampilkan pesan sukses atau lakukan tindakan lain jika diperlukan
+    return redirect()->to(base_url('tesdb'))->with('success', 'Gambar berhasil diunggah.');
+}
+
+    
 
     public function tesdb2()
     {
