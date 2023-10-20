@@ -15,7 +15,7 @@ class Home extends BaseController
     return $dataString;
 }
 
-    public function tesdb(): string
+    public function tesdb()
     {
         $model = new NamaModel();
         $data = $model->findAll();
@@ -42,36 +42,58 @@ class Home extends BaseController
     // }
 
     // Simpan nama-nama file yang diunggah
-    $gambarNames = [];
+    // $gambarNames = [];
+
+    $gambarName = "";
 
     // Loop untuk mengunggah setiap file gambar
     foreach ($gambarFiles['gambar'] as $gambar) {
         // Pastikan ada file yang diunggah
         if ($gambar->isValid() && !$gambar->hasMoved()) {
             // Pastikan nama file unik
-            $namaFile = $gambar->getRandomName();
+            // $namaFile = base64_encode($gambar->getRandomName());
+
+            $uuid = uniqid(); // Generate a unique ID
+            $ekstensiAsli = pathinfo($gambar->getName(), PATHINFO_EXTENSION); // Dapatkan ekstensi asli dari nama file
+
+            $namaFile = $uuid . '.' . $ekstensiAsli; // Gabungkan ID unik dan ekstensi asli untuk nama file
+
 
             // Pindahkan file ke direktori penyimpanan
             $gambar->move(ROOTPATH . 'public/uploads', $namaFile);
 
             // Simpan nama file ke array
-            $gambarNames[] = $namaFile;
+            // $gambarNames[] = $namaFile;
+
+            $gambarName .= $namaFile . ',';
         }
     }
-
+    // Hapus koma tambahan pada akhir string
+    $gambarName = rtrim($gambarName, ',');
     // Simpan data ke database menggunakan model
     $model = new NamaModel();
 
-    foreach ($gambarNames as $namaFile) {
-        $data = [
-            'nama' => $nama,
-            'alamat' => $alamat,
-            'no_telfon' => $no_telfon,
-            'foto' => $namaFile
-        ];
+    // foreach ($gambarNames as $namaFile) {
+    //     $data = [
+    //         'nama' => $nama,
+    //         'alamat' => $alamat,
+    //         'no_telfon' => $no_telfon,
+    //         'foto' => $namaFile
+    //     ];
 
-        $model->insert($data);
-    }
+    //     $model->insert($data);
+    // }
+
+    $data = [
+        'nama' => $nama,
+        'alamat' => $alamat,
+        'no_telfon' => $no_telfon,
+        'foto' => $gambarName,
+    ];
+
+   
+
+    $model->insert($data);
 
     // Tampilkan pesan sukses atau lakukan tindakan lain jika diperlukan
     return redirect()->to(base_url('tesdb'))->with('success', 'Gambar berhasil diunggah.');
