@@ -213,4 +213,8 @@ public function invoice(): string
         return view('invoice');
     }
 
+    public function cetakInvoice(): string
+    {
+        return view('cetakInvoice');
+    }
 }

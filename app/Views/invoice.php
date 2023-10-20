@@ -109,9 +109,9 @@
     </div>
   </div>
   <div class="app-content">
-    <div class="app-content-header mt-4">
+    <div class="app-content-header my-4">
       <h1 class="app-content-headerText">Invoice</h1>
-      
+      <a class="btn btn-primary" href="<?= base_url('listOrder/invoice/cetak'); ?>"><i class="fas fa-print"></i> Cetak Invoice</a>
     </div>
 
     <style>
@@ -130,72 +130,127 @@
     }
   </style>
 
-  <table class="text-light">
-  <thead>
-  <tr>
-  <th rowspan="5"><img src="<?= base_url('uploads/bose.jpeg'); ?>" style="max-width:200px"></th>
-    <th>INVOICE Ny. Eva</th>
-  </tr>
-  <tr>
-    <th>CODE Eva/23/IX/01</th>
-  </tr>
-  <tr>
-    <th>Data 20 Oktober 2023</th>
-  </tr>
-  <tr>
-    <th>Deadline 30 Oktober 2023</th>
-  </tr>
-  <tr>
-    <th>Rev 1</th>
-  </tr>
-
-</thead>
-
-
-
-
-
-    <tbody>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table>
+  
 
 
 
     <div class="products-area-wrapper tableView">
 
 
+
+
+  <table class="text-light">
+  <tr>
+  <td rowspan="5"><img src="<?= base_url('uploads/klflogo.png'); ?>" style="max-width:500px"></td>
+  <td rowspan="5">v.1</td>
+    <td>INVOICE Ny. Eva</td>
+  </tr>
+  <tr>
+    <td>CODE Eva/23/IX/01</td>
+  </tr>
+  <tr>
+    <td>DATE 20 Oktober 2023</td>
+  </tr>
+  <tr>
+    <td>DEADLINE 30 Oktober 2023</td>
+  </tr>
+  <tr>
+    <td>REV 1</td>
+  </tr>
+
+</table>
+
+<table class="text-light">
+
+
+
+    
+      <tr>
+        <th>1. SUPPLIER</th>
+        <th>2. DELIVERY</th>
+      </tr>
+      <tr>
+        <td>
+          Karya Logam Furniture<br>
+          Jl. Bendansari No. 2, Kec. Tahunan, Kab. Jepara<br>
+          email : nino@karyalogamfurniture.com<br>
+          Mobile: +6281327737717 / +62895411499535
+        </td>
+        <td>CUSTOMER : Ny. Eva<br>
+ADDRESS : <br>
+Email : <br>
+Mobile : +62 815-4215-0996</td>
+      </tr>
+      <tr>
+      </table>
+      <table class="text-light">
+      <th colspan="10">3. PRICELIST</th>
+      </tr>
+      <tr>
+        <td rowspan="2">No</td>
+        <td rowspan="2">Gambar</td>
+        <td rowspan="2">Deskripsi</td>
+        <td colspan="3">Ukuran</td>
+        <td rowspan="2">Finishing</td>
+        <td rowspan="2">Harga(Rp)</td>
+        <td rowspan="2">Qty</td>
+        <td rowspan="2">Total Harga</td>
+      </tr>
+      <tr>
+        <td>W cm</td>
+        <td>D cm</td>
+        <td>H cm</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td><img src="<?= base_url('uploads/bose.jpeg'); ?>" style="max-width:200px"></td>
+        <td>Buffet<br>
+200x40x90<br>
+Kaki stainless gold<br>
+Warna Excellente White <br>
+Nippon<br>
+Marmer white carrara</td>
+        <td>Deskripsi</td>
+        <td>200</td>
+        <td>40</td>
+        <td>90</td>
+        <td>Rp. 8.000.000</td>
+        <td>1</td>
+        <td>Rp. 8.000.000</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td colspan="7"></td>
+        <td>SUBTOTAL</td>
+        <td>1</td>
+        <td>Rp. 8.000.000</td>
+      </tr>
+      <tr>
+        <td colspan="7"></td>
+        <td>DP</td>
+        <td colspan="2">Rp. 3.000.000</td>
+      </tr>
+      <tr>
+        <td colspan="7"></td>
+        <td>GRAND TOTAL</td>
+        <td colspan="2">Rp. 5.000.000</td>
+      </tr>
+
+      
+  </table>
+
+  
 
       
 
