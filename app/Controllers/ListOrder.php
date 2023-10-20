@@ -43,36 +43,75 @@ class ListOrder extends BaseController
     $bulan = date('m');
     $awalanKode = "KLF/$tahun/$bulan";
     $model = new ListOrderModel();
-    $orderTerakhir = $model->select('kode_order')
-    ->like('kode_order', $awalanKode, 'after')
-    ->orderBy('kode_order', 'DESC')
-    ->first();
+    $semuaKodeOrder = $model->select('kode_order')->like('kode_order', $awalanKode, 'after')->findAll();
 
-    if ($orderTerakhir) {
-        $parts = explode('/', $orderTerakhir['kode_order']);
-        $nomorOrderTerakhir = end($parts);
-        $nomorOrder = $nomorOrderTerakhir+1 ;
-    }else{
-        $nomorOrder = 1 ;
+if ($semuaKodeOrder) {
+    // Membuat array asosiatif yang menghubungkan kode_order dengan nilai numerik
+    $dataNumerik = [];
+    foreach ($semuaKodeOrder as $data) {
+        $kode_order = $data['kode_order'];
+        $dataNumerik[$kode_order] = intval(substr($kode_order, strrpos($kode_order, '/') + 1));
     }
 
+    // Mengurutkan array asosiatif berdasarkan nilai numerik dalam urutan menurun
+    arsort($dataNumerik);
+
+    // Mengambil kode_order pertama (teratas) setelah pengurutan
+    $orderTerakhir = key($dataNumerik);
+
+    // Mengekstrak nomor order terakhir
+    $nomorOrderTerakhir = intval(substr($orderTerakhir, strrpos($orderTerakhir, '/') + 1));
+    
+    // Menambahkan 1 untuk mendapatkan nomor order berikutnya
+    $nomorOrder = $nomorOrderTerakhir + 1;
+} else {
+    $nomorOrder = 1;
+}
+$kodeOrder = "KLF/$tahun/$bulan/$nomorOrder";
+
+
+    // $awalanKodeInvoice = "$namaDepan/$tahun/$bulan";
+    // $invoiceTerakhir = $model->select('kode_invoice')
+    // ->like('kode_invoice', $awalanKodeInvoice, 'after')
+    // ->orderBy('kode_invoice', 'DESC')
+    // ->first();
+    
+    // if ($invoiceTerakhir) {
+    //     $parts = explode('/', $invoiceTerakhir['kode_invoice']);
+    //     $nomorInvoiceTerakhir = end($parts);
+    //     $nomorInvoice = intval($nomorInvoiceTerakhir) + 1 ;
+    // }else{
+    //     $nomorInvoice = 1 ;
+    // }
 
     $awalanKodeInvoice = "$namaDepan/$tahun/$bulan";
-    $invoiceTerakhir = $model->select('kode_invoice')
-    ->like('invoice', $awalanKode, 'after')
-    ->orderBy('kode_invoice', 'DESC')
-    ->first();
-    
-    if ($invoiceTerakhir) {
-        $parts = explode('/', $orderTerakhir['kode_order']);
-        $nomorInvoiceTerakhir = end($parts);
-        $nomorInvoice = $nomorInvoiceTerakhir+1 ;
-    }else{
-        $nomorInvoice = 1 ;
+    $semuaKodeInvoice = $model->select('kode_invoice')->like('kode_invoice', $awalanKodeInvoice, 'after')->findAll();
+
+if ($semuaKodeInvoice) {
+    // Membuat array asosiatif yang menghubungkan kode_order dengan nilai numerik
+    $dataNumerik = [];
+    foreach ($semuaKodeInvoice as $data) {
+        $kode_invoice = $data['kode_invoice'];
+        $dataNumerik[$kode_invoice] = intval(substr($kode_invoice, strrpos($kode_invoice, '/') + 1));
     }
 
+    // Mengurutkan array asosiatif berdasarkan nilai numerik dalam urutan menurun
+    arsort($dataNumerik);
+
+    // Mengambil kode_order pertama (teratas) setelah pengurutan
+    $invoiceTerakhir = key($dataNumerik);
+
+    // Mengekstrak nomor order terakhir
+    $nomorInvoiceTerakhir = intval(substr($invoiceTerakhir, strrpos($invoiceTerakhir, '/') + 1));
+    
+    // Menambahkan 1 untuk mendapatkan nomor order berikutnya
+    $nomorInvoice = $nomorInvoiceTerakhir + 1;
+} else {
+    $nomorInvoice = 1;
+}
+
     // Membuat format kode order
-    $kodeOrder = "KLF/$tahun/$bulan/$nomorOrder";
+    
     $kodeInvoice = "$namaDepan/$tahun/$bulan/$nomorInvoice";
 
 

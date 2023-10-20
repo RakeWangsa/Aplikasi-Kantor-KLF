@@ -7,7 +7,7 @@ use CodeIgniter\Model;
 class NamaModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'listorder';
+    protected $table            = 'tesdb';
     protected $primaryKey       = 'id_order';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
