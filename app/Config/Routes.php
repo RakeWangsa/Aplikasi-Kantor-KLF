@@ -15,5 +15,6 @@ $routes->get('dashboard', 'Dashboard::index');
 $routes->get('listOrder', 'ListOrder::index');
 $routes->get('listOrder/inputOrder', 'ListOrder::inputOrder');
 $routes->post('listOrder/inputOrder/simpanData', 'ListOrder::simpanData');
+$routes->get('listOrder/invoice', 'ListOrder::invoice');
 
 

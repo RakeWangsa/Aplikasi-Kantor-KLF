@@ -7,7 +7,16 @@ class ListOrder extends BaseController
 {
     public function index(): string
     {
-        return view('listOrder');
+        $model = new ListOrderModel();
+        $data = $model->findAll();
+
+        // Mengurutkan data berdasarkan angka terakhir dalam kode_order
+    usort($data, function ($a, $b) {
+        $angkaA = intval(substr($a['kode_order'], strrpos($a['kode_order'], '/') + 1));
+        $angkaB = intval(substr($b['kode_order'], strrpos($b['kode_order'], '/') + 1));
+        return $angkaA - $angkaB;
+    });
+        return view('listOrder', ['data' => $data]);
     }
     public function inputOrder(): string
     {
@@ -198,5 +207,10 @@ if ($semuaKodeInvoice) {
     // Tampilkan pesan sukses atau lakukan tindakan lain jika diperlukan
     return redirect()->to(base_url('listOrder'))->with('success', 'Order berhasil ditambahkan.');
 }
+
+public function invoice(): string
+    {
+        return view('invoice');
+    }
 
 }

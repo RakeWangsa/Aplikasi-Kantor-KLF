@@ -12,48 +12,7 @@
 
 </head>
 <body>
-<style>
-                    .dashboard-box:hover {
-                        background-color: #f9e8b2;
-                        /* Warna latar belakang saat hover */
-                        border-width: 2px;
-                        /* Lebar border saat hover */
-                    }
 
-                    .dashboard-box {
-                        transition: background-color 0.3s, border-width 0.1s;
-                        /* Efek transisi saat hover */
-                        background-color: #56564C;
-                        /* Warna latar belakang putih */
-                        border: 1.5px solid #ECE5D3;
-                        /* Border abu-abu */
-                        padding: 28px;
-                        border-radius: 8px;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: flex-start;
-                    }
-
-                    .dashboard-box-icon {
-                        font-size: 24px;
-                        color: #cfced2;
-                        padding-right: 8px;
-                    }
-
-                    .dashboard-box-label {
-                        font-size: 16px;
-                        margin-top: 12px;
-                        margin-bottom: 4px;
-                    }
-
-                    .dashboard-box-value {
-                        font-size: 24px;
-                        font-weight: bold;
-                        margin-bottom: 0px;
-                        /* Atur jarak bawah nilai */
-
-                    }
-                </style>
 <!-- partial:index.partial.html -->
 <div class="app-container">
   <div class="sidebar">
@@ -150,8 +109,13 @@
     </div>
   </div>
   <div class="app-content">
-    <div class="app-content-header my-4">
+    <div class="app-content-header mt-4">
       <h1 class="app-content-headerText">List Order</h1>
+      
+    </div>
+
+    <div class="app-content-actions">
+      <input class="search-bar" placeholder="Search..." type="text">
       <a class="btn btn-primary" href="<?= base_url('listOrder/inputOrder'); ?>">Input Order</a>
     </div>
 
@@ -165,99 +129,56 @@
         <div class="product-cell stock">DP Masuk</div>
         <div class="product-cell price">Status</div>
           <div class="product-cell price">Gross Profit</div>
+          <!-- <div class="product-cell price">Actions</div> -->
       </div>
 
+      <?php foreach ($data as $row): ?>
+        <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
+        <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#modal<?= $modalId; ?>"><div class="products-row">
+      <div class="product-cell image">
+            <span>Jul-23</span>
+          </div>
+          <div class="product-cell image bg-success">
+            <span><?= $row['nama']; ?></span>
+          </div>
+        <div class="product-cell category"><span><?= $row['kode_order']; ?></div>
+        <div class="product-cell status-cell">
+          <span><?= $row['harga_produk']; ?></span>
+        </div>
+        <div class="product-cell sales"><span>-</span></div>
+        <div class="product-cell stock"><span>-</span></div>
+        <div class="product-cell price"><span>-</span></div>
+        <!-- <div class="product-cell price"><span>-</span></div> -->
+      </div></a>
+    
+<?php endforeach; ?>
 
-      <div class="products-row">
-      <div class="product-cell image">
-            <span>Jul-23</span>
-          </div>
-          <div class="product-cell image bg-success">
-            <span>Nino-TP Arya W</span>
-          </div>
-        <div class="product-cell category"><span>NINO/23/VII/01</div>
-        <div class="product-cell status-cell">
-          <span>Rp. 4.500.000</span>
-        </div>
-        <div class="product-cell sales"><span>Rp. 1.600.000</div>
-        <div class="product-cell stock"><span>Lunas</div>
-        <div class="product-cell price"><span>-</div>
+
+<?php foreach ($data as $row): ?>
+  <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
+  <div class="modal fade" id="modal<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Kode Order : <?= $row['kode_order']; ?></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="products-row">
-      <div class="product-cell image">
-            <span>Jul-23</span>
-          </div>
-          <div class="product-cell image bg-success">
-            <span>Nino-TP Fayang</span>
-          </div>
-        <div class="product-cell category"><span>NINO/23/VII/02</div>
-        <div class="product-cell status-cell">
-          <span>Rp. 4.500.000</span>
-        </div>
-        <div class="product-cell sales"><span>Rp. 1.600.000</div>
-        <div class="product-cell stock"><span>Lunas</div>
-        <div class="product-cell price"><span>-</div>
+      <div class="modal-body">
+      <a class="" href="<?= base_url('listOrder/invoice'); ?>">Cetak Invoice</a><br>  
+      <a class="">Cetak Label</a><br>  
+      <a class="">Payment</a>  <br> 
+      <a class="">Detail</a>  <br> 
+      <a class="">Edit</a>  <br> 
+
       </div>
-      <div class="products-row">
-      <div class="product-cell image">
-            <span>Jul-23</span>
-          </div>
-          <div class="product-cell image bg-success">
-            <span>Nino-Tp Inay</span>
-          </div>
-        <div class="product-cell category"><span>NINO/23/VII/03</div>
-        <div class="product-cell status-cell">
-          <span>Rp. 4.500.000</span>
-        </div>
-        <div class="product-cell sales"><span>Rp. 1.600.000</div>
-        <div class="product-cell stock"><span>Lunas</div>
-        <div class="product-cell price"><span>-</div>
-      </div>
-      <div class="products-row">
-      <div class="product-cell image">
-            <span>Jul-23</span>
-          </div>
-          <div class="product-cell image bg-success">
-            <span>Nino-Tp Ferrus</span>
-          </div>
-        <div class="product-cell category"><span>NINO/23/VII/04</div>
-        <div class="product-cell status-cell">
-          <span>Rp. 4.500.000</span>
-        </div>
-        <div class="product-cell sales"><span>Rp. 1.600.000</div>
-        <div class="product-cell stock"><span>Lunas</div>
-        <div class="product-cell price"><span>-</div>
-      </div>
-      <div class="products-row">
-      <div class="product-cell image">
-            <span>Jul-23</span>
-          </div>
-          <div class="product-cell image bg-success">
-            <span>Nino-Tp Carter</span>
-          </div>
-        <div class="product-cell category"><span>NINO/23/VII/05</div>
-        <div class="product-cell status-cell">
-          <span>Rp. 4.500.000</span>
-        </div>
-        <div class="product-cell sales"><span>Rp. 1.600.000</div>
-        <div class="product-cell stock"><span>Lunas</div>
-        <div class="product-cell price"><span>-</div>
-      </div>
-      <div class="products-row">
-      <div class="product-cell image">
-            <span>Jul-23</span>
-          </div>
-          <div class="product-cell image bg-success">
-            <span>Nino-Tp Arif simbara</span>
-          </div>
-        <div class="product-cell category"><span>NINO/23/VII/06</div>
-        <div class="product-cell status-cell">
-          <span>Rp. 4.500.000</span>
-        </div>
-        <div class="product-cell sales"><span>Rp. 1.600.000</div>
-        <div class="product-cell stock"><span>Lunas</div>
-        <div class="product-cell price"><span>-</div>
-      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
 
       
 
