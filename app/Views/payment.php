@@ -119,12 +119,12 @@
 
     <form class="text-light" action="proses_form.php" method="post" enctype="multipart/form-data">
     <div class="form-group mb-2">
-    <label for="kodeOrder">Kode Order:</label>
-    <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" placeholder="Masukkan kode order">
+    <label for="kodeOrder">Kode Order: <?= $data['kode_order']; ?></label>
+    <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" value="<?= $data['kode_order']; ?>" disabled>
   </div>
   <div class="form-group mb-2">
     <label for="customer">Customer:</label>
-    <input type="text" class="form-control" id="customer" name="customer" style="max-width:1000px" placeholder="Masukkan nama customer">
+    <input type="text" class="form-control" id="customer" name="customer" style="max-width:1000px" value="<?= $data['nama']; ?>" disabled>
   </div>
   <div class="form-group mb-2">
     <label for="tanggal">Tanggal:</label>

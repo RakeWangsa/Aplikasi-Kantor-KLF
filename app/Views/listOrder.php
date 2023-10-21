@@ -170,7 +170,7 @@
       ?>
       <a style="text-decoration: none;" href="<?= base_url('order/invoice?kode_order=' . $encodedKodeOrder); ?>">Cetak Invoice</a><br>  
       <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Cetak Label</a><br> 
-      <a style="text-decoration: none;" href="<?= base_url('order/payment'); ?>">Payment</a>  <br> 
+      <a style="text-decoration: none;" href="<?= base_url('order/payment?kode_order=' . $encodedKodeOrder); ?>">Payment</a>  <br> 
       <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Detail</a>  <br> 
       <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Edit</a>  <br> 
 

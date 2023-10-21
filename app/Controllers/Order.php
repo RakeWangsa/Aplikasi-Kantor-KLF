@@ -250,6 +250,10 @@ public function invoice()
 
     public function payment(): string
     {
-        return view('payment');
+        $encodedKodeOrder = $this->request->getGet('kode_order');
+        $kodeOrder = base64_decode($encodedKodeOrder);
+        $model = new ListOrderModel();
+        $data = $model->where('kode_order', $kodeOrder)->first();
+        return view('payment', ['data' => $data]);
     }
 }

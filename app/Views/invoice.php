@@ -109,10 +109,45 @@
     </div>
   </div>
   <div class="app-content">
-    <div class="app-content-header my-4">
-      <h1 class="app-content-headerText">Invoice</h1>
-      <a class="btn btn-primary" href="<?= base_url('order/invoice/cetak'); ?>"><i class="fas fa-print"></i> Cetak Invoice</a>
+  <div class="app-content-header my-4">
+  <h1 class="app-content-headerText">Invoice</h1>
+  <div class="d-flex">
+    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#paymentTerms" style="margin-right:10px"><i class="fas fa-credit-card"></i> Payment Terms</button>
+    <a class="btn btn-primary" href="<?= base_url('order/invoice/cetak'); ?>"><i class="fas fa-file-pdf"></i> Cetak Invoice</a>
+  </div>
+</div>
+
+<!-- Payment terms -->
+<div class="modal fade" id="paymentTerms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Payment Terms</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="termin1" class="form-label">Termin 1</label>
+            <input type="text" class="form-control" id="termin1" name="termin1">
+          </div>
+          <div class="mb-3">
+            <label for="termin2" class="form-label">Termin 2</label>
+            <input type="text" class="form-control" id="termin2" name="termin2">
+          </div>
+          <div class="mb-3">
+            <label for="termin3" class="form-label">Termin 3</label>
+            <input type="text" class="form-control" id="termin3" name="termin3">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
+  </div>
+</div>
+
 
     <style>
     table {
@@ -140,23 +175,23 @@
 
 
   <table class="text-light">
-  <tr>
+  <tr style="background-color:#707070;">
   <td rowspan="5"><img src="<?= base_url('uploads/klflogo.png'); ?>" style="max-width:500px"></td>
   <td rowspan="5">v.1</td>
     <td>Invoice <?= $data['nama']; ?></td>
   </tr>
-  <tr>
+  <tr style="background-color:#707070;">
     <td style="text-align: left;">CODE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?= $data['kode_invoice']; ?></td>
   </tr>
-  <tr>
+  <tr style="background-color:#707070;">
     <td style="text-align: left;">DATE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -</td>
   </tr>
-  <tr>
+  <tr style="background-color:#707070;">
   <td style="text-align: left;">DEADLINE &nbsp; <?= date('d-m-Y', strtotime($data['deadline'])); ?></td>
 
 
   </tr>
-  <tr>
+  <tr style="background-color:#707070;">
     <td style="text-align: left;">REV &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -</td>
   </tr>
 
@@ -171,7 +206,7 @@
         <th>1. SUPPLIER</th>
         <th>2. DELIVERY</th>
       </tr>
-      <tr>
+      <tr style="background-color:#707070;">
         <td style="text-align: left;">
         <pre style="display:inline;">Karya Logam Furniture<br></pre>
           <pre style="display:inline;">Jl. Bendansari No. 2, Kec. Tahunan, Kab. Jepara<br></pre>
@@ -204,9 +239,19 @@
         <td>D cm</td>
         <td>H cm</td>
       </tr>
-      <tr>
+      <tr style="background-color:#707070;">
         <td>1</td>
-        <td><img src="<?= base_url('uploads/bose.jpeg'); ?>" style="max-width:200px"></td>
+        <td>    <?php
+    // Pecah nilai $row['foto'] menjadi array berdasarkan koma (,)
+    $fotoArray = explode(',', $data['gambar']);
+
+    // Loop untuk menampilkan setiap foto
+    foreach ($fotoArray as $foto):
+    ?>
+        <img src="<?= base_url('uploads/' . $foto); ?>" style="max-width: 100px;" alt="Gambar">
+    <?php
+    endforeach;
+    ?></td>
         <td>Buffet<br>
 200x40x90<br>
 Kaki stainless gold<br>
@@ -222,7 +267,7 @@ Marmer white carrara</td>
         <td>1</td>
         <td>Rp. 8.000.000</td>
       </tr>
-      <tr>
+      <tr style="background-color:#707070;">
         <td>2</td>
         <td></td>
         <td></td>
@@ -236,19 +281,19 @@ Marmer white carrara</td>
       </tr>
       <tr>
         <td colspan="7"></td>
-        <td>SUBTOTAL</td>
-        <td>1</td>
-        <td>Rp. 8.000.000</td>
+        <td style="background-color:#707070;">SUBTOTAL</td>
+        <td style="background-color:#707070;">1</td>
+        <td style="background-color:#707070;">Rp. 8.000.000</td>
       </tr>
       <tr>
         <td colspan="7"></td>
-        <td>DP</td>
-        <td colspan="2">Rp. 3.000.000</td>
+        <td style="background-color:#707070;">DP</td>
+        <td colspan="2" style="background-color:#707070;">Rp. 3.000.000</td>
       </tr>
       <tr>
         <td colspan="7"></td>
-        <td>GRAND TOTAL</td>
-        <td colspan="2">Rp. 5.000.000</td>
+        <td style="background-color:#707070;">GRAND TOTAL</td>
+        <td colspan="2" style="background-color:#707070;">Rp. 5.000.000</td>
       </tr>
 
       
@@ -259,7 +304,20 @@ Marmer white carrara</td>
       
 
 
-      
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="alert bg-primary text-light">
+            PAYMENT TERMS :<br>
+            - Termin 1 &nbsp;&nbsp;: DP 30% di awal<br>
+            - Termin 2 &nbsp;: DP 50% setelah video dan packing<br>
+            - Termin 3 &nbsp;: DP 20% COD<br>
+            BCA a.n. Alfennino Ferdiansyah Gunawan
+            </div>
+        </div>
+    </div>
+
+
 
     </div>
 
