@@ -12,9 +12,10 @@ $routes->post('simpanData', 'Home::simpanData');
 
 
 $routes->get('dashboard', 'Dashboard::index');
-$routes->get('listOrder', 'ListOrder::index');
-$routes->get('listOrder/inputOrder', 'ListOrder::inputOrder');
-$routes->post('listOrder/inputOrder/simpanData', 'ListOrder::simpanData');
-$routes->get('listOrder/invoice', 'ListOrder::invoice');
-$routes->get('listOrder/invoice/cetak', 'ListOrder::cetakInvoice');
+$routes->get('order/listOrder', 'Order::index');
+$routes->get('order/inputOrder', 'Order::inputOrder');
+$routes->post('order/inputOrder/simpanData', 'Order::simpanData');
+$routes->get('order/invoice', 'Order::invoice');
+$routes->get('order/payment', 'Order::payment');
+$routes->get('order/invoice/cetak', 'Order::cetakInvoice');
 

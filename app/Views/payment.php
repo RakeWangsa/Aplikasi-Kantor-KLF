@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - Input Order</title>
+  <title>KLF - Payment</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -110,106 +110,37 @@
   </div>
   <div class="app-content">
     <div class="app-content-header my-4">
-      <h1 class="app-content-headerText">List Order</h1>
+      <h1 class="app-content-headerText">Payment</h1>
     </div>
 
     <div class="products-area-wrapper tableView">
 
 
 
-    <form class="text-light" action="<?= base_url('order/inputOrder/simpanData'); ?>" method="post" enctype="multipart/form-data">
-            <div class="form-group mb-2">
-                <label for="nama">Nama:</label>
-                <input type="text" class="form-control" id="nama" name="nama" style="max-width:1000px" placeholder="Masukkan nama">
-            </div>
-            <div class="form-group mb-2">
-                <label for="noTelfon">No Telfon:</label>
-                <input type="text" class="form-control" id="noTelfon" name="noTelfon" style="max-width:1000px" placeholder="Masukkan no telfon">
-            </div>
-            <div class="form-group mb-2">
-                <label for="alamat">Alamat:</label>
-                <textarea class="form-control" id="alamat" name="alamat" rows="3" style="max-width:1000px" placeholder="Masukkan alamat"></textarea>
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Gambar):</label>
-                <input type="file" class="form-control-file" accept="image/*" id="detailProdukGambar" name="gambar[]" multiple>
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Kategori):</label>
-                <select class="form-control" id="detailProdukKategori" name="detailProdukKategori" style="max-width:1000px">
-                    <option value="kategori1">Kategori 1</option>
-                    <option value="kategori2">Kategori 2</option>
-                    <option value="kategori3">Kategori 3</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Harga):</label>
-                <input type="text" class="form-control" id="detailProdukHarga" name="detailProdukHarga" style="max-width:1000px" placeholder="Masukkan harga">
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Deadline):</label>
-                <input type="date" class="form-control" id="detailProdukDeadline" name="detailProdukDeadline" style="max-width:1000px">
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Catatan Khusus):</label>
-                <textarea class="form-control" id="detailProdukCatatan" name="detailProdukCatatan" rows="3" style="max-width:1000px" placeholder="Masukkan catatan khusus"></textarea>
-            </div>
-            <!-- <div class="form-group mb-2">
-                <label for="kodeOrder">Kode Order:</label>
-                <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" placeholder="Masukkan kode order">
-            </div>
-            <div class="form-group mb-2">
-                <label for="invoiceCode">Invoice Code:</label>
-                <input type="text" class="form-control" id="invoiceCode" name="Invoice Code" style="max-width:1000px" placeholder="Masukkan invoice code">
-            </div> -->
-            <div class="form-group mb-2">
-                <label for="ongkosKirim">Ongkos Kirim:</label>
-                <div class="btn-group" data-toggle="buttons">
-                    <label class="btn btn-secondary active">
-                        <input type="radio" name="ongkosKirim" id="ongkosKirimTermasuk" autocomplete="off" checked> Termasuk
-                    </label>
-                    <label class="btn btn-secondary">
-                        <input type="radio" name="ongkosKirim" id="ongkosKirimTidakTermasuk" autocomplete="off"> Tidak Termasuk
-                    </label>
-                </div>
-            </div>
-            <div class="form-group mb-2">
-                <label for="discount">Discount:</label>
-                <input type="text" class="form-control" id="discount" name="discount" style="max-width:1000px" placeholder="Masukkan discount">
-            </div>
-            <div class="form-group mb-2">
-                <label for="grandTotal">Grand Total:</label>
-                <input type="text" class="form-control" id="grandTotal" name="grandTotal" style="max-width:1000px" placeholder="Masukkan grand total">
-            </div>
-            <div class="form-group mb-2">
-                <label for="kategoriSupplier">Kategori Supplier:</label>
-                <select class="form-control" id="kategoriSupplier" name="kategoriSupplier" style="max-width:1000px">
-                    <option value="Kayu (SUPK)">Kayu (SUPK)</option>
-                    <option value="Besi (SUPB)">Besi (SUPB)</option>
-                    <option value="Rotan (SUPR)">Rotan (SUPR)</option>
-                    <option value="Finishing (SUPF)">Finishing (SUPF)</option>
-                    <option value="Marmer (SUPM)">Marmer (SUPM)</option>
-                    <option value="Jok (SUPJ)">Jok (SUPJ)</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="namaSupplier">Nama Supplier:</label>
-                <select class="form-control" id="namaSupplier" name="namaSupplier" style="max-width:1000px">
-                    <option value="Prabowo">Prabowo</option>
-                    <option value="Ganjar">Ganjar</option>
-                    <option value="Anies">Anies</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="jumlahBarang">Jumlah Barang:</label>
-                <input type="text" class="form-control" id="jumlahBarang" name="jumlahBarang" style="max-width:1000px" placeholder="Masukkan jumlah barang">
-            </div>
-            <div class="form-group mb-2">
-                <label for="supplierHarga">Harga (Supplier):</label>
-                <input type="text" class="form-control" id="supplierHarga" name="supplierHarga" style="max-width:1000px" placeholder="Masukkan harga">
-            </div>
-            <button type="submit" class="btn btn-primary mt-4">Kirim</button>
-        </form>
+    <form class="text-light" action="proses_form.php" method="post" enctype="multipart/form-data">
+    <div class="form-group mb-2">
+    <label for="kodeOrder">Kode Order:</label>
+    <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" placeholder="Masukkan kode order">
+  </div>
+  <div class="form-group mb-2">
+    <label for="customer">Customer:</label>
+    <input type="text" class="form-control" id="customer" name="customer" style="max-width:1000px" placeholder="Masukkan nama customer">
+  </div>
+  <div class="form-group mb-2">
+    <label for="tanggal">Tanggal:</label>
+    <input type="date" class="form-control" id="tanggal" name="tanggal" style="max-width:1000px">
+  </div>
+  <div class="form-group mb-2">
+    <label for="jumlahPayment">Jumlah Payment:</label>
+    <input type="text" class="form-control" id="jumlahPayment" name="jumlahPayment" style="max-width:1000px" placeholder="Masukkan jumlah payment">
+  </div>
+  <div class="form-group mb-2">
+    <label for="buktiPayment">Bukti Payment (Upload Gambar):</label>
+    <input type="file" class="form-control-file" accept="image/*" id="buktiPayment" name="buktiPayment">
+  </div>
+  <button type="submit" class="btn btn-primary mt-4">Kirim</button>
+</form>
+
 
       
 

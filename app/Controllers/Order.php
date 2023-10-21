@@ -3,21 +3,43 @@
 namespace App\Controllers;
 use App\Models\ListOrderModel;
 
-class ListOrder extends BaseController
+class Order extends BaseController
 {
     public function index(): string
-    {
-        $model = new ListOrderModel();
-        $data = $model->findAll();
+{
+    $model = new ListOrderModel();
+    $data = $model->findAll();
 
-        // Mengurutkan data berdasarkan angka terakhir dalam kode_order
+    // Mengurutkan data berdasarkan tahun, bulan dalam angka Romawi, dan nomor order
     usort($data, function ($a, $b) {
-        $angkaA = intval(substr($a['kode_order'], strrpos($a['kode_order'], '/') + 1));
-        $angkaB = intval(substr($b['kode_order'], strrpos($b['kode_order'], '/') + 1));
+        // Pecah kode_order menjadi komponen
+        $partsA = explode('/', $a['kode_order']);
+        $partsB = explode('/', $b['kode_order']);
+
+        // Bandingkan tahun terlebih dahulu
+        $tahunA = intval($partsA[1]);
+        $tahunB = intval($partsB[1]);
+        if ($tahunA !== $tahunB) {
+            return $tahunA - $tahunB;
+        }
+
+        // Bandingkan bulan (dalam angka Romawi) kedua
+        $romawiBulanA = array_search($partsA[2], ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]);
+        $romawiBulanB = array_search($partsB[2], ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"]);
+        if ($romawiBulanA !== $romawiBulanB) {
+            return $romawiBulanA - $romawiBulanB;
+        }
+
+        // Bandingkan nomor order terakhir
+        $angkaA = intval($partsA[3]);
+        $angkaB = intval($partsB[3]);
         return $angkaA - $angkaB;
     });
-        return view('listOrder', ['data' => $data]);
-    }
+
+    return view('listOrder', ['data' => $data]);
+}
+
+
     public function inputOrder(): string
     {
         return view('inputOrder');
@@ -50,7 +72,8 @@ class ListOrder extends BaseController
 
     $tahun = date('y');
     $bulan = date('m');
-    $awalanKode = "KLF/$tahun/$bulan";
+    $bulanRomawi = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+    $awalanKode = "KLF/$tahun/" . $bulanRomawi[$bulan];
     $model = new ListOrderModel();
     $semuaKodeOrder = $model->select('kode_order')->like('kode_order', $awalanKode, 'after')->findAll();
 
@@ -76,7 +99,7 @@ if ($semuaKodeOrder) {
 } else {
     $nomorOrder = 1;
 }
-$kodeOrder = "KLF/$tahun/$bulan/$nomorOrder";
+$kodeOrder = "KLF/$tahun/$bulanRomawi[$bulan]/$nomorOrder";
 
 
     // $awalanKodeInvoice = "$namaDepan/$tahun/$bulan";
@@ -93,7 +116,7 @@ $kodeOrder = "KLF/$tahun/$bulan/$nomorOrder";
     //     $nomorInvoice = 1 ;
     // }
 
-    $awalanKodeInvoice = "$namaDepan/$tahun/$bulan";
+    $awalanKodeInvoice = "$namaDepan/$tahun/". $bulanRomawi[$bulan];
     $semuaKodeInvoice = $model->select('kode_invoice')->like('kode_invoice', $awalanKodeInvoice, 'after')->findAll();
 
 if ($semuaKodeInvoice) {
@@ -121,7 +144,7 @@ if ($semuaKodeInvoice) {
 
     // Membuat format kode order
     
-    $kodeInvoice = "$namaDepan/$tahun/$bulan/$nomorInvoice";
+    $kodeInvoice = "$namaDepan/$tahun/$bulanRomawi[$bulan]/$nomorInvoice";
 
 
 
@@ -205,16 +228,28 @@ if ($semuaKodeInvoice) {
     $model->insert($data);
 
     // Tampilkan pesan sukses atau lakukan tindakan lain jika diperlukan
-    return redirect()->to(base_url('listOrder'))->with('success', 'Order berhasil ditambahkan.');
+    return redirect()->to(base_url('order/listOrder'))->with('success', 'Order berhasil ditambahkan.');
 }
 
-public function invoice(): string
-    {
-        return view('invoice');
-    }
+public function invoice()
+{
+    $encodedKodeOrder = $this->request->getGet('kode_order');
+    $kodeOrder = base64_decode($encodedKodeOrder);
+
+    $model = new ListOrderModel();
+    $data = $model->where('kode_order', $kodeOrder)->first();
+    
+    return view('invoice', ['data' => $data]);
+}
+
 
     public function cetakInvoice(): string
     {
         return view('cetakInvoice');
+    }
+
+    public function payment(): string
+    {
+        return view('payment');
     }
 }

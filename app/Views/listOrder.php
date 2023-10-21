@@ -37,7 +37,7 @@
         </a>
       </li>
       <li class="sidebar-list-item active">
-        <a href="<?= base_url('listOrder'); ?>">
+        <a href="<?= base_url('order/listOrder'); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list-order">
     <line x1="5" y1="6" x2="19" y2="6" />
     <line x1="5" y1="12" x2="19" y2="12" />
@@ -116,7 +116,7 @@
 
     <div class="app-content-actions">
       <input class="search-bar" placeholder="Search..." type="text">
-      <a class="btn btn-primary" href="<?= base_url('listOrder/inputOrder'); ?>">Input Order</a>
+      <a class="btn btn-primary" href="<?= base_url('order/inputOrder'); ?>">Input Order</a>
     </div>
 
     <div class="products-area-wrapper tableView">
@@ -134,7 +134,8 @@
 
       <?php foreach ($data as $row): ?>
         <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
-        <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#modal<?= $modalId; ?>"><div class="products-row">
+        <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#modal<?= $modalId; ?>">
+        <div class="products-row">
       <div class="product-cell image">
             <span>Jul-23</span>
           </div>
@@ -164,11 +165,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <a class="" href="<?= base_url('listOrder/invoice'); ?>">Cetak Invoice</a><br>  
-      <a class="">Cetak Label</a><br>  
-      <a class="">Payment</a>  <br> 
-      <a class="">Detail</a>  <br> 
-      <a class="">Edit</a>  <br> 
+      <?php
+        $encodedKodeOrder = base64_encode($row['kode_order']);
+      ?>
+      <a style="text-decoration: none;" href="<?= base_url('order/invoice?kode_order=' . $encodedKodeOrder); ?>">Cetak Invoice</a><br>  
+      <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Cetak Label</a><br> 
+      <a style="text-decoration: none;" href="<?= base_url('order/payment'); ?>">Payment</a>  <br> 
+      <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Detail</a>  <br> 
+      <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Edit</a>  <br> 
 
       </div>
       <!-- <div class="modal-footer">

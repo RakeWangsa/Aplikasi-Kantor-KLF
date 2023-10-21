@@ -37,7 +37,7 @@
         </a>
       </li>
       <li class="sidebar-list-item active">
-        <a href="<?= base_url('listOrder'); ?>">
+        <a href="<?= base_url('order/listOrder'); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list-order">
     <line x1="5" y1="6" x2="19" y2="6" />
     <line x1="5" y1="12" x2="19" y2="12" />
@@ -111,7 +111,7 @@
   <div class="app-content">
     <div class="app-content-header my-4">
       <h1 class="app-content-headerText">Invoice</h1>
-      <a class="btn btn-primary" href="<?= base_url('listOrder/invoice/cetak'); ?>"><i class="fas fa-print"></i> Cetak Invoice</a>
+      <a class="btn btn-primary" href="<?= base_url('order/invoice/cetak'); ?>"><i class="fas fa-print"></i> Cetak Invoice</a>
     </div>
 
     <style>
@@ -143,19 +143,21 @@
   <tr>
   <td rowspan="5"><img src="<?= base_url('uploads/klflogo.png'); ?>" style="max-width:500px"></td>
   <td rowspan="5">v.1</td>
-    <td>INVOICE Ny. Eva</td>
+    <td>Invoice <?= $data['nama']; ?></td>
   </tr>
   <tr>
-    <td>CODE Eva/23/IX/01</td>
+    <td style="text-align: left;">CODE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?= $data['kode_invoice']; ?></td>
   </tr>
   <tr>
-    <td>DATE 20 Oktober 2023</td>
+    <td style="text-align: left;">DATE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -</td>
   </tr>
   <tr>
-    <td>DEADLINE 30 Oktober 2023</td>
+  <td style="text-align: left;">DEADLINE &nbsp; <?= date('d-m-Y', strtotime($data['deadline'])); ?></td>
+
+
   </tr>
   <tr>
-    <td>REV 1</td>
+    <td style="text-align: left;">REV &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -</td>
   </tr>
 
 </table>
@@ -165,28 +167,29 @@
 
 
     
-      <tr>
+      <tr style="background-color:#303030;">
         <th>1. SUPPLIER</th>
         <th>2. DELIVERY</th>
       </tr>
       <tr>
-        <td>
-          Karya Logam Furniture<br>
-          Jl. Bendansari No. 2, Kec. Tahunan, Kab. Jepara<br>
-          email : nino@karyalogamfurniture.com<br>
-          Mobile: +6281327737717 / +62895411499535
+        <td style="text-align: left;">
+        <pre style="display:inline;">Karya Logam Furniture<br></pre>
+          <pre style="display:inline;">Jl. Bendansari No. 2, Kec. Tahunan, Kab. Jepara<br></pre>
+          <pre style="display:inline;">Email    : nino@karyalogamfurniture.com</pre><br>
+          <pre style="display:inline;">Mobile   : +6281327737717 / +62895411499535</pre></td>
         </td>
-        <td>CUSTOMER : Ny. Eva<br>
-ADDRESS : <br>
-Email : <br>
-Mobile : +62 815-4215-0996</td>
+        <td style="text-align: left;"><pre style="display:inline;">Customer : <?= $data['nama']; ?></pre><br>
+        <pre style="display:inline;">Address  : <?= $data['alamat']; ?></pre><br>
+        <pre style="display:inline;">Email    : -</pre><br>
+        <pre style="display:inline;">Mobile   : <?= $data['no_telfon']; ?></pre></td>
       </tr>
       <tr>
       </table>
       <table class="text-light">
-      <th colspan="10">3. PRICELIST</th>
-      </tr>
       <tr>
+      <th colspan="10" style="background-color:#303030;">3. PRICELIST</th>
+      </tr>
+      <tr style="background-color:#404040;">
         <td rowspan="2">No</td>
         <td rowspan="2">Gambar</td>
         <td rowspan="2">Deskripsi</td>
@@ -196,7 +199,7 @@ Mobile : +62 815-4215-0996</td>
         <td rowspan="2">Qty</td>
         <td rowspan="2">Total Harga</td>
       </tr>
-      <tr>
+      <tr style="background-color:#404040;">
         <td>W cm</td>
         <td>D cm</td>
         <td>H cm</td>
@@ -210,10 +213,11 @@ Kaki stainless gold<br>
 Warna Excellente White <br>
 Nippon<br>
 Marmer white carrara</td>
-        <td>Deskripsi</td>
+
         <td>200</td>
         <td>40</td>
         <td>90</td>
+        <td>Deskripsi</td>
         <td>Rp. 8.000.000</td>
         <td>1</td>
         <td>Rp. 8.000.000</td>
