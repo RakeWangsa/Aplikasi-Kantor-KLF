@@ -16,6 +16,8 @@ $routes->get('order/listOrder', 'Order::index');
 $routes->get('order/inputOrder', 'Order::inputOrder');
 $routes->post('order/inputOrder/simpanData', 'Order::simpanData');
 $routes->get('order/invoice', 'Order::invoice');
+$routes->add('order/invoice/addPaymentTerms', 'Order::paymentTerms');
 $routes->get('order/payment', 'Order::payment');
 $routes->get('order/invoice/cetak', 'Order::cetakInvoice');
 
+$routes->get('taskCalendar', 'TaskCalendar::index');

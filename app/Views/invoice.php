@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - Invoice</title>
+  <title>KLF - Invoice Order</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -48,16 +48,7 @@
           <span>List Order</span>
         </a>
       </li>
-      <li class="sidebar-list-item">
-        <a href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-invoice-order">
-    <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
-    <path d="M16 2v4M12 6h8M8 13h4M8 17h4M12 13v4" />
-</svg>
 
-          <span>Invoice Order</span>
-        </a>
-      </li>
       <li class="sidebar-list-item">
         <a href="#">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-task-calendar">
@@ -110,23 +101,27 @@
   </div>
   <div class="app-content">
   <div class="app-content-header my-4">
-  <h1 class="app-content-headerText">Invoice</h1>
+  <h1 class="app-content-headerText">Invoice Order</h1>
   <div class="d-flex">
     <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#paymentTerms" style="margin-right:10px"><i class="fas fa-credit-card"></i> Payment Terms</button>
     <a class="btn btn-primary" href="<?= base_url('order/invoice/cetak'); ?>"><i class="fas fa-file-pdf"></i> Cetak Invoice</a>
   </div>
 </div>
 
+<?php
+        $encodedKodeOrder = base64_encode($data['kode_order']);
+      ?>
 <!-- Payment terms -->
 <div class="modal fade" id="paymentTerms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+    <form action="<?= base_url('order/invoice/addPaymentTerms?kode_order=' . $encodedKodeOrder); ?>" method="post">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Payment Terms</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        
           <div class="mb-3">
             <label for="termin1" class="form-label">Termin 1</label>
             <input type="text" class="form-control" id="termin1" name="termin1">
@@ -139,11 +134,12 @@
             <label for="termin3" class="form-label">Termin 3</label>
             <input type="text" class="form-control" id="termin3" name="termin3">
           </div>
-        </form>
+        
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="submit" class="btn btn-primary">Save changes</button>
       </div>
+      </form>
     </div>
   </div>
 </div>
@@ -305,17 +301,31 @@ Marmer white carrara</td>
 
 
 
-    <div class="row mt-4">
-        <div class="col-md-6">
+  <div class="row mt-4">
+    <div class="col-md-6">
             <div class="alert bg-primary text-light">
-            PAYMENT TERMS :<br>
-            - Termin 1 &nbsp;&nbsp;: DP 30% di awal<br>
-            - Termin 2 &nbsp;: DP 50% setelah video dan packing<br>
-            - Termin 3 &nbsp;: DP 20% COD<br>
-            BCA a.n. Alfennino Ferdiansyah Gunawan
+                PAYMENT TERMS :<br>
+                <?php if (isset($termin['termin1'])): ?>
+                    - Termin 1 &nbsp;&nbsp;: <?= $termin['termin1']; ?><br>
+                <?php else: ?>
+                    - Termin 1 &nbsp;&nbsp;: -<br>
+                <?php endif; ?>
+                <?php if (isset($termin['termin2'])): ?>
+                    - Termin 2 &nbsp;: <?= $termin['termin2']; ?><br>
+                <?php else: ?>
+                    - Termin 2 &nbsp;: -<br>
+                <?php endif; ?>
+                <?php if (isset($termin['termin3'])): ?>
+                    - Termin 3 &nbsp;: <?= $termin['termin3']; ?><br>
+                <?php else: ?>
+                    - Termin 3 &nbsp;: -<br>
+                <?php endif; ?>
+                BCA a.n. Alfennino Ferdiansyah Gunawan
             </div>
-        </div>
     </div>
+</div>
+
+
 
 
 

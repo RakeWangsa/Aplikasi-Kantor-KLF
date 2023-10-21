@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - List Order</title>
+  <title>KLF - Task Calendar</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -37,7 +37,7 @@
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="sidebar-list-item active">
+      <li class="sidebar-list-item">
         <a href="<?= base_url('order/listOrder'); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list-order">
     <line x1="5" y1="6" x2="19" y2="6" />
@@ -50,8 +50,8 @@
         </a>
       </li>
 
-      <li class="sidebar-list-item">
-        <a href="<?= base_url('taskCalendar'); ?>">
+      <li class="sidebar-list-item active">
+        <a href="#">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-task-calendar">
     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
     <line x1="16" y1="2" x2="16" y2="6" />
@@ -102,7 +102,7 @@
   </div>
   <div class="app-content">
     <div class="app-content-header mt-4">
-      <h1 class="app-content-headerText">List Order</h1>
+      <h1 class="app-content-headerText">Task Calendar</h1>
       
     </div>
 
@@ -113,14 +113,8 @@
 
     <div class="products-area-wrapper tableView">
       <div class="products-header">
-
-        <div class="product-cell price">Bulan</div>
-        <div class="product-cell category">Customer</div>
-        <div class="product-cell status-cell">Kode Order</div>
-        <div class="product-cell sales">Nilai Order</div>
-        <div class="product-cell stock">DP Masuk</div>
-        <div class="product-cell price">Status</div>
-          <div class="product-cell price">Gross Profit</div>
+      <div class="product-cell status-cell">To Do (<?= $jumlahTask; ?> Tasks)</div>
+        <div class="product-cell sales">Deadline</div>
           <!-- <div class="product-cell price">Actions</div> -->
       </div>
 
@@ -130,20 +124,12 @@
         <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
         <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#modal<?= $modalId; ?>">
         <div class="products-row">
-      <div class="product-cell image">
-            <span>Oct-23</span>
-          </div>
-          <div class="product-cell bg-success">
-            <span><?= $row['nama']; ?></span>
-          </div>
-        <div class="product-cell category"><span><?= $row['kode_order']; ?></div>
+        <div class="product-cell category"><span><?= $row['kode_order']; ?> - <?= $row['nama']; ?></div>
+
+        
         <div class="product-cell status-cell">
-          <span><?= $row['harga_produk']; ?></span>
+          <span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span>
         </div>
-        <div class="product-cell sales"><span>-</span></div>
-        <div class="product-cell stock"><span>-</span></div>
-        <div class="product-cell price"><span>-</span></div>
-        <!-- <div class="product-cell price"><span>-</span></div> -->
       </div></a>
     
 <?php endforeach; ?>

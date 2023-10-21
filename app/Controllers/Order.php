@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\ListOrderModel;
+use App\Models\OrderModel;
+use App\Models\PaymentTermsModel;
 
 class Order extends BaseController
 {
     public function index(): string
 {
-    $model = new ListOrderModel();
+    $model = new OrderModel();
     $data = $model->findAll();
 
     // Mengurutkan data berdasarkan tahun, bulan dalam angka Romawi, dan nomor order
@@ -74,7 +75,7 @@ class Order extends BaseController
     $bulan = date('m');
     $bulanRomawi = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
     $awalanKode = "KLF/$tahun/" . $bulanRomawi[$bulan];
-    $model = new ListOrderModel();
+    $model = new OrderModel();
     $semuaKodeOrder = $model->select('kode_order')->like('kode_order', $awalanKode, 'after')->findAll();
 
 if ($semuaKodeOrder) {
@@ -189,7 +190,7 @@ if ($semuaKodeInvoice) {
     // Hapus koma tambahan pada akhir string
     $gambarName = rtrim($gambarName, ',');
     // Simpan data ke database menggunakan model
-    // $model = new ListOrderModel();
+    // $model = new OrderModel();
 
     // foreach ($gambarNames as $namaFile) {
     //     $data = [
@@ -236,10 +237,12 @@ public function invoice()
     $encodedKodeOrder = $this->request->getGet('kode_order');
     $kodeOrder = base64_decode($encodedKodeOrder);
 
-    $model = new ListOrderModel();
+    $model = new OrderModel();
+    $paymentTermsModel = new PaymentTermsModel();
     $data = $model->where('kode_order', $kodeOrder)->first();
+    $termin = $paymentTermsModel->where('kode_order', $kodeOrder)->first();
     
-    return view('invoice', ['data' => $data]);
+    return view('invoice', ['data' => $data, 'termin' => $termin]);
 }
 
 
@@ -252,8 +255,30 @@ public function invoice()
     {
         $encodedKodeOrder = $this->request->getGet('kode_order');
         $kodeOrder = base64_decode($encodedKodeOrder);
-        $model = new ListOrderModel();
+        $model = new OrderModel();
         $data = $model->where('kode_order', $kodeOrder)->first();
         return view('payment', ['data' => $data]);
+    }
+
+    public function paymentTerms()
+    {
+        $encodedKodeOrder = $this->request->getGet('kode_order');
+        $kodeOrder = base64_decode($encodedKodeOrder);
+        $termin1 = $this->request->getPost('termin1');
+        $termin2 = $this->request->getPost('termin2');
+        $termin3 = $this->request->getPost('termin3');
+
+        $model = new PaymentTermsModel();
+        $data = $model->where('kode_order', $kodeOrder)->first();
+
+        $data = [
+            'kode_order' => $kodeOrder,
+            'termin1' => $termin1,
+            'termin2' => $termin2,
+            'termin3' => $termin3,
+        ];
+    
+        $model->insert($data);
+        return redirect()->to(base_url('order/invoice/?kode_order=' . $encodedKodeOrder))->with('success', 'Order berhasil ditambahkan.');
     }
 }

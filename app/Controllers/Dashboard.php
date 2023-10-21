@@ -1,13 +1,13 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\ListOrderModel;
+use App\Models\OrderModel;
 
 class Dashboard extends BaseController
 {
     public function index(): string
     {
-        $model = new ListOrderModel();
+        $model = new OrderModel();
     $data = $model->findAll();
     return view('dashboard', ['data' => $data]);
     }
