@@ -13,6 +13,10 @@ class Home extends BaseController
     // Mengonversi data menjadi string dan mengembalikan hasilnya
     $dataString = json_encode($data);
     return $dataString;
+}   
+ public function tes(): string
+{
+    return view('tes');
 }
 
     public function tesdb()

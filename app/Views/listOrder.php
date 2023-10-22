@@ -108,7 +108,7 @@
 
     <div class="app-content-actions">
       <input class="search-bar" placeholder="Search..." id="searchInput" type="text">
-      <a class="btn btn-primary" href="<?= base_url('order/inputOrder'); ?>">Input Order</a>
+      <a class="btn btn-primary" href="<?= base_url('order/inputOrder'); ?>"><i class="fas fa-pencil-alt"></i> Input Order</a>
     </div>
 
     <div class="products-area-wrapper tableView">

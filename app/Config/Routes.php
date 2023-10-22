@@ -6,6 +6,7 @@ use CodeIgniter\Router\RouteCollection;
  * @var RouteCollection $routes
  */
 $routes->get('/', 'Home::index');
+$routes->get('/tes', 'Home::tes');
 $routes->get('tesdb', 'Home::tesdb');
 $routes->post('simpanData', 'Home::simpanData');
 // $routes->get('tampilData', 'Home::tesdb2');

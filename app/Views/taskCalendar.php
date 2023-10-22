@@ -13,6 +13,34 @@
 </head>
 <body>
 
+<style>
+  .subtask {
+    text-indent: 20px;
+  }
+
+  .subofsub {
+    text-indent: 40px;
+  }
+  .subtask-icon {
+    width: 8px; /* Lebar ikon bulat */
+    height: 8px; /* Tinggi ikon bulat */
+    background-color: white; /* Warna latar belakang ikon */
+    border-radius: 50%; /* Mengatur ikon menjadi bulat */
+    display: inline-block;
+    margin-right: 3px; /* Jarak antara ikon dan teks */
+  }
+  .subofsub-icon {
+    width: 6px; /* Lebar ikon bulat */
+    height: 6px; /* Tinggi ikon bulat */
+    background-color: white; /* Warna latar belakang ikon */
+    border-radius: 0%; /* Mengatur ikon menjadi bulat */
+    display: inline-block;
+    margin-right: 3px; /* Jarak antara ikon dan teks */
+  }
+
+
+</style>
+
 
 <!-- partial:index.partial.html -->
 <div class="app-container">
@@ -120,23 +148,33 @@
 
 
       <div id="productList">
-      <?php foreach ($data as $row): ?>
-        <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
-        <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#modal<?= $modalId; ?>">
-        <div class="products-row">
-        <div class="product-cell category"><span><?= $row['kode_order']; ?> - <?= $row['nama']; ?></div>
-
-        
-        <div class="product-cell status-cell">
-          <span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span>
-        </div>
-      </div></a>
-    
-<?php endforeach; ?>
+  <?php foreach ($data as $row): ?>
+    <!-- task -->
+    <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
+    <div class="products-row task" data-task-id="<?= $modalId; ?>">
+      <div class="product-cell category">
+        <span><i class="fas fa-angle-right"></i> <?= $row['kode_order']; ?> - <?= $row['nama']; ?></span>
       </div>
+      <div class="product-cell status-cell">
+        <span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span>
+      </div>
+    </div>
+
+    <!-- sub task -->
+    <div class="products-row subtask" data-task-id="<?= $modalId; ?>" style="display: none;">
+      <div class="product-cell category">
+        <span><i class="subtask-icon"></i> sub task</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span>
+      </div>
+    </div>
+
+  <?php endforeach; ?>
+</div>
 
 
-<?php foreach ($data as $row): ?>
+<!-- <?php foreach ($data as $row): ?>
   <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
   <div class="modal fade" id="modal<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -163,7 +201,7 @@
     </div>
   </div>
 </div>
-<?php endforeach; ?>
+<?php endforeach; ?> -->
 
       
 
@@ -179,28 +217,26 @@
   </div>
 </div>
 <!-- partial -->
+
+
+
+
 <script>
-const searchInput = document.getElementById("searchInput");
-const productList = document.getElementById("productList");
-
-searchInput.addEventListener("input", function () {
-  const searchTerm = searchInput.value.toLowerCase();
-  const productRows = productList.getElementsByClassName("products-row");
-
-  for (const row of productRows) {
-    const productName = row.querySelector(".product-cell.bg-success span").textContent.toLowerCase();
-    const month = row.querySelector(".product-cell.image span").textContent.toLowerCase();
-    const orderCode = row.querySelector(".product-cell.category span").textContent.toLowerCase();
-
-    if (productName.includes(searchTerm) || month.includes(searchTerm) || orderCode.includes(searchTerm)) {
-      row.classList.remove("d-none"); // Menghapus kelas "d-none" untuk menampilkan
-    } else {
-      row.classList.add("d-none"); // Menambahkan kelas "d-none" untuk menyembunyikan
-    }
-  }
+$(document).ready(function () {
+  // Tambahkan event listener untuk setiap task
+  $(".task").click(function () {
+    // Dapatkan ID task yang diklik
+    var taskId = $(this).data("task-id");
+    
+    // Cari subtask yang sesuai berdasarkan ID
+    var $subtask = $(".subtask[data-task-id='" + taskId + "']");
+    
+    // Toggle tampilan subtask
+    $subtask.toggle();
+  });
 });
-
 </script>
+
 
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
