@@ -48,18 +48,9 @@
           <span>List Order</span>
         </a>
       </li>
-      <li class="sidebar-list-item">
-        <a href="#">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-invoice-order">
-    <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
-    <path d="M16 2v4M12 6h8M8 13h4M8 17h4M12 13v4" />
-</svg>
 
-          <span>Invoice Order</span>
-        </a>
-      </li>
       <li class="sidebar-list-item">
-        <a href="#">
+        <a href="<?= base_url('taskCalendar'); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-task-calendar">
     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
     <line x1="16" y1="2" x2="16" y2="6" />

@@ -15,7 +15,7 @@
 
 <style>
   .subtask {
-    text-indent: 20px;
+    text-indent: 10px;
   }
 
   .subofsub {
@@ -33,7 +33,7 @@
     width: 6px; /* Lebar ikon bulat */
     height: 6px; /* Tinggi ikon bulat */
     background-color: white; /* Warna latar belakang ikon */
-    border-radius: 0%; /* Mengatur ikon menjadi bulat */
+    border-radius: 50%; /* Mengatur ikon menjadi bulat */
     display: inline-block;
     margin-right: 3px; /* Jarak antara ikon dan teks */
   }
@@ -143,11 +143,220 @@
       <div class="products-header">
       <div class="product-cell status-cell">To Do (<?= $jumlahTask; ?> Tasks)</div>
         <div class="product-cell sales">Deadline</div>
+        <div class="product-cell sales">Actions</div>
           <!-- <div class="product-cell price">Actions</div> -->
       </div>
 
 
+<!-- list -->
+      <!-- <ul class="list-group">
+    <li class="" data-toggle="collapse" href="#list1" onclick="toggleIcon(this)">
+
+    <div class="products-row task">
+      <div class="product-cell category">
+        <span><i class="fas fa-chevron-right"></i> list 1</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>2023</span>
+      </div>
+    </div>
+
+    </li>
+    <div id="list1" class="collapse">
+      <ul class="list-group list-group-flush">
+        <li class="" data-toggle="collapse" href="#sublist1" onclick="toggleIcon(this)">
+
+        <div class="products-row task">
+      <div class="product-cell category subtask">
+        <span><i class="fas fa-chevron-right"></i> sublist 1</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>2023</span>
+      </div>
+    </div>
+
+        </li>
+        <div id="sublist1" class="collapse">
+          <ul class="list-group list-group-flush">
+            <li class="">
+
+            <div class="products-row task">
+      <div class="product-cell category subofsub">
+        <span><i class="subofsub-icon"></i> sub of sub 1</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>2023</span>
+      </div>
+    </div>
+
+            </li>
+          </ul>
+        </div>
+
+        <li class="" data-toggle="collapse" href="#sublist2" onclick="toggleIcon(this)">
+
+        <div class="products-row task">
+      <div class="product-cell category subtask">
+        <span><i class="fas fa-chevron-right"></i> sublist 2</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>2023</span>
+      </div>
+    </div>
+
+        </li>
+        <div id="sublist2" class="collapse">
+          <ul class="list-group list-group-flush">
+            <li class="">
+
+            <div class="products-row task">
+      <div class="product-cell category subofsub">
+        <span>Tidak ada item</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>-</span>
+      </div>
+    </div>
+
+            </li>
+          </ul>
+        </div>
+      </ul>
+    </div>
+    <li class="list-group-item list-group-item-action" data-toggle="collapse" href="#list2">list 2</li>
+    <div id="list2" class="collapse">
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">sub list 1</li>
+        <li class="list-group-item">sub list 2</li>
+      </ul>
+    </div>
+  </ul> -->
+
+
+
       <div id="productList">
+      <ul class="list-group">
+  <?php foreach ($data as $row): ?>
+    <?php $task = str_replace('/', '_', $row['kode_order']); ?>
+<li class="">
+
+    <div class="products-row task">
+      <div class="product-cell category">
+        <span><button class="icon-button" data-toggle="collapse" href="#<?php echo $task; ?>" onclick="toggleIcon('icon<?php echo $task; ?>')">
+        <i id="icon<?php echo $task; ?>" class="fas fa-chevron-right"></i>
+      </button> <?= $row['kode_order']; ?> - <?= $row['nama']; ?></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span><button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-pencil-alt"></i></button></span>
+      </div>
+    </div>
+
+    </li>
+    <div id="<?php echo $task; ?>" class="collapse">
+      <ul class="list-group list-group-flush">
+        <li class="" data-toggle="collapse" href="#sublist1" onclick="toggleIcon(this)">
+
+        <div class="products-row task">
+      <div class="product-cell category subtask">
+        <span><i class="fas fa-chevron-right"></i> sublist 1</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>2023</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>2023</span>
+      </div>
+    </div>
+
+        </li>
+        <div id="sublist1" class="collapse">
+          <ul class="list-group list-group-flush">
+            <li class="">
+
+            <div class="products-row task">
+      <div class="product-cell category subofsub">
+        <span><i class="subofsub-icon"></i> sub of sub 1</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>2023</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>2023</span>
+      </div>
+    </div>
+
+            </li>
+          </ul>
+        </div>
+
+        <li class="" data-toggle="collapse" href="#sublist2" onclick="toggleIcon(this)">
+
+        <div class="products-row task">
+      <div class="product-cell category subtask">
+        <span><i class="fas fa-chevron-right"></i> sublist 2</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>2023</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>2023</span>
+      </div>
+    </div>
+
+        </li>
+        <div id="sublist2" class="collapse">
+          <ul class="list-group list-group-flush">
+            <li class="">
+
+            <div class="products-row task">
+      <div class="product-cell category subofsub">
+        <span>Tidak ada item</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>-</span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>-</span>
+      </div>
+    </div>
+
+            </li>
+          </ul>
+        </div>
+      </ul>
+    </div>
+
+  <?php endforeach; ?> 
+</ul>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      <div id="productList">
+      <ul class="list-group">
   <?php foreach ($data as $row): ?>
     <!-- task -->
     <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
@@ -170,11 +379,13 @@
       </div>
     </div>
 
-  <?php endforeach; ?>
+  <?php endforeach; ?> 
+</ul>
 </div>
 
 
-<!-- <?php foreach ($data as $row): ?>
+
+<?php foreach ($data as $row): ?>
   <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
   <div class="modal fade" id="modal<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -201,7 +412,7 @@
     </div>
   </div>
 </div>
-<?php endforeach; ?> -->
+<?php endforeach; ?>
 
       
 
@@ -218,7 +429,18 @@
 </div>
 <!-- partial -->
 
-
+<script>
+  function toggleIcon(iconId) {
+    const icon = document.getElementById(iconId);
+    if (icon.classList.contains('fa-chevron-right')) {
+      icon.classList.remove('fa-chevron-right');
+      icon.classList.add('fa-chevron-down');
+    } else {
+      icon.classList.remove('fa-chevron-down');
+      icon.classList.add('fa-chevron-right');
+    }
+  }
+</script>
 
 
 <script>
@@ -239,6 +461,11 @@ $(document).ready(function () {
 
 
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
