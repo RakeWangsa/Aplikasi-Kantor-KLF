@@ -144,7 +144,6 @@
       <div class="product-cell status-cell">To Do (<?= $jumlahTask; ?> Tasks)</div>
         <div class="product-cell sales">Deadline</div>
         <div class="product-cell sales">Actions</div>
-          <!-- <div class="product-cell price">Actions</div> -->
       </div>
 
 
@@ -239,7 +238,7 @@
   <?php foreach ($data as $row): ?>
     <?php $task = str_replace('/', '_', $row['kode_order']); ?>
 <li class="">
-
+<!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
     <div class="products-row task">
       <div class="product-cell category">
         <span><button class="icon-button" data-toggle="collapse" href="#<?php echo $task; ?>" onclick="toggleIcon('icon<?php echo $task; ?>')">
@@ -250,10 +249,12 @@
         <span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span><button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-pencil-alt"></i></button></span>
+        <span>
+          <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#modal<?php echo $task; ?>"><i class="fas fa-pencil-alt"></i></button>
+      </span>
       </div>
     </div>
-
+<!-- </a> -->
     </li>
     <div id="<?php echo $task; ?>" class="collapse">
       <ul class="list-group list-group-flush">
@@ -261,7 +262,9 @@
 
         <div class="products-row task">
       <div class="product-cell category subtask">
-        <span><i class="fas fa-chevron-right"></i> sublist 1</span>
+        <span><button class="icon-button" data-toggle="collapse" href="#sub<?php echo $task; ?>" onclick="toggleIcon('iconsub<?php echo $task; ?>')">
+        <i id="iconsub<?php echo $task; ?>" class="fas fa-chevron-right"></i>
+      </button> sublist 1</span>
       </div>
       <div class="product-cell status-cell">
         <span>2023</span>
@@ -272,7 +275,7 @@
     </div>
 
         </li>
-        <div id="sublist1" class="collapse">
+        <div id="sub<?php echo $task; ?>" class="collapse">
           <ul class="list-group list-group-flush">
             <li class="">
 
@@ -333,32 +336,12 @@
 </ul>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
-      <div id="productList">
+      <!-- <div id="productList">
       <ul class="list-group">
   <?php foreach ($data as $row): ?>
-    <!-- task -->
+    task
     <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
     <div class="products-row task" data-task-id="<?= $modalId; ?>">
       <div class="product-cell category">
@@ -369,7 +352,7 @@
       </div>
     </div>
 
-    <!-- sub task -->
+    sub task
     <div class="products-row subtask" data-task-id="<?= $modalId; ?>" style="display: none;">
       <div class="product-cell category">
         <span><i class="subtask-icon"></i> sub task</span>
@@ -381,7 +364,7 @@
 
   <?php endforeach; ?> 
 </ul>
-</div>
+</div> -->
 
 
 
