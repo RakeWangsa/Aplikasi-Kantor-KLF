@@ -190,7 +190,7 @@
       </button> <?= $taskCalendar['task']; ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span><?= $taskCalendar['deadline']; ?></span>
+        <span><?= date('d-m-Y', strtotime($taskCalendar['deadline'])); ?></span>
       </div>
       <div class="product-cell status-cell">
         <span>
@@ -214,12 +214,12 @@
         <span><i class="subofsub-icon"></i> <?= $taskCalendar2['task']; ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span><?= $taskCalendar2['deadline']; ?></span>
+        <span><?= date('d-m-Y', strtotime($taskCalendar2['deadline'])); ?></span>
       </div>
       <div class="product-cell status-cell">
         <span>
         <button type="button" class="btn btn-success rounded-circle" onclick="alert('tidak dapat menambah sub task pada sub of sub')"><i class="fas fa-plus"></i></button>
-        <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $task; ?>"><i class="fas fa-pencil-alt"></i></button>
+        <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $taskCalendar2['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
         <a class="btn btn-danger rounded-circle" href="<?= base_url('taskCalendar/deleteSubtask?id=' . $taskCalendar2['id']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>  
         </span>
       </div>
@@ -247,7 +247,7 @@
 
 
 
-
+<!-- tambah subtask -->
 
 <?php foreach ($OrderData as $row): ?>
   <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
@@ -306,6 +306,43 @@
           <div class="mb-3">
             <label for="deadline" class="form-label">Deadline</label>
             <input type="date" class="form-control" id="deadline" name="deadline">
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
+
+
+<!-- edit subtask -->
+
+<?php foreach ($TaskCalendarData as $row): ?>
+  <?php $modalId = $row['id']; ?>
+
+  <div class="modal fade" id="edit<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form action="<?= base_url('taskCalendar/editSubtask?id=' . $row['id']); ?>" method="post">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['task']; ?> (Edit Subtask)</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="mb-3">
+            <label for="task" class="form-label">Task</label>
+            <input type="text" class="form-control" name="task" id="task" value="<?= $row['task']; ?>">
+            <!-- <input type="text" class="form-control" id="task" name="task"> -->
+          </div>
+          <div class="mb-3">
+            <label for="deadline" class="form-label">Deadline</label>
+            <input type="date" class="form-control" name="deadline" id="deadline" value="<?= $row['deadline']; ?>">
+            <!-- <input type="date" class="form-control" id="deadline" name="deadline"> -->
           </div>
         
       </div>
