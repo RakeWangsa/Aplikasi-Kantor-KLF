@@ -22,3 +22,4 @@ $routes->get('order/payment', 'Order::payment');
 $routes->get('order/invoice/cetak', 'Order::cetakInvoice');
 
 $routes->get('taskCalendar', 'TaskCalendar::index');
+$routes->add('taskCalendar/addSubtask', 'TaskCalendar::addSubtask');

@@ -273,7 +273,7 @@
         <span><?= $taskCalendar['deadline']; ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span><button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#modal<?php echo $task; ?>"><i class="fas fa-pencil-alt"></i></button></span>
+        <span><button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#modal<?php echo $taskCalendar['id']; ?>"><i class="fas fa-pencil-alt"></i></button></span>
       </div>
     </div>
 
@@ -383,34 +383,74 @@
 
 <?php foreach ($OrderData as $row): ?>
   <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
+  <?php
+        $parent = base64_encode($row['kode_order']);
+      ?>
   <div class="modal fade" id="modal<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+    <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Kode Order : <?= $row['kode_order']; ?></h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['kode_order']; ?> (Tambah Subtask)</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <?php
-        $encodedKodeOrder = base64_encode($row['kode_order']);
-      ?>
-      <a style="text-decoration: none;" href="<?= base_url('order/invoice?kode_order=' . $encodedKodeOrder); ?>">Invoice Order</a><br>  
-      <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Cetak Label</a><br> 
-      <a style="text-decoration: none;" href="<?= base_url('order/payment?kode_order=' . $encodedKodeOrder); ?>">Payment</a>  <br> 
-      <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Detail</a>  <br> 
-      <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Edit</a>  <br> 
-
+        
+          <div class="mb-3">
+            <label for="termin1" class="form-label">Task</label>
+            <input type="text" class="form-control" id="task" name="task">
+          </div>
+          <div class="mb-3">
+            <label for="termin2" class="form-label">Deadline</label>
+            <input type="text" class="form-control" id="deadline" name="deadline">
+          </div>
+        
       </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
     </div>
   </div>
 </div>
 <?php endforeach; ?>
 
       
+<?php foreach ($TaskCalendarData as $row): ?>
+  <?php $modalId = $row['id']; ?>
+  <?php
+        $parent = base64_encode($row['id']);
+      ?>
+  <div class="modal fade" id="modal<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['task']; ?> (Tambah Subtask)</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="mb-3">
+            <label for="termin1" class="form-label">Task</label>
+            <input type="text" class="form-control" id="task" name="task">
+          </div>
+          <div class="mb-3">
+            <label for="termin2" class="form-label">Deadline</label>
+            <input type="text" class="form-control" id="deadline" name="deadline">
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
+
+
 
 
       
