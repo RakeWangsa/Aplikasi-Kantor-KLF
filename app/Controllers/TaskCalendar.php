@@ -2,14 +2,17 @@
 
 namespace App\Controllers;
 use App\Models\OrderModel;
+use App\Models\TaskCalendarModel;
 
 class TaskCalendar extends BaseController
 {
     public function index(): string
     {
-        $model = new OrderModel();
-        $data = $model->findAll();
-        $jumlahTask = count($data);
-        return view('taskCalendar', ['data' => $data, 'jumlahTask' => $jumlahTask]);
+        $OrderModel = new OrderModel();
+        $OrderData = $OrderModel->findAll();
+        $jumlahTask = count($OrderData);
+        $TaskCalendarModel = new TaskCalendarModel();
+        $TaskCalendarData = $TaskCalendarModel->findAll();
+        return view('taskCalendar', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'TaskCalendarData' => $TaskCalendarData]);
     }
 }

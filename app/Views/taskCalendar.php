@@ -15,7 +15,7 @@
 
 <style>
   .subtask {
-    text-indent: 10px;
+    text-indent: 13px;
   }
 
   .subofsub {
@@ -235,7 +235,7 @@
 
       <div id="productList">
       <ul class="list-group">
-  <?php foreach ($data as $row): ?>
+  <?php foreach ($OrderData as $row): ?>
     <?php $task = str_replace('/', '_', $row['kode_order']); ?>
 <li class="">
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
@@ -257,45 +257,55 @@
 <!-- </a> -->
     </li>
     <div id="<?php echo $task; ?>" class="collapse">
-      <ul class="list-group list-group-flush">
-        <li class="" data-toggle="collapse" href="#sublist1" onclick="toggleIcon(this)">
+
+    <?php foreach ($TaskCalendarData as $taskCalendar): ?>
+      <?php if ($taskCalendar['parent'] == $row['kode_order']): ?>
+          <ul class="list-group list-group-flush">
+        <li class="">
 
         <div class="products-row task">
       <div class="product-cell category subtask">
-        <span><button class="icon-button" data-toggle="collapse" href="#sub<?php echo $task; ?>" onclick="toggleIcon('iconsub<?php echo $task; ?>')">
-        <i id="iconsub<?php echo $task; ?>" class="fas fa-chevron-right"></i>
-      </button> sublist 1</span>
+        <span><button class="icon-button" data-toggle="collapse" href="#sub<?php echo $taskCalendar['id']; ?>" onclick="toggleIcon('iconsub<?php echo $taskCalendar['id']; ?>')">
+        <i id="iconsub<?php echo $taskCalendar['id']; ?>" class="fas fa-chevron-right"></i>
+      </button> <?= $taskCalendar['task']; ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span>2023</span>
+        <span><?= $taskCalendar['deadline']; ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span>2023</span>
+        <span><button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#modal<?php echo $task; ?>"><i class="fas fa-pencil-alt"></i></button></span>
       </div>
     </div>
 
         </li>
-        <div id="sub<?php echo $task; ?>" class="collapse">
+        <div id="sub<?php echo $taskCalendar['id']; ?>" class="collapse">
+
+        <?php foreach ($TaskCalendarData as $taskCalendar2): ?>
+          <?php if ($taskCalendar2['parent'] == $taskCalendar['id']): ?>
           <ul class="list-group list-group-flush">
             <li class="">
 
             <div class="products-row task">
       <div class="product-cell category subofsub">
-        <span><i class="subofsub-icon"></i> sub of sub 1</span>
+        <span><i class="subofsub-icon"></i> <?= $taskCalendar2['task']; ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span>2023</span>
+        <span><?= $taskCalendar2['deadline']; ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span>2023</span>
+        <span></span>
       </div>
     </div>
 
             </li>
           </ul>
+          <?php endif; ?>
+          <?php endforeach; ?>
+
+
         </div>
 
-        <li class="" data-toggle="collapse" href="#sublist2" onclick="toggleIcon(this)">
+        <!-- <li class="" data-toggle="collapse" href="#sublist2" onclick="toggleIcon(this)">
 
         <div class="products-row task">
       <div class="product-cell category subtask">
@@ -328,8 +338,11 @@
 
             </li>
           </ul>
-        </div>
+        </div> -->
       </ul>
+        <?php endif; ?>
+    <?php endforeach; ?>
+
     </div>
 
   <?php endforeach; ?> 
@@ -340,7 +353,7 @@
 
       <!-- <div id="productList">
       <ul class="list-group">
-  <?php foreach ($data as $row): ?>
+  <?php foreach ($OrderData as $row): ?>
     task
     <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
     <div class="products-row task" data-task-id="<?= $modalId; ?>">
@@ -368,7 +381,7 @@
 
 
 
-<?php foreach ($data as $row): ?>
+<?php foreach ($OrderData as $row): ?>
   <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
   <div class="modal fade" id="modal<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
