@@ -171,6 +171,7 @@
           <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $task; ?>"><i class="fas fa-plus"></i></button>
           <button type="button" class="btn btn-primary rounded-circle" onclick="alert('Judul task tidak dapat diedit!')"><i class="fas fa-pencil-alt"></i></button>
           <button type="button" class="btn btn-danger rounded-circle" onclick="alert('Judul task tidak dapat dihapus!')"><i class="fas fa-trash"></i></button>
+          <button type="button" class="btn btn-secondary rounded-circle" data-toggle="modal" data-target="#info<?php echo $task; ?>"><i class="fas fa-file"></i></button>
       </span>
       </div>
     </div>
@@ -355,6 +356,50 @@
 </div>
 <?php endforeach; ?>
 
+
+<!-- detail -->
+
+<?php foreach ($OrderData as $row): ?>
+  <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
+  <?php
+        $parent = base64_encode($row['kode_order']);
+      ?>
+  <div class="modal fade" id="info<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <!-- <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post"> -->
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['kode_order']; ?> (Informasi Produk)</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="mb-3">
+            <p>Nama :<br>testestestes (tes)</p>
+          </div>
+          <div class="mb-3">
+            <p>Gambar</p>
+            <img src="<?= base_url('uploads/bose.jpeg'); ?>" style="width:100px">
+          </div>
+          <div class="mb-3">
+            <p>Details :<br>testestestestestestestestes (tes)</p>
+          </div>
+          <div class="mb-3">
+            <p>Deadline :<br><?= date('d-m-Y', strtotime($row['deadline'])); ?></p>
+          </div>
+          <div class="mb-3">
+            <p>Quantity :<br>5 (tes)</p>
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      <!-- </form> -->
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
 
 
 

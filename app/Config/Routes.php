@@ -11,6 +11,11 @@ $routes->get('tesdb', 'Home::tesdb');
 $routes->post('simpanData', 'Home::simpanData');
 // $routes->get('tampilData', 'Home::tesdb2');
 
+$routes->get('login', 'Auth::index');
+$routes->post('login/check', 'Auth::login');
+$routes->get('register', 'Auth::register');
+$routes->post('register/submit', 'Auth::tambahAkun');
+
 
 $routes->get('dashboard', 'Dashboard::index');
 $routes->get('order/listOrder', 'Order::index');

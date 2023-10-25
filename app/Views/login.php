@@ -1,73 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Forms</title>
-
-<link href="Assets/css/bootstrap.min.css" rel="stylesheet">
-<link href="Assets/css/datepicker3.css" rel="stylesheet">
-<link href="Assets/css/styles.css" rel="stylesheet">
-
-<!--[if lt IE 9]>
-<script src="js/html5shiv.js"></script>
-<script src="js/respond.min.js"></script>
-<![endif]-->
-
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<body class="text-center" style="background-color:#444654">
+<img src="<?= base_url('assets2/klf-logo.png') ?>" alt="Logo" width="800px" style="margin-top: 20px;">
+<?php if(session()->has('error')) { ?>
+    <div class="alert alert-danger mx-auto" style="max-width: 400px;" role="alert">
+        <?= session('error') ?>
+    </div>
+<?php } ?>
+<?php if(session()->has('success')) { ?>
+    <div class="alert alert-success mx-auto" style="max-width: 400px;" role="alert">
+        <?= session('success') ?>
+    </div>
+<?php } ?>
+<div class="container" style="margin-top:20px;">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow" style="border-radius: 20px;border: 2px solid #E8C72B;background-color:#151E2F">
+                <div class="card-body">
+                    <h4 class="card-title text-center text-light mb-4">Login</h4>
 
-<body>
-	
-	<div class="row">
-		<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
-			<div class="login-panel panel panel-default">
-				<div class="panel-heading">Log in</div>
-				<div class="panel-body">
-					<form role="form">
-						<fieldset>
-							<div class="form-group">
-								<input class="form-control" placeholder="E-mail" name="email" type="email" autofocus="">
-							</div>
-							<div class="form-group">
-								<input class="form-control" placeholder="Password" name="password" type="password" value="">
-							</div>
-							<div class="checkbox">
-								<label>
-									<input name="remember" type="checkbox" value="Remember Me">Remember Me
-								</label>
-							</div>
-							<a href="index.html" class="btn btn-primary">Login</a>
-						</fieldset>
-					</form>
-				</div>
-			</div>
-		</div><!-- /.col-->
-	</div><!-- /.row -->	
-	
-		
+                    
 
-	<script src="Assets/js/jquery-1.11.1.min.js"></script>
-	<script src="Assets/js/bootstrap.min.js"></script>
-	<script src="Assets/js/chart.min.js"></script>
-	<script src="Assets/js/chart-data.js"></script>
-	<script src="Assets/js/easypiechart.js"></script>
-	<script src="Assets/js/easypiechart-data.js"></script>
-	<script src="Assets/js/bootstrap-datepicker.js"></script>
-	<script>
-		!function ($) {
-			$(document).on("click","ul.nav li.parent > a > span.icon", function(){		  
-				$(this).find('em:first').toggleClass("glyphicon-minus");	  
-			}); 
-			$(".sidebar span.icon").find('em:first').addClass("glyphicon-plus");
-		}(window.jQuery);
+                    <form method="post" action="<?= base_url('login/check') ?>">
+                        <div class="mb-3 text-start">
+                            <label for="nama" class="form-label text-light">Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="username" style="border: 2px solid #E8C72B;" required>
+                        </div>
+                        <div class="mb-3 text-start">
+                            <label for="nip" class="form-label text-light">Password</label>
+                            <input type="text" name="password" class="form-control" placeholder="Password" style="border: 2px solid #E8C72B;" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" style="background-color: #E8C72B; border-color: #E8C72B;">Login</button>
 
-		$(window).on('resize', function () {
-		  if ($(window).width() > 768) $('#sidebar-collapse').collapse('show')
-		})
-		$(window).on('resize', function () {
-		  if ($(window).width() <= 767) $('#sidebar-collapse').collapse('hide')
-		})
-	</script>	
+                    </form>
+                    <p class="mt-3 text-center" style="color:grey">Belum punya akun? <a href="<?= base_url('register') ?>" style="color: #FFFFFF;">Register</a></p>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 </body>
-
 </html>
