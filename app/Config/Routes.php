@@ -23,3 +23,4 @@ $routes->get('order/invoice/cetak', 'Order::cetakInvoice');
 
 $routes->get('taskCalendar', 'TaskCalendar::index');
 $routes->add('taskCalendar/addSubtask', 'TaskCalendar::addSubtask');
+$routes->get('taskCalendar/deleteSubtask', 'TaskCalendar::deleteSubtask');

@@ -32,7 +32,7 @@
   .subofsub-icon {
     width: 6px; /* Lebar ikon bulat */
     height: 6px; /* Tinggi ikon bulat */
-    background-color: white; /* Warna latar belakang ikon */
+    background-color: grey; /* Warna latar belakang ikon */
     border-radius: 50%; /* Mengatur ikon menjadi bulat */
     display: inline-block;
     margin-right: 3px; /* Jarak antara ikon dan teks */
@@ -147,89 +147,7 @@
       </div>
 
 
-<!-- list -->
-      <!-- <ul class="list-group">
-    <li class="" data-toggle="collapse" href="#list1" onclick="toggleIcon(this)">
 
-    <div class="products-row task">
-      <div class="product-cell category">
-        <span><i class="fas fa-chevron-right"></i> list 1</span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>2023</span>
-      </div>
-    </div>
-
-    </li>
-    <div id="list1" class="collapse">
-      <ul class="list-group list-group-flush">
-        <li class="" data-toggle="collapse" href="#sublist1" onclick="toggleIcon(this)">
-
-        <div class="products-row task">
-      <div class="product-cell category subtask">
-        <span><i class="fas fa-chevron-right"></i> sublist 1</span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>2023</span>
-      </div>
-    </div>
-
-        </li>
-        <div id="sublist1" class="collapse">
-          <ul class="list-group list-group-flush">
-            <li class="">
-
-            <div class="products-row task">
-      <div class="product-cell category subofsub">
-        <span><i class="subofsub-icon"></i> sub of sub 1</span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>2023</span>
-      </div>
-    </div>
-
-            </li>
-          </ul>
-        </div>
-
-        <li class="" data-toggle="collapse" href="#sublist2" onclick="toggleIcon(this)">
-
-        <div class="products-row task">
-      <div class="product-cell category subtask">
-        <span><i class="fas fa-chevron-right"></i> sublist 2</span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>2023</span>
-      </div>
-    </div>
-
-        </li>
-        <div id="sublist2" class="collapse">
-          <ul class="list-group list-group-flush">
-            <li class="">
-
-            <div class="products-row task">
-      <div class="product-cell category subofsub">
-        <span>Tidak ada item</span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>-</span>
-      </div>
-    </div>
-
-            </li>
-          </ul>
-        </div>
-      </ul>
-    </div>
-    <li class="list-group-item list-group-item-action" data-toggle="collapse" href="#list2">list 2</li>
-    <div id="list2" class="collapse">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">sub list 1</li>
-        <li class="list-group-item">sub list 2</li>
-      </ul>
-    </div>
-  </ul> -->
 
 
 
@@ -241,8 +159,8 @@
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
     <div class="products-row task">
       <div class="product-cell category">
-        <span><button class="icon-button" data-toggle="collapse" href="#<?php echo $task; ?>" onclick="toggleIcon('icon<?php echo $task; ?>')">
-        <i id="icon<?php echo $task; ?>" class="fas fa-chevron-right"></i>
+        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#<?php echo $task; ?>" onclick="toggleIcon('icon<?php echo $task; ?>')">
+        <i id="icon<?php echo $task; ?>" class="fas fa-chevron-right" style="color:grey"></i>
       </button> <?= $row['kode_order']; ?> - <?= $row['nama']; ?></span>
       </div>
       <div class="product-cell status-cell">
@@ -250,7 +168,9 @@
       </div>
       <div class="product-cell status-cell">
         <span>
-          <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#modal<?php echo $task; ?>"><i class="fas fa-pencil-alt"></i></button>
+          <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $task; ?>"><i class="fas fa-plus"></i></button>
+          <button type="button" class="btn btn-primary rounded-circle" onclick="alert('Judul task tidak dapat diedit!')"><i class="fas fa-pencil-alt"></i></button>
+          <button type="button" class="btn btn-danger rounded-circle" onclick="alert('Judul task tidak dapat dihapus!')"><i class="fas fa-trash"></i></button>
       </span>
       </div>
     </div>
@@ -265,15 +185,19 @@
 
         <div class="products-row task">
       <div class="product-cell category subtask">
-        <span><button class="icon-button" data-toggle="collapse" href="#sub<?php echo $taskCalendar['id']; ?>" onclick="toggleIcon('iconsub<?php echo $taskCalendar['id']; ?>')">
-        <i id="iconsub<?php echo $taskCalendar['id']; ?>" class="fas fa-chevron-right"></i>
+        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#sub<?php echo $taskCalendar['id']; ?>" onclick="toggleIcon('iconsub<?php echo $taskCalendar['id']; ?>')">
+        <i id="iconsub<?php echo $taskCalendar['id']; ?>" class="fas fa-chevron-right" style="color:grey"></i>
       </button> <?= $taskCalendar['task']; ?></span>
       </div>
       <div class="product-cell status-cell">
         <span><?= $taskCalendar['deadline']; ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span><button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#modal<?php echo $taskCalendar['id']; ?>"><i class="fas fa-pencil-alt"></i></button></span>
+        <span>
+        <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $taskCalendar['id']; ?>"><i class="fas fa-plus"></i></button>
+          <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $taskCalendar['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
+          <a class="btn btn-danger rounded-circle" href="<?= base_url('taskCalendar/deleteSubtask?id=' . $taskCalendar['id']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>    
+      </span>
       </div>
     </div>
 
@@ -293,7 +217,11 @@
         <span><?= $taskCalendar2['deadline']; ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span></span>
+        <span>
+        <button type="button" class="btn btn-success rounded-circle" onclick="alert('tidak dapat menambah sub task pada sub of sub')"><i class="fas fa-plus"></i></button>
+        <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $task; ?>"><i class="fas fa-pencil-alt"></i></button>
+        <a class="btn btn-danger rounded-circle" href="<?= base_url('taskCalendar/deleteSubtask?id=' . $taskCalendar2['id']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>  
+        </span>
       </div>
     </div>
 
@@ -305,40 +233,6 @@
 
         </div>
 
-        <!-- <li class="" data-toggle="collapse" href="#sublist2" onclick="toggleIcon(this)">
-
-        <div class="products-row task">
-      <div class="product-cell category subtask">
-        <span><i class="fas fa-chevron-right"></i> sublist 2</span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>2023</span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>2023</span>
-      </div>
-    </div>
-
-        </li>
-        <div id="sublist2" class="collapse">
-          <ul class="list-group list-group-flush">
-            <li class="">
-
-            <div class="products-row task">
-      <div class="product-cell category subofsub">
-        <span>Tidak ada item</span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>-</span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>-</span>
-      </div>
-    </div>
-
-            </li>
-          </ul>
-        </div> -->
       </ul>
         <?php endif; ?>
     <?php endforeach; ?>
@@ -351,33 +245,7 @@
 
 
 
-      <!-- <div id="productList">
-      <ul class="list-group">
-  <?php foreach ($OrderData as $row): ?>
-    task
-    <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
-    <div class="products-row task" data-task-id="<?= $modalId; ?>">
-      <div class="product-cell category">
-        <span><i class="fas fa-angle-right"></i> <?= $row['kode_order']; ?> - <?= $row['nama']; ?></span>
-      </div>
-      <div class="product-cell status-cell">
-        <span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span>
-      </div>
-    </div>
 
-    sub task
-    <div class="products-row subtask" data-task-id="<?= $modalId; ?>" style="display: none;">
-      <div class="product-cell category">
-        <span><i class="subtask-icon"></i> sub task</span>
-      </div>
-      <div class="product-cell status-cell">
-        <span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span>
-      </div>
-    </div>
-
-  <?php endforeach; ?> 
-</ul>
-</div> -->
 
 
 
@@ -386,7 +254,7 @@
   <?php
         $parent = base64_encode($row['kode_order']);
       ?>
-  <div class="modal fade" id="modal<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="add<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
     <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post">
@@ -397,12 +265,12 @@
       <div class="modal-body">
         
           <div class="mb-3">
-            <label for="termin1" class="form-label">Task</label>
+            <label for="task" class="form-label">Task</label>
             <input type="text" class="form-control" id="task" name="task">
           </div>
           <div class="mb-3">
-            <label for="termin2" class="form-label">Deadline</label>
-            <input type="text" class="form-control" id="deadline" name="deadline">
+            <label for="deadline" class="form-label">Deadline</label>
+            <input type="date" class="form-control" id="deadline" name="deadline">
           </div>
         
       </div>
@@ -421,7 +289,7 @@
   <?php
         $parent = base64_encode($row['id']);
       ?>
-  <div class="modal fade" id="modal<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="add<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
     <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post">
@@ -432,12 +300,12 @@
       <div class="modal-body">
         
           <div class="mb-3">
-            <label for="termin1" class="form-label">Task</label>
+            <label for="task" class="form-label">Task</label>
             <input type="text" class="form-control" id="task" name="task">
           </div>
           <div class="mb-3">
-            <label for="termin2" class="form-label">Deadline</label>
-            <input type="text" class="form-control" id="deadline" name="deadline">
+            <label for="deadline" class="form-label">Deadline</label>
+            <input type="date" class="form-control" id="deadline" name="deadline">
           </div>
         
       </div>

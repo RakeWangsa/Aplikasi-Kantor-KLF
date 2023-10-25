@@ -34,4 +34,26 @@ class TaskCalendar extends BaseController
         $model->insert($data);
         return redirect()->to(base_url('taskCalendar'))->with('success', 'Subtask berhasil ditambahkan.');
     }
+
+    public function deleteSubtask()
+{
+    // Mendapatkan ID subtask yang akan dihapus dari URL atau input lainnya
+    $subtaskId = $this->request->getGet('id');
+
+    // Validasi jika ID subtask ada dan adalah angka
+    if (!is_numeric($subtaskId)) {
+        return redirect()->to(base_url('taskCalendar'))->with('error', 'ID subtask tidak valid.');
+    }
+
+    // Menghapus data subtask berdasarkan ID
+    $model = new TaskCalendarModel();
+    $deleted = $model->delete($subtaskId);
+
+    if ($deleted) {
+        return redirect()->to(base_url('taskCalendar'))->with('success', 'Subtask berhasil dihapus.');
+    } else {
+        return redirect()->to(base_url('taskCalendar'))->with('error', 'Gagal menghapus subtask.');
+    }
+}
+
 }
