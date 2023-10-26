@@ -5,8 +5,11 @@ use App\Models\UserModel;
 
 class Auth extends BaseController
 {
-    public function index(): string
+    public function index()
 {
+    if (session('id_user')) {
+        return redirect()->to(site_url('dashboard'));
+    }
     return view('login');
 }   
 public function register(): string
@@ -26,7 +29,7 @@ public function login()
         // Kredensial benar, berhasil login
         // Di sini Anda dapat mengatur sesi atau pengalihan ke halaman lain
         // Contoh mengatur sesi:
-        session()->set('user_id', $user['id']);
+        session()->set('id_user', $user['id']);
         session()->set('username', $user['username']);
         session()->set('name', $user['nama']);
 
@@ -51,7 +54,7 @@ public function tambahAkun()
         if ($validation->withRequest($this->request)->run()) {
             $userModel = new UserModel();
 
-            $password=$this->request->getPost('username');
+            $password=$this->request->getPost('password');
             $password_hash=password_hash($password, PASSWORD_BCRYPT);
             // Ambil data dari formulir
             $data = [
