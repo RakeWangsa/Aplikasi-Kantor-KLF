@@ -5,7 +5,7 @@ use CodeIgniter\Router\RouteCollection;
 /**
  * @var RouteCollection $routes
  */
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Auth::index');
 $routes->get('/tes', 'Home::tes');
 $routes->get('tesdb', 'Home::tesdb');
 $routes->post('simpanData', 'Home::simpanData');
@@ -26,8 +26,14 @@ $routes->get('order/invoice', 'Order::invoice');
 $routes->add('order/invoice/addPaymentTerms', 'Order::paymentTerms');
 $routes->get('order/payment', 'Order::payment');
 $routes->get('order/invoice/cetak', 'Order::cetakInvoice');
+// $routes->get('order/editOrder', 'Order::editOrder');
+$routes->get('order/editOrder/(:segment)', 'Order::editOrder/$1');
+
+
 
 $routes->get('taskCalendar', 'TaskCalendar::index');
 $routes->add('taskCalendar/addSubtask', 'TaskCalendar::addSubtask');
 $routes->post('taskCalendar/editSubtask', 'TaskCalendar::editSubtask');
 $routes->get('taskCalendar/deleteSubtask', 'TaskCalendar::deleteSubtask');
+
+$routes->get('katalogProduk', 'KatalogProduk::index');

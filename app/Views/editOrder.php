@@ -102,7 +102,7 @@
   </div>
   <div class="app-content">
     <div class="app-content-header my-4">
-      <h1 class="app-content-headerText">Input Order</h1>
+      <h1 class="app-content-headerText">Edit Order</h1>
     </div>
 
     <div class="products-area-wrapper tableView">
@@ -110,18 +110,27 @@
 
 
     <form class="text-light" action="<?= base_url('order/inputOrder/simpanData'); ?>" method="post" enctype="multipart/form-data">
+    <div class="form-group mb-2">
+                <label for="nama">Kode Order:</label>
+                <input type="text" class="form-control" id="kode_order" name="kode_order" style="max-width:1000px" value="<?= $data['kode_order']; ?>" disabled>
+            </div>
+            <div class="form-group mb-2">
+                <label for="nama">Kode Invoice:</label>
+                <input type="text" class="form-control" id="kode_invoice" name="kode_invoice" style="max-width:1000px" value="<?= $data['kode_invoice']; ?>" disabled>
+            </div>
             <div class="form-group mb-2">
                 <label for="nama">Nama:</label>
-                <input type="text" class="form-control" id="nama" name="nama" style="max-width:1000px" placeholder="Masukkan nama">
+                <input type="text" class="form-control" id="nama" name="nama" style="max-width:1000px" value="<?= $data['nama']; ?>">
             </div>
             <div class="form-group mb-2">
                 <label for="noTelfon">No Telfon:</label>
-                <input type="text" class="form-control" id="noTelfon" name="noTelfon" style="max-width:1000px" placeholder="Masukkan no telfon">
+                <input type="text" class="form-control" id="noTelfon" name="noTelfon" style="max-width:1000px" value="<?= $data['no_telfon']; ?>">
             </div>
             <div class="form-group mb-2">
-                <label for="alamat">Alamat:</label>
-                <textarea class="form-control" id="alamat" name="alamat" rows="3" style="max-width:1000px" placeholder="Masukkan alamat"></textarea>
-            </div>
+    <label for="alamat">Alamat:</label>
+    <textarea class="form-control" id="alamat" name="alamat" rows="3" style="max-width:1000px"><?= $data['alamat']; ?></textarea>
+</div>
+
             <div class="form-group mb-2">
                 <label for="detailProduk">Detail Produk (Gambar):</label>
                 <input type="file" class="form-control-file" accept="image/*" id="detailProdukGambar" name="gambar[]" multiple>
@@ -136,15 +145,15 @@
             </div>
             <div class="form-group mb-2">
                 <label for="detailProduk">Detail Produk (Harga):</label>
-                <input type="text" class="form-control" id="detailProdukHarga" name="detailProdukHarga" style="max-width:1000px" placeholder="Masukkan harga">
+                <input type="text" class="form-control" id="detailProdukHarga" name="detailProdukHarga" style="max-width:1000px" value="<?= $data['harga_produk']; ?>">
             </div>
             <div class="form-group mb-2">
                 <label for="detailProduk">Detail Produk (Deadline):</label>
-                <input type="date" class="form-control" id="detailProdukDeadline" name="detailProdukDeadline" style="max-width:1000px">
+                <input type="date" class="form-control" id="detailProdukDeadline" name="detailProdukDeadline" style="max-width:1000px" value="<?= $data['deadline']; ?>">
             </div>
             <div class="form-group mb-2">
                 <label for="detailProduk">Detail Produk (Catatan Khusus):</label>
-                <textarea class="form-control" id="detailProdukCatatan" name="detailProdukCatatan" rows="3" style="max-width:1000px" placeholder="Masukkan catatan khusus"></textarea>
+                <textarea class="form-control" id="detailProdukCatatan" name="detailProdukCatatan" rows="3" style="max-width:1000px"><?= $data['catatan_khusus']; ?></textarea>
             </div>
             <!-- <div class="form-group mb-2">
                 <label for="kodeOrder">Kode Order:</label>
@@ -155,36 +164,36 @@
                 <input type="text" class="form-control" id="invoiceCode" name="Invoice Code" style="max-width:1000px" placeholder="Masukkan invoice code">
             </div> -->
             <div class="form-group mb-2">
-                <label for="ongkosKirim">Ongkos Kirim:</label>
-                <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-secondary">
-    <input type="radio" name="ongkosKirim" value="termasuk" id="ongkosKirimTermasuk" autocomplete="off" checked> Termasuk
-</label>
-<label class="btn btn-secondary">
-    <input type="radio" name="ongkosKirim" value="tidak termasuk" id="ongkosKirimTidakTermasuk" autocomplete="off"> Tidak Termasuk
-</label>
+    <label for="ongkosKirim">Ongkos Kirim:</label>
+    <div class="btn-group" data-toggle="buttons">
+        <label class="btn btn-secondary <?= ($data['ongkir'] == 'Termasuk') ? 'active' : ''; ?>">
+            <input type="radio" name="ongkir" id="ongkirTermasuk" autocomplete="off" <?= ($data['ongkir'] == 'termasuk') ? 'checked' : ''; ?>> Termasuk
+        </label>
+        <label class="btn btn-secondary <?= ($data['ongkir'] == 'Tidak Termasuk') ? 'active' : ''; ?>">
+            <input type="radio" name="ongkir" id="ongkirTidakTermasuk" autocomplete="off" <?= ($data['ongkir'] == 'tidak termasuk') ? 'checked' : ''; ?>> Tidak Termasuk
+        </label>
+    </div>
+</div>
 
-                </div>
-            </div>
             <div class="form-group mb-2">
                 <label for="discount">Discount:</label>
-                <input type="text" class="form-control" id="discount" name="discount" style="max-width:1000px" placeholder="Masukkan discount">
+                <input type="text" class="form-control" id="discount" name="discount" style="max-width:1000px" value="<?= $data['discount']; ?>">
             </div>
             <div class="form-group mb-2">
                 <label for="grandTotal">Grand Total:</label>
-                <input type="text" class="form-control" id="grandTotal" name="grandTotal" style="max-width:1000px" placeholder="Masukkan grand total">
+                <input type="text" class="form-control" id="grandTotal" name="grandTotal" style="max-width:1000px" value="<?= $data['grand_total']; ?>">
             </div>
             <div class="form-group mb-2">
-                <label for="kategoriSupplier">Kategori Supplier:</label>
-                <select class="form-control" id="kategoriSupplier" name="kategoriSupplier" style="max-width:1000px">
-                    <option value="Kayu (SUPK)">Kayu (SUPK)</option>
-                    <option value="Besi (SUPB)">Besi (SUPB)</option>
-                    <option value="Rotan (SUPR)">Rotan (SUPR)</option>
-                    <option value="Finishing (SUPF)">Finishing (SUPF)</option>
-                    <option value="Marmer (SUPM)">Marmer (SUPM)</option>
-                    <option value="Jok (SUPJ)">Jok (SUPJ)</option>
-                </select>
-            </div>
+    <label for="kategoriSupplier">Kategori Supplier:</label>
+    <select class="form-control" id="kategoriSupplier" name="kategoriSupplier" style="max-width:1000px">
+        <option value="Kayu (SUPK)" <?= ($data['kategori_supplier'] == 'Kayu (SUPK)') ? 'selected' : ''; ?>>Kayu (SUPK)</option>
+        <option value="Besi (SUPB)" <?= ($data['kategori_supplier'] == 'Besi (SUPB)') ? 'selected' : ''; ?>>Besi (SUPB)</option>
+        <option value="Rotan (SUPR)" <?= ($data['kategori_supplier'] == 'Rotan (SUPR)') ? 'selected' : ''; ?>>Rotan (SUPR)</option>
+        <option value="Finishing (SUPF)" <?= ($data['kategori_supplier'] == 'Finishing (SUPF)') ? 'selected' : ''; ?>>Finishing (SUPF)</option>
+        <option value="Marmer (SUPM)" <?= ($data['kategori_supplier'] == 'Marmer (SUPM)') ? 'selected' : ''; ?>>Marmer (SUPM)</option>
+        <option value="Jok (SUPJ)" <?= ($data['kategori_supplier'] == 'Jok (SUPJ)') ? 'selected' : ''; ?>>Jok (SUPJ)</option>
+    </select>
+</div>
             <div class="form-group mb-2">
                 <label for="namaSupplier">Nama Supplier:</label>
                 <select class="form-control" id="namaSupplier" name="namaSupplier" style="max-width:1000px">
@@ -195,11 +204,11 @@
             </div>
             <div class="form-group mb-2">
                 <label for="jumlahBarang">Jumlah Barang:</label>
-                <input type="text" class="form-control" id="jumlahBarang" name="jumlahBarang" style="max-width:1000px" placeholder="Masukkan jumlah barang">
+                <input type="text" class="form-control" id="jumlahBarang" name="jumlahBarang" style="max-width:1000px" value="<?= $data['jumlah_barang']; ?>">
             </div>
             <div class="form-group mb-2">
                 <label for="supplierHarga">Harga (Supplier):</label>
-                <input type="text" class="form-control" id="supplierHarga" name="supplierHarga" style="max-width:1000px" placeholder="Masukkan harga">
+                <input type="text" class="form-control" id="supplierHarga" name="supplierHarga" style="max-width:1000px" value="<?= $data['harga_supplier']; ?>">
             </div>
             <button type="submit" class="btn btn-primary mt-4">Kirim</button>
         </form>

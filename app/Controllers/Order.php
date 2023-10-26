@@ -70,7 +70,6 @@ class Order extends BaseController
     $supplierHarga = $this->request->getPost('supplierHarga');
 
 
-
     $tahun = date('y');
     $bulan = date('m');
     $bulanRomawi = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
@@ -281,4 +280,20 @@ public function invoice()
         $model->insert($data);
         return redirect()->to(base_url('order/invoice/?kode_order=' . $encodedKodeOrder))->with('success', 'Order berhasil ditambahkan.');
     }
+
+    public function editOrder($kodeOrder)
+    {
+
+        $decodedKodeOrder = base64_decode($kodeOrder);
+
+        $model = new OrderModel();
+        $data = $model->where('kode_order', $decodedKodeOrder)->first();
+        
+
+
+        return view('editOrder', ['data' => $data]);
+
+    }
+    
+
 }
