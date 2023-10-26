@@ -15,20 +15,28 @@ public function register(): string
 }  
 public function login()
 {
-    // Proses validasi login di sini
-    // Contoh validasi sederhana: cek username dan password
-
     $username = $this->request->getPost('username');
     $password = $this->request->getPost('password');
 
-    if ($username === 'user' && $password === 'password') {
-        // Berhasil login, Anda dapat mengatur sesi atau pengalihan ke halaman lain di sini
+    // Cari pengguna dengan username yang sesuai
+    $userModel = new UserModel();
+    $user = $userModel->where('username', $username)->first();
+
+    if ($user && password_verify($password, $user['password'])) {
+        // Kredensial benar, berhasil login
+        // Di sini Anda dapat mengatur sesi atau pengalihan ke halaman lain
+        // Contoh mengatur sesi:
+        session()->set('user_id', $user['id']);
+        session()->set('username', $user['username']);
+        session()->set('name', $user['nama']);
+
         return redirect()->to(base_url('dashboard'));
     } else {
-        // Login gagal, Anda dapat menampilkan pesan kesalahan
+        // Kredensial salah, login gagal
         return view('login', ['error' => 'Login failed']);
     }
 }
+
 
 public function tambahAkun()
     {
@@ -65,6 +73,14 @@ public function tambahAkun()
             return view('register', ['errors' => $errors]);
         }
     }
-
+    public function logout()
+    {
+        // Hapus semua data sesi
+        session()->destroy();
+    
+        // Redirect ke halaman login atau halaman lain yang sesuai
+        return redirect()->to(base_url('login'));
+    }
+    
 
 }

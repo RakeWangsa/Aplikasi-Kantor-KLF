@@ -14,6 +14,7 @@ $routes->post('simpanData', 'Home::simpanData');
 $routes->get('login', 'Auth::index');
 $routes->post('login/check', 'Auth::login');
 $routes->get('register', 'Auth::register');
+$routes->get('logout', 'Auth::logout');
 $routes->post('register/submit', 'Auth::tambahAkun');
 
 
