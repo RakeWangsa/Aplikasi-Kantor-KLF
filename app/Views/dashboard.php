@@ -161,7 +161,7 @@
 
 
                             <p class="dashboard-box-label text-light">Jumlah Order Bulan Berjalan</p>
-                            <p class="dashboard-box-value text-light">13</p>
+                            <p class="dashboard-box-value text-light"><?= $jumlahOrder; ?></p>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">

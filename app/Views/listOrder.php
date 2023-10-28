@@ -168,7 +168,7 @@
       <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Cetak Label</a><br> 
       <a style="text-decoration: none;" href="<?= base_url('order/payment?kode_order=' . $encodedKodeOrder); ?>">Payment</a>  <br> 
       <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Detail</a>  <br> 
-      <button type="button" data-toggle="modal" data-target="#info<?php echo $encodedKodeOrder; ?>"></button>
+      <!-- <button type="button" data-toggle="modal" data-target="#info<?php echo $encodedKodeOrder; ?>"></button> -->
 
       <a style="text-decoration: none;" href="<?= base_url('order/editOrder/' . $encodedKodeOrder); ?>">Edit</a>
 

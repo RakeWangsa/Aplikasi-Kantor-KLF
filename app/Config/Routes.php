@@ -35,5 +35,6 @@ $routes->get('taskCalendar', 'TaskCalendar::index');
 $routes->add('taskCalendar/addSubtask', 'TaskCalendar::addSubtask');
 $routes->post('taskCalendar/editSubtask', 'TaskCalendar::editSubtask');
 $routes->get('taskCalendar/deleteSubtask', 'TaskCalendar::deleteSubtask');
+$routes->add('taskCalendar/cetakQC', 'TaskCalendar::cetakQC');
 
 $routes->get('katalogProduk', 'KatalogProduk::index');

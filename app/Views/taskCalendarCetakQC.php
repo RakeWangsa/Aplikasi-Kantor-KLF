@@ -131,26 +131,20 @@
   </div>
   <div class="app-content">
     <div class="app-content-header mt-4">
-      <h1 class="app-content-headerText">Task Calendar</h1>
+      <h1 class="app-content-headerText">Task Calendar - Cetak QC</h1>
       
     </div>
 
-    <div class="app-content-actions">
-      <div>
-      <button onclick="expandAllLists()" class="btn btn-primary mb-2"><i class="fas fa-arrow-down"></i> Expand</button>
-      <button onclick="collapseAllLists()" class="btn btn-danger mb-2"><i class="fas fa-arrow-up"></i> Hide</button>
-      </div>
-    
+    <!-- <div class="app-content-actions">
+      <input class="search-bar" placeholder="Search..." id="searchInput" type="text">
+      <a class="btn btn-primary" href="<?= base_url('order/inputOrder'); ?>">Input Order</a>
+    </div> -->
 
-
-      <a class="btn btn-primary" href="<?= base_url('taskCalendar/cetakQC'); ?>"><i class="fas fa-print"></i> Cetak QC</a>
-    </div>
-
-    <div class="products-area-wrapper tableView">
+    <div class="products-area-wrapper tableView mt-4">
       <div class="products-header">
       <div class="product-cell status-cell">To Do (<?= $jumlahTask; ?> Tasks)</div>
         <div class="product-cell sales">Deadline</div>
-        <div class="product-cell sales">Actions</div>
+        <div class="product-cell sales">Cetak</div>
       </div>
 
 
@@ -175,10 +169,13 @@
       </div>
       <div class="product-cell status-cell">
         <span>
-          <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $task; ?>"><i class="fas fa-plus"></i></button>
-          <button type="button" class="btn btn-primary rounded-circle" onclick="alert('Judul task tidak dapat diedit!')"><i class="fas fa-pencil-alt"></i></button>
-          <button type="button" class="btn btn-danger rounded-circle" onclick="alert('Judul task tidak dapat dihapus!')"><i class="fas fa-trash"></i></button>
-          <button type="button" class="btn btn-secondary rounded-circle" data-toggle="modal" data-target="#info<?php echo $task; ?>"><i class="fas fa-file"></i></button>
+
+        <form action="" method="post">
+        <!-- <label for="radioButton<?= $task; ?>">Cetak</label> -->
+    <input type="checkbox" id="radioButton<?= $task; ?>" name="radioGroup" value="<?= $row['kode_order']; ?>">
+    <!-- <button type="submit">Kirim</button> -->
+</form>
+
       </span>
       </div>
     </div>
@@ -202,9 +199,7 @@
       </div>
       <div class="product-cell status-cell">
         <span>
-        <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $taskCalendar['id']; ?>"><i class="fas fa-plus"></i></button>
-          <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $taskCalendar['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
-          <a class="btn btn-danger rounded-circle" href="<?= base_url('taskCalendar/deleteSubtask?id=' . $taskCalendar['id']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>    
+        
       </span>
       </div>
     </div>
@@ -226,9 +221,7 @@
       </div>
       <div class="product-cell status-cell">
         <span>
-        <button type="button" class="btn btn-success rounded-circle" onclick="alert('tidak dapat menambah sub task pada sub of sub')"><i class="fas fa-plus"></i></button>
-        <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $taskCalendar2['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
-        <a class="btn btn-danger rounded-circle" href="<?= base_url('taskCalendar/deleteSubtask?id=' . $taskCalendar2['id']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>  
+        
         </span>
       </div>
     </div>
@@ -248,11 +241,34 @@
     </div>
 
   <?php endforeach; ?> 
+
+
+<!-- button cetak -->
+<!-- <li class="">
+
+    <div class="products-row task">
+      <div class="product-cell category">
+        <span></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>
+
+        <button class="btn btn-secondary">Cetak</button>
+
+      </span>
+      </div>
+    </div>
+    </li> -->
+<!-- button end -->
+
 </ul>
 </div>
 
 
-
+<button class="btn btn-secondary mt-4" style="margin-left:15px"><i class="fas fa-print"></i> Cetak</button>
 
 
 <!-- tambah subtask -->
@@ -435,32 +451,6 @@
       icon.classList.remove('fa-chevron-down');
       icon.classList.add('fa-chevron-right');
     }
-  }
-  
-  function expandAllLists() {
-    const collapsibleButtons = document.querySelectorAll('.icon-button');
-
-    collapsibleButtons.forEach(button => {
-      const targetId = button.getAttribute('href').replace('#', '');
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement && !targetElement.classList.contains('show')) {
-        button.click(); // Click to expand if not already expanded
-      }
-    });
-  }
-
-  function collapseAllLists() {
-    const collapsibleButtons = document.querySelectorAll('.icon-button');
-
-    collapsibleButtons.forEach(button => {
-      const targetId = button.getAttribute('href').replace('#', '');
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement && targetElement.classList.contains('show')) {
-        button.click(); // Click to collapse if already expanded
-      }
-    });
   }
 </script>
 

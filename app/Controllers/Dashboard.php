@@ -9,6 +9,7 @@ class Dashboard extends BaseController
     {
         $model = new OrderModel();
     $data = $model->findAll();
-    return view('dashboard', ['data' => $data]);
+    $jumlahOrder = count($data);
+    return view('dashboard', ['data' => $data, 'jumlahOrder' => $jumlahOrder]);
     }
 }

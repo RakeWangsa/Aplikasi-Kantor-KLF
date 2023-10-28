@@ -90,5 +90,14 @@ class TaskCalendar extends BaseController
         return redirect()->to(base_url('taskCalendar'))->with('success', 'Subtask berhasil dihapus.');
     }
     
+    public function cetakQC(): string
+    {
+        $OrderModel = new OrderModel();
+        $OrderData = $OrderModel->findAll();
+        $jumlahTask = count($OrderData);
+        $TaskCalendarModel = new TaskCalendarModel();
+        $TaskCalendarData = $TaskCalendarModel->findAll();
+        return view('taskCalendarCetakQC', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'TaskCalendarData' => $TaskCalendarData]);
+    }
 
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -7,6 +7,7 @@
 <body>
 
 <div class="container mt-4">
+<button onclick="toggleAllLists()" class="btn btn-primary mb-2">Toggle All Lists</button>
   <ul class="list-group">
     <li class="list-group-item list-group-item-action">
       <button class="icon-button" data-toggle="collapse" href="#list1" onclick="toggleIcon('icon1')">
@@ -56,6 +57,72 @@
       icon.classList.add('fa-chevron-right');
     }
   }
+
+  function toggleAllLists() {
+    const collapsibleButtons = document.querySelectorAll('.list-group-item-action button');
+    collapsibleButtons.forEach(button => {
+      if (!button.getAttribute('aria-expanded') || button.getAttribute('aria-expanded') === 'false') {
+        button.click();
+      } else {
+        button.click();
+      }
+    });
+  }
 </script>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form dengan Penambahan Kolom Inputan</title>
+    <script>
+        // Fungsi untuk menambahkan 3 kolom input baru
+        function addThreeInputFields() {
+            for (let i = 0; i < 3; i++) {
+                var inputNumber = document.querySelectorAll('input[type="text"]').length + 1;
+                var newInput = document.createElement('input');
+                newInput.type = 'text';
+                newInput.name = 'input' + inputNumber;
+                newInput.placeholder = 'Input ' + inputNumber;
+
+                var newLabel = document.createElement('label');
+                newLabel.htmlFor = 'input' + inputNumber;
+                newLabel.appendChild(document.createTextNode('Input ' + inputNumber + ':'));
+
+                var lineBreak = document.createElement('br');
+
+                var form = document.querySelector('form');
+                form.appendChild(newLabel);
+                form.appendChild(newInput);
+                form.appendChild(lineBreak);
+            }
+        }
+    </script>
+</head>
+<body>
+    <form>
+        <label for="input1">Input 1:</label>
+        <input type="text" id="input1" name="input1"><br><br>
+
+        <label for="input2">Input 2:</label>
+        <input type="text" id="input2" name="input2"><br><br>
+
+        <label for="input3">Input 3:</label>
+        <input type="text" id="input3" name="input3"><br><br>
+
+        <label for="input4">Input 4:</label>
+        <input type="text" id="input4" name="input4"><br><br>
+
+        <label for="input5">Input 5:</label>
+        <input type="text" id="input5" name="input5"><br><br>
+
+        <input type="button" value="Tambah Kolom Input" onclick="addThreeInputFields()">
+
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
