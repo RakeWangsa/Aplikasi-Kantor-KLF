@@ -119,10 +119,23 @@
                 <input type="text" class="form-control" id="noTelfon" name="noTelfon" style="max-width:1000px" placeholder="Masukkan no telfon">
             </div>
             <div class="form-group mb-2">
+                <label for="email">Email:</label>
+                <input type="text" class="form-control" id="email" name="email" style="max-width:1000px" placeholder="Masukkan email">
+            </div>
+            <div class="form-group mb-2">
                 <label for="alamat">Alamat:</label>
                 <textarea class="form-control" id="alamat" name="alamat" rows="3" style="max-width:1000px" placeholder="Masukkan alamat"></textarea>
             </div>
             <div class="form-group mb-2">
+                <label for="detailProduk">Tanggal Order:</label>
+                <input type="date" class="form-control" id="tanggalOrder" name="tanggalOrder" style="max-width:1000px">
+            </div>
+            <div class="form-group mb-4">
+                <label for="detailProduk">Deadline Order:</label>
+                <input type="date" class="form-control" id="deadlineOrder" name="deadlineOrder" style="max-width:1000px">
+            </div>
+
+            <!-- <div class="form-group mb-2">
                 <label for="detailProduk">Detail Produk (Gambar):</label>
                 <input type="file" class="form-control-file" accept="image/*" id="detailProdukGambar" name="gambar[]" multiple>
             </div>
@@ -134,21 +147,6 @@
                     <option value="kategori3">Kategori 3</option>
                 </select>
             </div>
-
-            <!-- table produk -->
-            <table class="table mt-3" style="max-width:1000px">
-        <thead>
-            <tr>
-                <th>Data 1</th>
-                <th>Data 2</th>
-                <th>Data 3</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-            <!-- Data akan ditampilkan di sini -->
-        </tbody>
-    </table>
-
             <div class="form-group mb-2">
                 <label for="detailProduk">Detail Produk (Harga):</label>
                 <input type="text" class="form-control" id="detailProdukHarga" name="detailProdukHarga" style="max-width:1000px" placeholder="Masukkan harga">
@@ -160,14 +158,6 @@
             <div class="form-group mb-2">
                 <label for="detailProduk">Detail Produk (Catatan Khusus):</label>
                 <textarea class="form-control" id="detailProdukCatatan" name="detailProdukCatatan" rows="3" style="max-width:1000px" placeholder="Masukkan catatan khusus"></textarea>
-            </div>
-            <!-- <div class="form-group mb-2">
-                <label for="kodeOrder">Kode Order:</label>
-                <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" placeholder="Masukkan kode order">
-            </div>
-            <div class="form-group mb-2">
-                <label for="invoiceCode">Invoice Code:</label>
-                <input type="text" class="form-control" id="invoiceCode" name="Invoice Code" style="max-width:1000px" placeholder="Masukkan invoice code">
             </div> -->
             <div class="form-group mb-2">
                 <label for="ongkosKirim">Ongkos Kirim:</label>
@@ -181,7 +171,7 @@
 
                 </div>
             </div>
-            <div class="form-group mb-2">
+            <!-- <div class="form-group mb-2">
                 <label for="discount">Discount:</label>
                 <input type="text" class="form-control" id="discount" name="discount" style="max-width:1000px" placeholder="Masukkan discount">
             </div>
@@ -215,47 +205,12 @@
             <div class="form-group mb-2">
                 <label for="supplierHarga">Harga (Supplier):</label>
                 <input type="text" class="form-control" id="supplierHarga" name="supplierHarga" style="max-width:1000px" placeholder="Masukkan harga">
-            </div>
-            <button type="submit" class="btn btn-primary mt-4">Kirim</button>
+            </div> -->
+            <button type="submit" class="btn btn-primary mt-4">Submit</button>
         </form>
 
       
-<!-- produk -->
-<div class="mt-5">
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal">
-        Tambah produk
-    </button>
 
-    <div class="modal" id="formModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Form Input</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form id="inputForm">
-                        <div class="form-group">
-                            <label for="inputData1">Data 1:</label>
-                            <input type="text" class="form-control" id="inputData1" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputData2">Data 2:</label>
-                            <input type="text" class="form-control" id="inputData2" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputData3">Data 3:</label>
-                            <input type="text" class="form-control" id="inputData3" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-</div>
 
       
 
@@ -269,34 +224,8 @@
 </div>
 <!-- partial -->
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script> -->
-
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    document.getElementById('inputForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-
-        const data1 = document.getElementById('inputData1').value;
-        const data2 = document.getElementById('inputData2').value;
-        const data3 = document.getElementById('inputData3').value;
-
-        const tableBody = document.getElementById('tableBody');
-        const newRow = document.createElement('tr');
-        newRow.innerHTML = `
-            <td>${data1}</td>
-            <td>${data2}</td>
-            <td>${data3}</td>
-        `;
-        tableBody.appendChild(newRow);
-
-        $('#formModal').modal('hide');
-        document.getElementById('inputForm').reset();
-    });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 </html>

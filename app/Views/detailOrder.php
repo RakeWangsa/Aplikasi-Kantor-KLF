@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - List Order</title>
+  <title>KLF - Detail Order</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
 </head>
 <body>
-
 
 <!-- partial:index.partial.html -->
 <div class="app-container">
@@ -102,94 +101,118 @@
     </div>
   </div>
   <div class="app-content">
-    <div class="app-content-header mt-4">
-      <h1 class="app-content-headerText">List Order</h1>
-      
-    </div>
+  <div class="app-content-header my-4">
+  <h1 class="app-content-headerText">Detail Order (<?= $kodeOrder; ?> - <?= $data['nama']; ?>)</h1>
+  <div class="d-flex">
+    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#paymentTerms" style="margin-right:10px"><i class="fas fa-credit-card"></i> Payment Terms</button>
+    <a class="btn btn-primary" href="<?= base_url('order/detailOrder/addProduk/' . $encodedKodeOrder); ?>"><i class="fas fa-plus"></i> Tambah Produk</a>
+  </div>
+</div>
 
-    <div class="app-content-actions">
-      <input class="search-bar" placeholder="Search..." id="searchInput" type="text">
-      <a class="btn btn-primary" href="<?= base_url('order/inputOrder'); ?>"><i class="fas fa-pencil-alt"></i> Input Order</a>
-    </div>
-
-    <div class="products-area-wrapper tableView">
-      <div class="products-header">
-
-        <div class="product-cell price">Tanggal Order</div>
-        <div class="product-cell category">Customer</div>
-        <div class="product-cell status-cell">Kode Order</div>
-        <div class="product-cell sales">Nilai Order</div>
-        <div class="product-cell stock">DP Masuk</div>
-        <div class="product-cell price">Status</div>
-          <div class="product-cell price">Gross Profit</div>
-          <!-- <div class="product-cell price">Actions</div> -->
-      </div>
-
-
-      <div id="productList">
-      <?php foreach ($data as $row): ?>
-        <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
-        <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#modal<?= $modalId; ?>">
-        <div class="products-row">
-      <div class="product-cell image">
-            <span><?= date('d-m-Y', strtotime($row['tanggalOrder'])); ?></span>
-          </div>
-          <div class="product-cell bg-success">
-            <span><?= $row['nama']; ?></span>
-          </div>
-        <div class="product-cell category"><span><?= $row['kode_order']; ?></div>
-        <div class="product-cell status-cell">
-          <span>
-            <?= $row['nilaiOrder']; ?>
-          </span>
-        </div>
-        <div class="product-cell sales"><span>-</span></div>
-        <div class="product-cell stock"><span>-</span></div>
-        <div class="product-cell price"><span>-</span></div>
-        <!-- <div class="product-cell price"><span>-</span></div> -->
-      </div></a>
-    
-<?php endforeach; ?>
-      </div>
-
-
-<?php foreach ($data as $row): ?>
-  <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
-  <div class="modal fade" id="modal<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Payment terms -->
+<div class="modal fade" id="paymentTerms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
+    <form action="<?= base_url('order/invoice/addPaymentTerms?kode_order=' . $encodedKodeOrder); ?>" method="post">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Kode Order : <?= $row['kode_order']; ?></h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Payment Terms</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <?php
-        $encodedKodeOrder = base64_encode($row['kode_order']);
-      ?>
-      <a style="text-decoration: none;" href="<?= base_url('order/detailOrder/' . $encodedKodeOrder); ?>">Detail Order</a><br>
-      <a style="text-decoration: none;" href="<?= base_url('order/invoice?kode_order=' . $encodedKodeOrder); ?>">Invoice Order</a><br>  
-      <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Cetak Label</a><br> 
-      <a style="text-decoration: none;" href="<?= base_url('order/payment?kode_order=' . $encodedKodeOrder); ?>">Payment</a>  <br> 
-      <!-- <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Detail</a>  <br>  -->
-      <!-- <button type="button" data-toggle="modal" data-target="#info<?php echo $encodedKodeOrder; ?>"></button> -->
-
-      <a style="text-decoration: none;" href="<?= base_url('order/editOrder/' . $encodedKodeOrder); ?>">Edit</a>
-
-
+        
+          <div class="mb-3">
+            <label for="termin1" class="form-label">Termin 1</label>
+            <input type="text" class="form-control" id="termin1" name="termin1">
+          </div>
+          <div class="mb-3">
+            <label for="termin2" class="form-label">Termin 2</label>
+            <input type="text" class="form-control" id="termin2" name="termin2">
+          </div>
+          <div class="mb-3">
+            <label for="termin3" class="form-label">Termin 3</label>
+            <input type="text" class="form-control" id="termin3" name="termin3">
+          </div>
+        
       </div>
-      <!-- <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div> -->
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
     </div>
   </div>
 </div>
-<?php endforeach; ?>
+
+
+    <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    table, th, td {
+      border: 1px solid white;
+    }
+
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
+
+  
+
+
+
+    <div class="products-area-wrapper tableView">
+
+
+
+
+
+
+
+
+    <div class="products-header">
+
+<div class="product-cell">Gambar</div>
+<div class="product-cell">Nama</div>
+<div class="product-cell">Detail</div>
+<div class="product-cell">Harga</div>
+<div class="product-cell">Quantity</div>
+<div class="product-cell">Total Harga</div>
+
+</div>
+
+
+<div id="productList">
+
+
+<div class="products-row">
+<div class="product-cell">
+    <span><img src="<?= base_url('uploads/bose.jpeg'); ?>" style="height:100px;width:100px"></span>
+  </div>
+  <div class="product-cell">
+    <span>Meja Makan</span>
+  </div>
+<div class="product-cell"><span>-</div>
+<div class="product-cell"><span>Rp. 5.000.000</span></div>
+<div class="product-cell"><span>5</span></div>
+<div class="product-cell"><span>Rp. 25.000.000</span></div>
+
+</div>
+
+
+</div>
+  
 
       
 
 
-      
+
+
+
+
+
 
 
     </div>
@@ -201,29 +224,6 @@
   </div>
 </div>
 <!-- partial -->
-<script>
-const searchInput = document.getElementById("searchInput");
-const productList = document.getElementById("productList");
-
-searchInput.addEventListener("input", function () {
-  const searchTerm = searchInput.value.toLowerCase();
-  const productRows = productList.getElementsByClassName("products-row");
-
-  for (const row of productRows) {
-    const productName = row.querySelector(".product-cell.bg-success span").textContent.toLowerCase();
-    const month = row.querySelector(".product-cell.image span").textContent.toLowerCase();
-    const orderCode = row.querySelector(".product-cell.category span").textContent.toLowerCase();
-
-    if (productName.includes(searchTerm) || month.includes(searchTerm) || orderCode.includes(searchTerm)) {
-      row.classList.remove("d-none"); // Menghapus kelas "d-none" untuk menampilkan
-    } else {
-      row.classList.add("d-none"); // Menambahkan kelas "d-none" untuk menyembunyikan
-    }
-  }
-});
-
-</script>
-
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>

@@ -398,7 +398,7 @@
             <p>Deadline :<br><?= date('d-m-Y', strtotime($row['deadline'])); ?></p>
           </div>
           <div class="mb-3">
-            <p>Quantity :<br><?= $row['jumlah_barang']; ?></p>
+            <p>Quantity :<br></p>
           </div>
         
       </div>

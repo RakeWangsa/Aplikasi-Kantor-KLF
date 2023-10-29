@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -6,38 +6,236 @@
 </head>
 <body>
 
+<style>
+   .subofsub-icon {
+    width: 6px; /* Lebar ikon bulat */
+    height: 6px; /* Tinggi ikon bulat */
+    background-color: black; /* Warna latar belakang ikon */
+    border-radius: 50%; /* Mengatur ikon menjadi bulat */
+    display: inline-block;
+    margin-right: 3px; /* Jarak antara ikon dan teks */
+  }
+</style>
+
 <div class="container mt-4">
 <button onclick="toggleAllLists()" class="btn btn-primary mb-2">Toggle All Lists</button>
   <ul class="list-group">
     <li class="list-group-item list-group-item-action">
+    <div class="row">
+
+
+    <div class="col">
       <button class="icon-button" data-toggle="collapse" href="#list1" onclick="toggleIcon('icon1')">
         <i id="icon1" class="fas fa-chevron-right"></i>
-      </button> list 1
+      </button>
+      Order A
+    </div>
+    <div class="col">
+      30 Oktober
+    </div>
+    <div class="col">
+      Action
+    </div>
+  </div>
     </li>
     <div id="list1" class="collapse">
       <ul class="list-group list-group-flush">
         <li class="list-group-item list-group-item-action">
-          <button class="icon-button" data-toggle="collapse" href="#sublist1" onclick="toggleIcon('icon2')">
-            <i id="icon2" class="fas fa-chevron-right"></i>
-          </button> sub list 1
+
+          <div class="row">
+            <div class="col">
+              <button class="icon-button" data-toggle="collapse" href="#sublist1-1" onclick="toggleIcon('icon1-1')" style="margin-left:10px">
+                <i id="icon1-1" class="fas fa-chevron-right"></i>
+              </button>
+              Meja Makan
+            </div>
+            <div class="col">
+              29 Oktober
+            </div>
+            <div class="col">
+              Action
+            </div>
+        </div>
         </li>
-        <div id="sublist1" class="collapse">
+        <div id="sublist1-1" class="collapse">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">sub of sub 1</li>
+            <li class="list-group-item">
+
+                <div class="row">
+                  <div class="col">
+                    <i class="subofsub-icon" style="margin-left:50px"></i>Rangka
+                  </div>
+                  <div class="col">
+                    25 Oktober
+                  </div>
+                  <div class="col">
+                    Action
+                  </div>
+                </div>
+
+            </li>
+            <li class="list-group-item">
+
+                <div class="row">
+                  <div class="col">
+                    <i class="subofsub-icon" style="margin-left:50px"></i>Finishing
+                  </div>
+                  <div class="col">
+                    26 Oktober
+                  </div>
+                  <div class="col">
+                    Action
+                  </div>
+                </div>
+
+            </li>
           </ul>
         </div>
-        <li class="list-group-item">sub list 2</li>
+        <li class="list-group-item list-group-item-action">
+
+          <div class="row">
+            <div class="col">
+              <button class="icon-button" data-toggle="collapse" href="#sublist1-2" onclick="toggleIcon('icon1-2')" style="margin-left:10px">
+                <i id="icon1-2" class="fas fa-chevron-right"></i>
+              </button>
+              Kursi Makan
+            </div>
+            <div class="col">
+              28 Oktober
+            </div>
+            <div class="col">
+              Action
+            </div>
+        </div>
+        </li>
+        <div id="sublist1-2" class="collapse">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+
+                <div class="row">
+                  <div class="col">
+                    <i class="subofsub-icon" style="margin-left:50px"></i>Rangka
+                  </div>
+                  <div class="col">
+                    24 Oktober
+                  </div>
+                  <div class="col">
+                    Action
+                  </div>
+                </div>
+
+            </li>
+          </ul>
+        </div>
       </ul>
     </div>
     <li class="list-group-item list-group-item-action">
-      <button class="icon-button" data-toggle="collapse" href="#list2" onclick="toggleIcon('icon3')">
-        <i id="icon3" class="fas fa-chevron-right"></i>
-      </button> list 2
+    <div class="row">
+
+
+    <div class="col">
+      <button class="icon-button" data-toggle="collapse" href="#list2" onclick="toggleIcon('icon2')">
+        <i id="icon2" class="fas fa-chevron-right"></i>
+      </button>
+      Order B
+    </div>
+    <div class="col">
+      5 November
+    </div>
+    <div class="col">
+      Action
+    </div>
+  </div>
     </li>
     <div id="list2" class="collapse">
       <ul class="list-group list-group-flush">
-        <li class="list-group-item">sub list 1</li>
-        <li class="list-group-item">sub list 2</li>
+        <li class="list-group-item list-group-item-action">
+
+          <div class="row">
+            <div class="col">
+              <button class="icon-button" data-toggle="collapse" href="#sublist2-1" onclick="toggleIcon('icon2-1')" style="margin-left:10px">
+                <i id="icon2-1" class="fas fa-chevron-right"></i>
+              </button>
+              Lemari
+            </div>
+            <div class="col">
+              3 November
+            </div>
+            <div class="col">
+              Action
+            </div>
+        </div>
+        </li>
+        <div id="sublist2-1" class="collapse">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+
+                <div class="row">
+                  <div class="col">
+                    <i class="subofsub-icon" style="margin-left:50px"></i>Rangka
+                  </div>
+                  <div class="col">
+                    1 November
+                  </div>
+                  <div class="col">
+                    Action
+                  </div>
+                </div>
+
+            </li>
+            <li class="list-group-item">
+
+                <div class="row">
+                  <div class="col">
+                    <i class="subofsub-icon" style="margin-left:50px"></i>Finishing
+                  </div>
+                  <div class="col">
+                    2 November
+                  </div>
+                  <div class="col">
+                    Action
+                  </div>
+                </div>
+
+            </li>
+          </ul>
+        </div>
+        <li class="list-group-item list-group-item-action">
+
+          <div class="row">
+            <div class="col">
+              <button class="icon-button" data-toggle="collapse" href="#sublist2-2" onclick="toggleIcon('icon2-2')" style="margin-left:10px">
+                <i id="icon2-2" class="fas fa-chevron-right"></i>
+              </button>
+              Buffet
+            </div>
+            <div class="col">
+              6 November
+            </div>
+            <div class="col">
+              Action
+            </div>
+        </div>
+        </li>
+        <div id="sublist2-2" class="collapse">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+
+                <div class="row">
+                  <div class="col">
+                    <i class="subofsub-icon" style="margin-left:50px"></i>Rangka
+                  </div>
+                  <div class="col">
+                    4 November
+                  </div>
+                  <div class="col">
+                    Action
+                  </div>
+                </div>
+
+            </li>
+          </ul>
+        </div>
       </ul>
     </div>
   </ul>
@@ -71,7 +269,7 @@
 </script>
 
 </body>
-</html> -->
+</html>
 
 
 <!-- 
@@ -128,7 +326,7 @@
 </html> -->
 
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
     <title>Form Pop-up ke Tabel ke Inputan</title>
@@ -178,12 +376,12 @@
             </tr>
         </thead>
         <tbody id="tableBody">
-            <!-- Data akan ditampilkan di sini -->
+
         </tbody>
     </table>
 
     <div id="additionalInputs">
-        <!-- Kolom inputan tambahan akan muncul di sini -->
+
     </div>
 </div>
 
@@ -192,7 +390,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-    let dataInputs = []; // Menyimpan data yang dimasukkan
+    let dataInputs = [];
 
     document.getElementById('inputForm').addEventListener('submit', function(event) {
         event.preventDefault();
@@ -212,7 +410,7 @@
 
         dataInputs.push([data1, data2, data3]);
 
-        // Menampilkan kolom inputan sesuai dengan jumlah data yang dimasukkan
+
         displayAdditionalInputs();
 
         $('#formModal').modal('hide');
@@ -221,7 +419,7 @@
 
     function displayAdditionalInputs() {
         const additionalInputs = document.getElementById('additionalInputs');
-        additionalInputs.innerHTML = ''; // Membersihkan isi sebelum menampilkan kembali
+        additionalInputs.innerHTML = ''; 
 
         dataInputs.forEach(data => {
             const additionalInput = document.createElement('div');
@@ -248,7 +446,7 @@
 </script>
 
 </body>
-</html>
+</html> -->
 
 
 
