@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 use App\Models\OrderModel;
+use App\Models\OrderProdukModel;
+use App\Models\GambarProdukModel;
 use App\Models\PaymentTermsModel;
 
 class Order extends BaseController
@@ -144,6 +146,7 @@ if ($semuaKodeInvoice) {
     return redirect()->to(base_url('order/listOrder'))->with('success', 'Order berhasil ditambahkan.');
     }
 
+
     public function detailOrder($kodeOrder)
     {
 
@@ -151,14 +154,95 @@ if ($semuaKodeInvoice) {
 
         $model = new OrderModel();
         $data = $model->where('kode_order', $decodedKodeOrder)->first();
+
+        $produkModel = new OrderProdukModel();
+        $produkData = $produkModel->where('kode_order', $decodedKodeOrder)->findAll();
+
+        $gambarModel = new GambarProdukModel();
+        foreach ($produkData as &$produk) {
+            $gambar = $gambarModel->where('id_order_produk', $produk['id_order_produk'])->first();
+            $produk['gambar'] = $gambar ? $gambar['gambar'] : '';
+        }
         
 
 
-        return view('detailOrder', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder]);
+        return view('detailOrder', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData]);
 
     }
+    public function inputProduk($kodeOrder)
+    {
+        $decodedKodeOrder = base64_decode($kodeOrder);
+
+        return view('inputOrderProduk', ['encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder]);
+    }
     
-    
+    public function submitProduk($kodeOrder)
+    {
+        $decodedKodeOrder = base64_decode($kodeOrder);
+        $model = new OrderProdukModel();
+        $semuaProduk = $model->select('id_order_produk')->like('id_order_produk', $decodedKodeOrder, 'after')->findAll();
+        $jumlahProduk = count($semuaProduk);
+        $id_produk = $jumlahProduk+1;
+        $id_order_produk = $decodedKodeOrder .'/'. $id_produk;
+
+
+        $namaProduk = $this->request->getPost('namaProduk');
+        $gambarFiles = $this->request->getFiles();
+    $kategori = $this->request->getPost('kategori');
+    $harga = $this->request->getPost('harga');
+    $quantity = $this->request->getPost('quantity');
+    $discount = $this->request->getPost('discount');
+    $catatan_khusus = $this->request->getPost('catatan_khusus');
+
+    $gambarProdukModel = new GambarProdukModel();
+
+    foreach ($gambarFiles['gambar'] as $gambar) {
+        // Pastikan ada file yang diunggah
+        if ($gambar->isValid() && !$gambar->hasMoved()) {
+            // Pastikan nama file unik
+            // $namaFile = base64_encode($gambar->getRandomName());
+
+            $uuid = uniqid(); // Generate a unique ID
+            $ekstensiAsli = pathinfo($gambar->getName(), PATHINFO_EXTENSION); // Dapatkan ekstensi asli dari nama file
+
+            $namaFile = $uuid . '.' . $ekstensiAsli; // Gabungkan ID unik dan ekstensi asli untuk nama file
+
+
+            // Pindahkan file ke direktori penyimpanan
+            $gambar->move(ROOTPATH . 'public/uploads', $namaFile);
+
+            $dataGambar = [
+                'id_order_produk' => $id_order_produk,
+                'gambar' => $namaFile,
+            ];
+            $gambarProdukModel->insert($dataGambar);
+        }
+    }
+
+    $total_harga=$harga*$quantity;
+
+
+    $data = [
+        'id_order_produk' => $id_order_produk,
+        'kode_order' => $decodedKodeOrder,
+        'nama' => $namaProduk,
+        'harga' => $harga,
+        'quantity' => $quantity,
+        'total_harga' => $total_harga,
+        'kategori' => $kategori,
+        'discount' => $discount,
+        'catatan_khusus' => $catatan_khusus,
+        
+    ];
+
+   
+
+    $model->insert($data);
+
+    return redirect()->to(base_url('order/detailOrder/'.$kodeOrder))->with('success', 'Produk berhasil ditambahkan.');
+    }
+
+
 public function invoice()
 {
     $encodedKodeOrder = $this->request->getGet('kode_order');

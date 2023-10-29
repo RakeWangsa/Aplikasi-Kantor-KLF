@@ -104,43 +104,12 @@
   <div class="app-content-header my-4">
   <h1 class="app-content-headerText">Detail Order (<?= $kodeOrder; ?> - <?= $data['nama']; ?>)</h1>
   <div class="d-flex">
-    <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#paymentTerms" style="margin-right:10px"><i class="fas fa-credit-card"></i> Payment Terms</button>
-    <a class="btn btn-primary" href="<?= base_url('order/detailOrder/addProduk/' . $encodedKodeOrder); ?>"><i class="fas fa-plus"></i> Tambah Produk</a>
+    
+    <a class="btn btn-primary" href="<?= base_url('order/detailOrder/inputProduk/' . $encodedKodeOrder); ?>"><i class="fas fa-plus"></i> Tambah Produk</a>
   </div>
 </div>
 
-<!-- Payment terms -->
-<div class="modal fade" id="paymentTerms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <form action="<?= base_url('order/invoice/addPaymentTerms?kode_order=' . $encodedKodeOrder); ?>" method="post">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Payment Terms</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
-          <div class="mb-3">
-            <label for="termin1" class="form-label">Termin 1</label>
-            <input type="text" class="form-control" id="termin1" name="termin1">
-          </div>
-          <div class="mb-3">
-            <label for="termin2" class="form-label">Termin 2</label>
-            <input type="text" class="form-control" id="termin2" name="termin2">
-          </div>
-          <div class="mb-3">
-            <label for="termin3" class="form-label">Termin 3</label>
-            <input type="text" class="form-control" id="termin3" name="termin3">
-          </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
+
 
 
     <style>
@@ -185,21 +154,27 @@
 
 
 <div id="productList">
-
+<?php foreach ($produkData as $row): ?>
+        <?php 
+        $modalId = str_replace('/', '_', $row['id_order_produk']); 
+        ?>
+        <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#modal<?= $modalId; ?>">
 
 <div class="products-row">
 <div class="product-cell">
-    <span><img src="<?= base_url('uploads/bose.jpeg'); ?>" style="height:100px;width:100px"></span>
+    <span><img src="<?= $row['gambar']; ?>" style="height:100px;width:100px"></span>
   </div>
   <div class="product-cell">
-    <span>Meja Makan</span>
+    <span><?= $row['nama']; ?></span>
   </div>
 <div class="product-cell"><span>-</div>
-<div class="product-cell"><span>Rp. 5.000.000</span></div>
-<div class="product-cell"><span>5</span></div>
-<div class="product-cell"><span>Rp. 25.000.000</span></div>
+<div class="product-cell"><span><?= $row['harga']; ?></span></div>
+<div class="product-cell"><span><?= $row['quantity']; ?></span></div>
+<div class="product-cell"><span><?= $row['total_harga']; ?></span></div>
 
-</div>
+</div></a>
+    
+    <?php endforeach; ?>
 
 
 </div>
