@@ -33,14 +33,19 @@ $routes->get('order/invoice/cetak', 'Order::cetakInvoice');
 // $routes->get('order/editOrder', 'Order::editOrder');
 $routes->get('order/editOrder/(:segment)', 'Order::editOrder/$1');
 
-$routes->get('supplier', 'Supplier::index');
-$routes->post('supplier/addKategori', 'Supplier::addKategori');
-$routes->post('supplier/addSupplier/(:segment)', 'Supplier::addSupplier/$1');
+
 
 $routes->get('taskCalendar', 'TaskCalendar::index');
 $routes->add('taskCalendar/addSubtask', 'TaskCalendar::addSubtask');
 $routes->post('taskCalendar/editSubtask', 'TaskCalendar::editSubtask');
 $routes->get('taskCalendar/deleteSubtask', 'TaskCalendar::deleteSubtask');
 $routes->add('taskCalendar/cetakQC', 'TaskCalendar::cetakQC');
+
+$routes->get('kategoriProduk', 'KategoriProduk::index');
+$routes->post('kategoriProduk/addKategori', 'KategoriProduk::addKategori');
+
+$routes->get('supplier', 'Supplier::index');
+$routes->post('supplier/addKategori', 'Supplier::addKategori');
+$routes->post('supplier/addSupplier/(:segment)', 'Supplier::addSupplier/$1');
 
 $routes->get('katalogProduk', 'KatalogProduk::index');

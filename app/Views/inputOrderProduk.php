@@ -143,7 +143,7 @@
                 <input type="text" class="form-control" id="catatan_khusus" name="catatan_khusus" style="max-width:1000px" placeholder="Masukkan catatan">
             </div>
             <div class="form-group mb-4">
-              <input type="button" class="btn btn-primary" value="Tambah Supplier" onclick="addThreeInputFields()">
+              <input type="button" class="btn btn-primary" value="Tambah Supplier" onclick="tambahSupplier()">
             </div>
             
             <button type="submit" class="btn btn-primary mt-4">Submit</button>
@@ -168,7 +168,7 @@
     var kategoriData = <?php echo json_encode($kategoriData); ?>; 
     var namaData = <?php echo json_encode($supplierData); ?>; 
 
-    function addThreeInputFields() {
+    function tambahSupplier() {
       var form = document.getElementById('myForm');
 
       var supplierDiv = document.createElement('div');
