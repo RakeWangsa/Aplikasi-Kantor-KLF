@@ -195,6 +195,7 @@ if ($semuaKodeInvoice) {
     $catatan_khusus = $this->request->getPost('catatan_khusus');
 
     $gambarProdukModel = new GambarProdukModel();
+    $gambarFiles['gambar'] = array_reverse($gambarFiles['gambar']);
 
     foreach ($gambarFiles['gambar'] as $gambar) {
         // Pastikan ada file yang diunggah

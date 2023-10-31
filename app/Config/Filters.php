@@ -70,7 +70,7 @@ class Filters extends BaseConfig
     public array $filters = [
         'isLoggedIn' => ['before' => 
             [
-            'dashboard','order/*','taskCalendar','taskCalendar/*'
+            'dashboard','order/*','taskCalendar','taskCalendar/*','supplier','supplier/*'
             ]]
     ];
 }

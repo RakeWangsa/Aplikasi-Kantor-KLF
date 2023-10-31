@@ -62,7 +62,7 @@
         </a>
       </li>
       <li class="sidebar-list-item">
-        <a href="#">
+        <a href="<?= base_url('supplier'); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-supplier">
     <rect x="3" y="8" width="18" height="12" rx="2" ry="2" />
     <rect x="8" y="6" width="8" height="4" rx="1" ry="1" />
@@ -113,19 +113,46 @@
 
 
     <style>
-    table {
-      border-collapse: collapse;
-      width: 100%;
-    }
-    
-    table, th, td {
-      border: 1px solid white;
-    }
+ .dashboard-box:hover {
+                        background-color: #f9e8b2;
+                        /* Warna latar belakang saat hover */
+                        border-width: 2px;
+                        /* Lebar border saat hover */
+                    }
 
-    th, td {
-      padding: 10px;
-      text-align: center;
-    }
+                    .dashboard-box {
+                        transition: background-color 0.3s, border-width 0.1s;
+                        /* Efek transisi saat hover */
+                        background-color: #56564C;
+                        /* Warna latar belakang putih */
+                        border: 1.5px solid #ECE5D3;
+                        /* Border abu-abu */
+                        padding: 28px;
+                        border-radius: 8px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-start;
+                    }
+
+                    .dashboard-box-icon {
+                        font-size: 24px;
+                        color: #cfced2;
+                        padding-right: 8px;
+                    }
+
+                    .dashboard-box-label {
+                        font-size: 16px;
+                        margin-top: 12px;
+                        margin-bottom: 4px;
+                    }
+
+                    .dashboard-box-value {
+                        font-size: 24px;
+                        font-weight: bold;
+                        margin-bottom: 0px;
+                        /* Atur jarak bawah nilai */
+
+                    }
   </style>
 
   
@@ -133,7 +160,41 @@
 
 
     <div class="products-area-wrapper tableView">
+    <div class="row mt-4">
+                    <div class="col-md-3 mb-4">
+                        <div class="dashboard-box">
+                        <i class="fas fa-file-invoice dashboard-box-icon"></i>
 
+
+                            <p class="dashboard-box-label text-light">Jumlah Order Bulan Berjalan</p>
+                            <p class="dashboard-box-value text-light">-</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="dashboard-box">
+                            <i class="fas fa-money-bill-wave dashboard-box-icon"></i>
+                            <p class="dashboard-box-label text-light">Sisa Saldo Di Luar</p>
+                            <p class="dashboard-box-value text-light">Rp. 65.000.000</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="dashboard-box">
+                            <i class="fas fa-receipt dashboard-box-icon"></i>
+
+                            <p class="dashboard-box-label text-light">Total Tagihan Semua Supplier</p>
+                            <p class="dashboard-box-value text-light">Rp. 15.000.000</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="dashboard-box">
+                            <i class="fas fa-receipt dashboard-box-icon"></i>
+
+                            <p class="dashboard-box-label text-light">Total Tagihan Semua Supplier</p>
+                            <p class="dashboard-box-value text-light">Rp. 15.000.000</p>
+                        </div>
+                    </div>
+
+                </div>
 
 
 
@@ -162,7 +223,7 @@
 
 <div class="products-row">
 <div class="product-cell">
-    <span><img src="<?= $row['gambar']; ?>" style="height:100px;width:100px"></span>
+    <span><img src="<?= base_url('uploads/' . $row['gambar']); ?>" style="width: 150px; height: auto;"></span>
   </div>
   <div class="product-cell">
     <span><?= $row['nama']; ?></span>
