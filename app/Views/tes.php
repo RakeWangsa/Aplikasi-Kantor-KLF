@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -269,10 +269,10 @@
 </script>
 
 </body>
-</html>
+</html> -->
 
 
-<!-- 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -280,7 +280,7 @@
     <script>
         // Fungsi untuk menambahkan 3 kolom input baru
         function addThreeInputFields() {
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 4; i++) {
                 var inputNumber = document.querySelectorAll('input[type="text"]').length + 1;
                 var newInput = document.createElement('input');
                 newInput.type = 'text';
@@ -323,7 +323,7 @@
         <input type="submit" value="Submit">
     </form>
 </body>
-</html> -->
+</html>
 
 
 <!-- <!DOCTYPE html>

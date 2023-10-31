@@ -35,6 +35,7 @@ $routes->get('order/editOrder/(:segment)', 'Order::editOrder/$1');
 
 $routes->get('supplier', 'Supplier::index');
 $routes->post('supplier/addKategori', 'Supplier::addKategori');
+$routes->post('supplier/addSupplier/(:segment)', 'Supplier::addSupplier/$1');
 
 $routes->get('taskCalendar', 'TaskCalendar::index');
 $routes->add('taskCalendar/addSubtask', 'TaskCalendar::addSubtask');

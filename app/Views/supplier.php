@@ -173,13 +173,13 @@
       <div id="productList">
       <ul class="list-group">
   <?php foreach ($KategoriData as $row): ?>
-    <?php $task = $row['id']; ?>
+    <?php $id = $row['id']; ?>
 <li class="">
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
-    <div class="products-row task">
+    <div class="products-row">
       <div class="product-cell category">
-        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#list<?php echo $task; ?>" onclick="toggleIcon('icon<?php echo $task; ?>')">
-        <i id="icon<?php echo $task; ?>" class="fas fa-chevron-right" style="color:grey"></i>
+        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#list<?php echo $id; ?>" onclick="toggleIcon('icon<?php echo $id; ?>')">
+        <i id="icon<?php echo $id; ?>" class="fas fa-chevron-right" style="color:grey"></i>
       </button> <?= $row['kategori']; ?></span>
       </div>
       <div class="product-cell status-cell">
@@ -187,20 +187,20 @@
       </div>
       <div class="product-cell status-cell">
         <span>
-          <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $task; ?>"><i class="fas fa-plus"></i></button>
+          <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button>
       </span>
       </div>
     </div>
 <!-- </a> -->
     </li>
-    <div id="list<?php echo $task; ?>" class="collapse">
+    <div id="list<?php echo $id; ?>" class="collapse">
 
     <?php foreach ($SupplierData as $supplier): ?>
       <?php if ($supplier['kategori'] == $row['kategori']): ?>
           <ul class="list-group list-group-flush">
         <li class="">
 
-        <div class="products-row task">
+        <div class="products-row">
       <div class="product-cell category sublist">
         <span><i class="sublist-icon"></i> <?= $supplier['nama']; ?></span>
       </div>
@@ -228,6 +228,37 @@
 </div>
 
 
+<!-- tambah supplier -->
+<?php foreach ($KategoriData as $row): ?>
+  <?php $modalId = $row['id']; ?>
+  <div class="modal fade" id="add<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form action="<?= base_url('supplier/addSupplier/' . $row['kategori']); ?>" method="post">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Supplier</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="mb-3">
+            <label for="kategori" class="form-label">Kategori:</label>
+            <input type="text" class="form-control" id="kategori" name="kategori" value="<?php echo $row['kategori']; ?>" disabled>
+          </div>
+          <div class="mb-3">
+            <label for="nama" class="form-label">Nama:</label>
+            <input type="text" class="form-control" id="nama" name="nama">
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
 
 
 

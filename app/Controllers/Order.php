@@ -4,7 +4,9 @@ namespace App\Controllers;
 use App\Models\OrderModel;
 use App\Models\OrderProdukModel;
 use App\Models\GambarProdukModel;
+use App\Models\KategoriSupplierModel;
 use App\Models\PaymentTermsModel;
+use App\Models\SupplierModel;
 
 class Order extends BaseController
 {
@@ -172,8 +174,12 @@ if ($semuaKodeInvoice) {
     public function inputProduk($kodeOrder)
     {
         $decodedKodeOrder = base64_decode($kodeOrder);
+        $kategoriModel = new KategoriSupplierModel();
+        $kategoriData = $kategoriModel->findAll();
+        $supplierModel = new SupplierModel();
+        $supplierData = $supplierModel->findAll();
 
-        return view('inputOrderProduk', ['encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder]);
+        return view('inputOrderProduk', ['encodedKodeOrder' => $kodeOrder, 'kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kodeOrder' => $decodedKodeOrder]);
     }
     
     public function submitProduk($kodeOrder)

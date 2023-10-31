@@ -109,7 +109,7 @@
 
 
 
-    <form class="text-light" action="<?= base_url('order/detailOrder/inputProduk/' . $encodedKodeOrder. '/submit'); ?>" method="post" enctype="multipart/form-data">
+    <form class="text-light" action="<?= base_url('order/detailOrder/inputProduk/' . $encodedKodeOrder. '/submit'); ?>" id="myForm" method="post" enctype="multipart/form-data">
             <div class="form-group mb-2">
                 <label for="kodeOrder">Kode Order :</label>
                 <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" value="<?= $kodeOrder; ?>" disabled>
@@ -142,67 +142,10 @@
                 <label for="catatan_khusus">Catatan Khusus :</label>
                 <input type="text" class="form-control" id="catatan_khusus" name="catatan_khusus" style="max-width:1000px" placeholder="Masukkan catatan">
             </div>
-
-            <!-- <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Gambar):</label>
-                <input type="file" class="form-control-file" accept="image/*" id="detailProdukGambar" name="gambar[]" multiple>
+            <div class="form-group mb-4">
+              <input type="button" class="btn btn-primary" value="Tambah Supplier" onclick="addThreeInputFields()">
             </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Kategori):</label>
-                <select class="form-control" id="detailProdukKategori" name="detailProdukKategori" style="max-width:1000px">
-                    <option value="kategori1">Kategori 1</option>
-                    <option value="kategori2">Kategori 2</option>
-                    <option value="kategori3">Kategori 3</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Harga):</label>
-                <input type="text" class="form-control" id="detailProdukHarga" name="detailProdukHarga" style="max-width:1000px" placeholder="Masukkan harga">
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Deadline):</label>
-                <input type="date" class="form-control" id="detailProdukDeadline" name="detailProdukDeadline" style="max-width:1000px">
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Catatan Khusus):</label>
-                <textarea class="form-control" id="detailProdukCatatan" name="detailProdukCatatan" rows="3" style="max-width:1000px" placeholder="Masukkan catatan khusus"></textarea>
-            </div> -->
             
-            <!-- <div class="form-group mb-2">
-                <label for="discount">Discount:</label>
-                <input type="text" class="form-control" id="discount" name="discount" style="max-width:1000px" placeholder="Masukkan discount">
-            </div>
-            <div class="form-group mb-2">
-                <label for="grandTotal">Grand Total:</label>
-                <input type="text" class="form-control" id="grandTotal" name="grandTotal" style="max-width:1000px" placeholder="Masukkan grand total">
-            </div>
-            <div class="form-group mb-2">
-                <label for="kategoriSupplier">Kategori Supplier:</label>
-                <select class="form-control" id="kategoriSupplier" name="kategoriSupplier" style="max-width:1000px">
-                    <option value="Kayu (SUPK)">Kayu (SUPK)</option>
-                    <option value="Besi (SUPB)">Besi (SUPB)</option>
-                    <option value="Rotan (SUPR)">Rotan (SUPR)</option>
-                    <option value="Finishing (SUPF)">Finishing (SUPF)</option>
-                    <option value="Marmer (SUPM)">Marmer (SUPM)</option>
-                    <option value="Jok (SUPJ)">Jok (SUPJ)</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="namaSupplier">Nama Supplier:</label>
-                <select class="form-control" id="namaSupplier" name="namaSupplier" style="max-width:1000px">
-                    <option value="Prabowo">Prabowo</option>
-                    <option value="Ganjar">Ganjar</option>
-                    <option value="Anies">Anies</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="jumlahBarang">Jumlah Barang:</label>
-                <input type="text" class="form-control" id="jumlahBarang" name="jumlahBarang" style="max-width:1000px" placeholder="Masukkan jumlah barang">
-            </div>
-            <div class="form-group mb-2">
-                <label for="supplierHarga">Harga (Supplier):</label>
-                <input type="text" class="form-control" id="supplierHarga" name="supplierHarga" style="max-width:1000px" placeholder="Masukkan harga">
-            </div> -->
             <button type="submit" class="btn btn-primary mt-4">Submit</button>
         </form>
 
@@ -219,6 +162,137 @@
 
   </div>
 </div>
+
+<script>
+    var supplierCount = 1;
+    var kategoriData = <?php echo json_encode($kategoriData); ?>; 
+    var namaData = <?php echo json_encode($supplierData); ?>; 
+
+    function addThreeInputFields() {
+      var form = document.getElementById('myForm');
+
+      var supplierDiv = document.createElement('div');
+      supplierDiv.className = 'form-group';
+
+      var additionalText = document.createElement('h5');
+      additionalText.innerHTML = 'Supplier ' + supplierCount;
+      additionalText.style.fontWeight = 'bold';
+      supplierCount++;
+
+      var kategoriDiv = document.createElement('div');
+      kategoriDiv.className = 'form-group';
+
+      var kategoriLabel = document.createElement('label');
+      kategoriLabel.htmlFor = 'kategori';
+      kategoriLabel.appendChild(document.createTextNode('Kategori Supplier:'));
+
+      var kategoriInput = document.createElement('select');
+      kategoriInput.className = 'form-control';
+      kategoriInput.name = 'kategori';
+      kategoriInput.style.maxWidth = '1000px';
+
+      var placeholderOption = document.createElement('option');
+      placeholderOption.value = ''; // Nilai placeholder kosong
+      placeholderOption.text = 'Pilih Kategori'; // Pesan placeholder
+      placeholderOption.disabled = true; // Membuat placeholder tidak dapat dipilih
+      placeholderOption.selected = true; // Opsi ini akan muncul sebagai default atau terpilih pertama kali
+
+      kategoriInput.appendChild(placeholderOption);
+
+      kategoriData.forEach(function (kategori) {
+          var option = document.createElement('option');
+          option.value = kategori.kategori; 
+          option.text = kategori.kategori; 
+          kategoriInput.appendChild(option);
+      });
+
+      var namaSupplierDiv = document.createElement('div');
+      namaSupplierDiv.className = 'form-group';
+
+      var namaSupplierLabel = document.createElement('label');
+      namaSupplierLabel.htmlFor = 'nama_supplier';
+      namaSupplierLabel.appendChild(document.createTextNode('Nama Supplier:'));
+
+      var namaSupplierInput = document.createElement('select');
+      namaSupplierInput.className = 'form-control';
+      namaSupplierInput.name = 'nama_supplier';
+      namaSupplierInput.style.maxWidth = '1000px';
+
+      kategoriInput.addEventListener('change', function() {
+          var selectedKategori = this.value;
+
+          namaSupplierInput.innerHTML = '';
+
+          var filteredSuppliers = namaData.filter(function (supplier) {
+              return supplier.kategori == selectedKategori; 
+          });
+
+          filteredSuppliers.forEach(function (supplier) {
+              var option = document.createElement('option');
+              option.value = supplier.nama; 
+              option.text = supplier.nama; 
+              namaSupplierInput.appendChild(option);
+          });
+      });
+
+      var jumlahBarangDiv = document.createElement('div');
+      jumlahBarangDiv.className = 'form-group';
+
+        var jumlahBarangLabel = document.createElement('label');
+        jumlahBarangLabel.htmlFor = 'jumlah_barang';
+        jumlahBarangLabel.appendChild(document.createTextNode('Jumlah Barang:'));
+
+        var jumlahBarangInput = document.createElement('input');
+        jumlahBarangInput.type = 'text';
+        jumlahBarangInput.className = 'form-control';
+        jumlahBarangInput.name = 'jumlah_barang';
+        jumlahBarangInput.style.maxWidth = '1000px';
+        jumlahBarangInput.placeholder = 'Jumlah Barang';
+
+        var hargaDiv = document.createElement('div');
+        hargaDiv.className = 'form-group';
+        hargaDiv.style.paddingBottom = '40px';
+
+        var hargaLabel = document.createElement('label');
+        hargaLabel.htmlFor = 'harga';
+        hargaLabel.appendChild(document.createTextNode('Harga:'));
+
+        var hargaInput = document.createElement('input');
+        hargaInput.type = 'text';
+        hargaInput.className = 'form-control';
+        hargaInput.name = 'harga';
+        hargaInput.style.maxWidth = '1000px';
+        hargaInput.placeholder = 'Harga';
+
+        supplierDiv.appendChild(additionalText);
+        form.insertBefore(supplierDiv, form.lastElementChild);
+        
+        form.insertBefore(kategoriDiv, form.lastElementChild);
+        kategoriDiv.appendChild(kategoriLabel);
+        kategoriDiv.appendChild(kategoriInput);
+
+        form.insertBefore(namaSupplierDiv, form.lastElementChild);
+        namaSupplierDiv.appendChild(namaSupplierLabel);
+        namaSupplierDiv.appendChild(namaSupplierInput);
+
+        form.insertBefore(jumlahBarangDiv, form.lastElementChild);
+        jumlahBarangDiv.appendChild(jumlahBarangLabel);
+        jumlahBarangDiv.appendChild(jumlahBarangInput);
+
+        form.insertBefore(hargaDiv, form.lastElementChild);
+        hargaDiv.appendChild(hargaLabel);
+        hargaDiv.appendChild(hargaInput);
+
+
+        var button = document.querySelector('input[type="button"]');
+        button.value = 'Tambah Supplier ke-' + (supplierCount);
+    }
+</script>
+
+
+
+
+
 <!-- partial -->
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

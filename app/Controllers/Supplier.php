@@ -26,6 +26,16 @@ public function addKategori()
         $model->insert($data);
         return redirect()->to(base_url('supplier'))->with('success', 'Kategori berhasil ditambahkan.');
     }
-
+    public function addSupplier($kategori)
+    {
+        $model = new SupplierModel();
+        $nama = $this->request->getPost('nama');
+        $data = [
+            'kategori' => $kategori, 
+            'nama' => $nama       
+        ];
+        $model->insert($data);
+        return redirect()->to(base_url('supplier'))->with('success', 'Supplier berhasil ditambahkan.');
+    }
 
 }
