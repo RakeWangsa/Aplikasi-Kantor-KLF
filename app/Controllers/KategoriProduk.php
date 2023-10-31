@@ -41,8 +41,37 @@ public function addKategori()
             $model->insert($data);
         }
         
-        return redirect()->to(base_url('kategoriProduk'))->with('success', 'Supplier berhasil ditambahkan.');
+        return redirect()->to(base_url('kategoriProduk'))->with('success', 'Detail berhasil ditambahkan.');
     }
+
+    public function editDetail($kategori)
+    {
+
+        $model = new KategoriProdukDetailModel();
+        $detail = $model->find($kategori);
+    
+
+        if (!$detail) {
+            return redirect()->to(base_url('kategoriProduk'))->with('error', 'Detail tidak ditemukan.');
+        }
+    
+
+        $jumlah = $this->request->getPost('jumlah');
+        for ($i = 1; $i <= $jumlah; $i++) {
+            $detail = $this->request->getPost('detail'.$i);
+            $data = [
+                'kategori' => $kategori, 
+                'detail' => $detail     
+            ];
+            // $model->insert($data);
+        }
+    
+
+        $model->update($kategori, $data);
+    
+        return redirect()->to(base_url('kategoriProduk'))->with('success', 'Detail berhasil diubah.');
+    }
+
     public function deleteKategori()
     {
         // Mendapatkan ID subtask yang akan dihapus dari URL atau input lainnya

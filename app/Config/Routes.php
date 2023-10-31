@@ -45,6 +45,7 @@ $routes->get('kategoriProduk', 'KategoriProduk::index');
 $routes->post('kategoriProduk/addKategori', 'KategoriProduk::addKategori');
 $routes->post('kategoriProduk/addDetail/(:segment)', 'KategoriProduk::addDetail/$1');
 $routes->get('kategoriProduk/deleteKategori', 'KategoriProduk::deleteKategori');
+$routes->post('kategoriProduk/editDetail/(:segment)', 'KategoriProduk::editDetail/$1');
 
 $routes->get('supplier', 'Supplier::index');
 $routes->post('supplier/addKategori', 'Supplier::addKategori');

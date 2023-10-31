@@ -196,7 +196,7 @@
       <div class="product-cell status-cell">
         <span>
           <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button>
-          <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-pencil-alt"></i></button>
+          <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $id; ?>"><i class="fas fa-pencil-alt"></i></button>
           <a class="btn btn-danger rounded-circle" href="<?= base_url('kategoriProduk/deleteKategori?kategori=' . $row['kategori']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>
       </span>
       </div>
@@ -246,7 +246,7 @@
     <div class="modal-content">
     <form action="<?= base_url('kategoriProduk/addDetail/' . $row['kategori']); ?>" method="post">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Supplier</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Detail (<?php echo $row['kategori']; ?>)</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="tambahDetail<?= $modalId; ?>">
@@ -276,6 +276,52 @@
 
 
 
+<!-- edit detail -->
+
+<?php foreach ($KategoriData as $row): ?>
+  <?php $modalId = $row['id']; ?>
+
+  <div class="modal fade" id="edit<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    <form action="<?= base_url('kategoriProduk/editDetail/' . $row['kategori']); ?>" method="post">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Detail (<?php echo $row['kategori']; ?>)</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="mb-3">
+            <label for="kategori" class="form-label">Kategori</label>
+            <input type="text" class="form-control" name="kategori" id="kategori" value="<?= $row['kategori']; ?>" disabled>
+          </div>
+          <?php $i=1 ?>
+          <?php foreach ($DetailData as $detail): ?>
+            <?php if ($detail['kategori'] == $row['kategori']): ?>
+
+            <div class="mb-3">
+            <label for="detail" class="form-label">Detail</label>
+            <input type="text" class="form-control" name="detail<?php echo $i; ?>" id="detail" value="<?= $detail['detail']; ?>">
+          </div>
+
+
+          <?php $i++; ?>
+          <?php endif; ?>
+            <?php endforeach; ?>
+            
+            <input type="text" class="form-control" name="jumlah" id="jumlahInput" value="<?= $i-1; ?>" readonly>
+          
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
+
 
 
 
@@ -291,6 +337,8 @@
   </div>
 </div>
 <!-- partial -->
+
+
 <script>
     var detailCounter = {};
     var jumlahCounter = {};
