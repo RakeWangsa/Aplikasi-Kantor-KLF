@@ -43,6 +43,8 @@ $routes->add('taskCalendar/cetakQC', 'TaskCalendar::cetakQC');
 
 $routes->get('kategoriProduk', 'KategoriProduk::index');
 $routes->post('kategoriProduk/addKategori', 'KategoriProduk::addKategori');
+$routes->post('kategoriProduk/addDetail/(:segment)', 'KategoriProduk::addDetail/$1');
+$routes->get('kategoriProduk/deleteKategori', 'KategoriProduk::deleteKategori');
 
 $routes->get('supplier', 'Supplier::index');
 $routes->post('supplier/addKategori', 'Supplier::addKategori');

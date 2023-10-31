@@ -28,16 +28,34 @@ public function addKategori()
         $model->insert($data);
         return redirect()->to(base_url('kategoriProduk'))->with('success', 'Kategori berhasil ditambahkan.');
     }
-    public function addSupplier($kategori)
+    public function addDetail($kategori)
     {
-        $model = new SupplierModel();
-        $nama = $this->request->getPost('nama');
-        $data = [
-            'kategori' => $kategori, 
-            'nama' => $nama       
-        ];
-        $model->insert($data);
-        return redirect()->to(base_url('supplier'))->with('success', 'Supplier berhasil ditambahkan.');
+        $model = new KategoriProdukDetailModel();
+        $jumlah = $this->request->getPost('jumlah');
+        for ($i = 1; $i <= $jumlah; $i++) {
+            $detail = $this->request->getPost('detail'.$i);
+            $data = [
+                'kategori' => $kategori, 
+                'detail' => $detail     
+            ];
+            $model->insert($data);
+        }
+        
+        return redirect()->to(base_url('kategoriProduk'))->with('success', 'Supplier berhasil ditambahkan.');
+    }
+    public function deleteKategori()
+    {
+        // Mendapatkan ID subtask yang akan dihapus dari URL atau input lainnya
+        $kategori = $this->request->getGet('kategori');
+    
+        // Menghapus data subtask berdasarkan ID
+        $kategoriProdukModel = new KategoriProdukModel();
+        $kategoriProdukDetailModel = new KategoriProdukDetailModel();
+
+        $kategoriProdukModel->where('kategori', $kategori)->delete();
+        $kategoriProdukDetailModel->where('kategori', $kategori)->delete();
+    
+        return redirect()->to(base_url('kategoriProduk'))->with('success', 'Kategori produk berhasil dihapus.');
     }
 
 }

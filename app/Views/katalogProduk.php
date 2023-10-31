@@ -63,6 +63,14 @@
         </a>
       </li>
       <li class="sidebar-list-item">
+        <a href="<?= base_url('kategoriProduk'); ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M5 4h14c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H5c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2zm0 5h14M5 14h14M5 9h14"></path>
+</svg>
+          <span>Kategori Produk</span>
+        </a>
+      </li>
+      <li class="sidebar-list-item">
         <a href="<?= base_url('supplier'); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-supplier">
     <rect x="3" y="8" width="18" height="12" rx="2" ry="2" />

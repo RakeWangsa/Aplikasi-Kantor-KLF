@@ -196,6 +196,8 @@
       <div class="product-cell status-cell">
         <span>
           <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button>
+          <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-pencil-alt"></i></button>
+          <a class="btn btn-danger rounded-circle" href="<?= base_url('kategoriProduk/deleteKategori?kategori=' . $row['kategori']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>
       </span>
       </div>
     </div>
@@ -210,7 +212,7 @@
 
         <div class="products-row">
       <div class="product-cell category sublist">
-        <span><i class="sublist-icon"></i> <?= $detail['nama']; ?></span>
+        <span><i class="sublist-icon"></i> <?= $detail['detail']; ?></span>
       </div>
       <div class="product-cell status-cell">
         <span></span>
@@ -242,7 +244,7 @@
   <div class="modal fade" id="add<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    <form action="<?= base_url('supplier/addSupplier/' . $row['kategori']); ?>" method="post">
+    <form action="<?= base_url('kategoriProduk/addDetail/' . $row['kategori']); ?>" method="post">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Supplier</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -253,9 +255,9 @@
             <label for="kategori" class="form-label">Kategori:</label>
             <input type="text" class="form-control" id="kategori" name="kategori" value="<?php echo $row['kategori']; ?>" disabled>
           </div>
-          <div class="mb-3">
+          <div class="mb-3" style="display: none;">
           <label for="jumlah<?= $modalId; ?>" class="form-label">Jumlah:</label>
-                            <input type="text" class="form-control" id="jumlah<?= $modalId; ?>" name="jumlah" disabled>
+                            <input type="text" class="form-control" id="jumlah<?= $modalId; ?>" name="jumlah" readonly>
           </div>
           <div class="mb-3">
             <input type="button" class="btn btn-primary" value="Tambah Detail" onclick="tambahDetail('<?= $modalId; ?>')">
