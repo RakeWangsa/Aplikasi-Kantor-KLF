@@ -13,7 +13,7 @@ class OrderProdukModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_order_produk','kode_order','nama','harga','quantity','total_harga','kategori','discount','catatan_khusus','detail1','detail2','detail3','detail4','detail5','detail6','detail7','detail8','detail9','detail10','detail11','detail12','detail13','detail14','detail15'];
+    protected $allowedFields    = ['id_order_produk','kode_order','nama','harga','quantity','total_harga','kategori','discount','catatan_khusus','detail1','detail2','detail3','detail4','detail5','detail6','detail7','detail8','detail9','detail10','detail11','detail12','detail13','detail14','detail15','nilai1','nilai2','nilai3','nilai4','nilai5','nilai6','nilai7','nilai8','nilai9','nilai10','nilai11','nilai12','nilai13','nilai14','nilai15'];
 
     // Dates
     protected $useTimestamps = false;

@@ -205,6 +205,7 @@ if ($semuaKodeInvoice) {
     $quantity = $this->request->getPost('quantity');
     $discount = $this->request->getPost('discount');
     $catatan_khusus = $this->request->getPost('catatan_khusus');
+    $jumlahDetail = $this->request->getPost('jumlahDetail');
 
     $gambarProdukModel = new GambarProdukModel();
     $gambarFiles['gambar'] = array_reverse($gambarFiles['gambar']);
@@ -235,6 +236,8 @@ if ($semuaKodeInvoice) {
     $total_harga=$harga*$quantity;
 
 
+
+
     $data = [
         'id_order_produk' => $id_order_produk,
         'kode_order' => $decodedKodeOrder,
@@ -247,10 +250,19 @@ if ($semuaKodeInvoice) {
         'catatan_khusus' => $catatan_khusus,
         
     ];
-
-   
-
     $model->insert($data);
+
+
+
+    for ($i = 1; $i <= $jumlahDetail; $i++) {
+        $detail = $this->request->getPost('detail'.$i);
+        $nilai = $this->request->getPost('nilai'.$i);
+        $data = [
+            'detail'.$i => $detail,
+            'nilai'.$i => $nilai 
+        ];
+        $model->update($id_order_produk, $data);
+    }
 
     return redirect()->to(base_url('order/detailOrder/'.$kodeOrder))->with('success', 'Produk berhasil ditambahkan.');
     }
