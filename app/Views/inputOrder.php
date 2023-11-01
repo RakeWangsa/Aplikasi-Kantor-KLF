@@ -143,30 +143,7 @@
                 <input type="date" class="form-control" id="deadlineOrder" name="deadlineOrder" style="max-width:1000px">
             </div>
 
-            <!-- <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Gambar):</label>
-                <input type="file" class="form-control-file" accept="image/*" id="detailProdukGambar" name="gambar[]" multiple>
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Kategori):</label>
-                <select class="form-control" id="detailProdukKategori" name="detailProdukKategori" style="max-width:1000px">
-                    <option value="kategori1">Kategori 1</option>
-                    <option value="kategori2">Kategori 2</option>
-                    <option value="kategori3">Kategori 3</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Harga):</label>
-                <input type="text" class="form-control" id="detailProdukHarga" name="detailProdukHarga" style="max-width:1000px" placeholder="Masukkan harga">
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Deadline):</label>
-                <input type="date" class="form-control" id="detailProdukDeadline" name="detailProdukDeadline" style="max-width:1000px">
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Catatan Khusus):</label>
-                <textarea class="form-control" id="detailProdukCatatan" name="detailProdukCatatan" rows="3" style="max-width:1000px" placeholder="Masukkan catatan khusus"></textarea>
-            </div> -->
+
             <div class="form-group mb-2">
                 <label for="ongkosKirim">Ongkos Kirim:</label>
                 <div class="btn-group" data-toggle="buttons">
@@ -179,41 +156,7 @@
 
                 </div>
             </div>
-            <!-- <div class="form-group mb-2">
-                <label for="discount">Discount:</label>
-                <input type="text" class="form-control" id="discount" name="discount" style="max-width:1000px" placeholder="Masukkan discount">
-            </div>
-            <div class="form-group mb-2">
-                <label for="grandTotal">Grand Total:</label>
-                <input type="text" class="form-control" id="grandTotal" name="grandTotal" style="max-width:1000px" placeholder="Masukkan grand total">
-            </div>
-            <div class="form-group mb-2">
-                <label for="kategoriSupplier">Kategori Supplier:</label>
-                <select class="form-control" id="kategoriSupplier" name="kategoriSupplier" style="max-width:1000px">
-                    <option value="Kayu (SUPK)">Kayu (SUPK)</option>
-                    <option value="Besi (SUPB)">Besi (SUPB)</option>
-                    <option value="Rotan (SUPR)">Rotan (SUPR)</option>
-                    <option value="Finishing (SUPF)">Finishing (SUPF)</option>
-                    <option value="Marmer (SUPM)">Marmer (SUPM)</option>
-                    <option value="Jok (SUPJ)">Jok (SUPJ)</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="namaSupplier">Nama Supplier:</label>
-                <select class="form-control" id="namaSupplier" name="namaSupplier" style="max-width:1000px">
-                    <option value="Prabowo">Prabowo</option>
-                    <option value="Ganjar">Ganjar</option>
-                    <option value="Anies">Anies</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="jumlahBarang">Jumlah Barang:</label>
-                <input type="text" class="form-control" id="jumlahBarang" name="jumlahBarang" style="max-width:1000px" placeholder="Masukkan jumlah barang">
-            </div>
-            <div class="form-group mb-2">
-                <label for="supplierHarga">Harga (Supplier):</label>
-                <input type="text" class="form-control" id="supplierHarga" name="supplierHarga" style="max-width:1000px" placeholder="Masukkan harga">
-            </div> -->
+
             <button type="submit" class="btn btn-primary mt-4">Submit</button>
         </form>
 
