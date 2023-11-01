@@ -179,7 +179,7 @@
             </div>
             <div class="form-group mb-4">
               <input type="text" class="form-control" style="display: none;" id="jumlahSupplier" name="jumlahSupplier" style="max-width:1000px" readonly>
-              <input type="button" class="btn btn-primary" value="Tambah Supplier" onclick="tambahSupplier()">
+              <input type="button" class="btn btn-secondary" value="Tambah Supplier" onclick="tambahSupplier()">
             </div>
             
             <button type="submit" class="btn btn-primary mt-4">Submit</button>

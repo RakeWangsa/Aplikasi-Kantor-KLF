@@ -218,10 +218,13 @@
 
 <div id="productList">
 <?php foreach ($produkData as $row): ?>
+  <?php
+        $encodedKodeOrder = base64_encode($row['id_order_produk']);
+      ?>
         <?php 
         $modalId = str_replace('/', '_', $row['id_order_produk']); 
         ?>
-        <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#modal<?= $modalId; ?>">
+        <a href="<?= base_url('order/detailOrder/detailProduk/' . $encodedKodeOrder); ?>" style="text-decoration: none;">
 
 <div class="products-row">
 <div class="product-cell">

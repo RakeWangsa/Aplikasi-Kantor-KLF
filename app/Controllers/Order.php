@@ -239,17 +239,6 @@ if ($semuaKodeInvoice) {
     $total_harga=$harga*$quantity-$discount;
 
 
-    // $detail1 = $this->request->getPost('detail1');
-    // $detail2 = $this->request->getPost('detail2');
-    // $detail3 = $this->request->getPost('detail3');
-    // $detail4 = $this->request->getPost('detail4');
-
-    // $nilai1 = $this->request->getPost('nilai1');
-    // $nilai2 = $this->request->getPost('nilai2');
-    // $nilai3 = $this->request->getPost('nilai3');
-    // $nilai4 = $this->request->getPost('nilai4');
-    // dd($detail1,$detail2,$detail3,$detail4,$nilai1,$nilai2,$nilai3,$nilai4);
-
 
     $data = [
         'id_order_produk' => $id_order_produk,
@@ -307,6 +296,32 @@ if ($semuaKodeInvoice) {
 
 
     return redirect()->to(base_url('order/detailOrder/'.$kodeOrder))->with('success', 'Produk berhasil ditambahkan.');
+    }
+
+    public function detailProduk($idOrderProduk)
+    {
+
+        $decodedidOrderProduk = base64_decode($idOrderProduk);
+
+        $OrderProdukModel = new OrderProdukModel();
+        $OrderProdukData = $OrderProdukModel->where('id_order_produk', $decodedidOrderProduk)->first();
+
+        $GambarProdukModel = new GambarProdukModel();
+        $GambarProdukData = $GambarProdukModel->where('id_order_produk', $decodedidOrderProduk)->findAll();
+
+        $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+        $OrderProdukSupplierData = $OrderProdukSupplierModel->where('id_order_produk', $decodedidOrderProduk)->findAll();
+
+        $kodeOrder=$OrderProdukData['kode_order'];
+        // foreach ($OrderProdukData as &$produk) {
+        //     $gambar = $GambarProdukModel->where('id_order_produk', $produk['id_order_produk'])->first();
+        //     $produk['gambar'] = $gambar ? $gambar['gambar'] : '';
+        // }
+        
+
+
+        return view('detailProduk', ['OrderProdukData' => $OrderProdukData, 'GambarProdukData' => $GambarProdukData, 'OrderProdukSupplierData' => $OrderProdukSupplierData, 'kodeOrder' => $kodeOrder]);
+
     }
 
 

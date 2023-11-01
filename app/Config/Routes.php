@@ -26,6 +26,7 @@ $routes->post('order/inputOrder/simpanData', 'Order::simpanData');
 $routes->get('order/detailOrder/(:segment)', 'Order::detailOrder/$1');
 $routes->get('order/detailOrder/inputProduk/(:segment)', 'Order::inputProduk/$1');
 $routes->post('order/detailOrder/inputProduk/(:segment)/submit', 'Order::submitProduk/$1');
+$routes->get('order/detailOrder/detailProduk/(:segment)', 'Order::detailProduk/$1');
 $routes->get('order/invoice', 'Order::invoice');
 $routes->add('order/invoice/addPaymentTerms', 'Order::paymentTerms');
 $routes->get('order/payment', 'Order::payment');
