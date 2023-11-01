@@ -203,7 +203,7 @@
       <div class="product-cell category subtask">
         <span><button class="icon-button bg-dark" data-toggle="collapse" href="#sub<?php echo $taskCalendar['id']; ?>" onclick="toggleIcon('iconsub<?php echo $taskCalendar['id']; ?>')">
         <i id="iconsub<?php echo $taskCalendar['id']; ?>" class="fas fa-chevron-right" style="color:grey"></i>
-      </button> <?= $taskCalendar['task']; ?></span>
+      </button> <?= $taskCalendar['task']; ?> <img src="<?= base_url('uploads/' . $taskCalendar['gambar']); ?>" style="width:70px;height:auto;margin-left:50px"></span>
       </div>
       <div class="product-cell status-cell">
         <span><?= date('d-m-Y', strtotime($taskCalendar['deadline'])); ?></span>

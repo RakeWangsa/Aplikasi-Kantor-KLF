@@ -298,11 +298,13 @@ if ($semuaKodeInvoice) {
 
     
     $TaskModel = new TaskCalendarModel();
-
+    $gambarModel = new GambarProdukModel();
+    $gambarTask = $gambarModel->where('id_order_produk', $id_order_produk)->first();
     $dataTask = [
         'parent' => $decodedKodeOrder,
         'task' => $namaProduk,
         'deadline' => $deadline,
+        'gambar' => $gambarTask['gambar']
     ];
     $TaskModel->insert($dataTask);
 
