@@ -130,10 +130,35 @@
                 <label for="gambar">Gambar :</label>
                 <input type="file" class="form-control-file" accept="image/*" id="gambar" name="gambar[]" multiple>
             </div>
+
             <div class="form-group mb-2">
-                <label for="kategori">Kategori :</label>
-                <input type="text" class="form-control" id="kategori" name="kategori" style="max-width:1000px" placeholder="Masukkan kategori">
-            </div>
+    <label for="kategori">Kategori :</label>
+    <select class="form-select" id="kategori" name="kategori" style="max-width:1000px">
+      <option value="" disabled selected>Pilih Kategori!</option>
+        <?php foreach ($kategoriProdukData as $kategori): ?>
+            <option value="<?= $kategori['kategori'] ?>"><?= $kategori['kategori'] ?></option>
+        <?php endforeach; ?>
+    </select>
+</div>
+
+<?php foreach ($kategoriProdukData as $kategori): ?>
+    <div class="detail-inputs" id="<?= $kategori['kategori'] ?>" style="display: none;">
+
+        <?php $i = 1; ?>
+        <?php foreach ($kategoriProdukDetailData as $detail): ?>
+            <?php if ($detail['kategori'] === $kategori['kategori']): ?>
+              <div class="form-group mb-2">
+                <label for="detail<?= $i; ?>"><?= $detail['detail'] ?> :</label>
+                <input type="text" class="form-control" name="detail<?= $i; ?>" id="detail<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>">
+              </div>
+                <?php $i++; ?>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+<?php endforeach; ?>
+
+
+
             <div class="form-group mb-2">
                 <label for="harga">Harga :</label>
                 <input type="text" class="form-control" id="harga" name="harga" style="max-width:1000px" placeholder="Masukkan harga">
@@ -170,6 +195,24 @@
 
   </div>
 </div>
+
+<script>
+    // Mendengarkan perubahan pada dropdown kategori
+    document.getElementById('kategori').addEventListener('change', function () {
+        // Mendapatkan nilai terpilih dari dropdown kategori
+        var selectedKategori = this.value;
+        // Menyembunyikan semua input detail
+        var allDetailInputs = document.querySelectorAll('.detail-inputs');
+        allDetailInputs.forEach(function(input) {
+            input.style.display = 'none';
+        });
+        // Menampilkan input detail yang sesuai dengan kategori terpilih
+        var selectedDetailInputs = document.getElementById(selectedKategori);
+        if (selectedDetailInputs) {
+            selectedDetailInputs.style.display = 'block';
+        }
+    });
+</script>
 
 <script>
     var supplierCount = 1;

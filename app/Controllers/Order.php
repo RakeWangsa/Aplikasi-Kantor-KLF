@@ -7,6 +7,8 @@ use App\Models\GambarProdukModel;
 use App\Models\KategoriSupplierModel;
 use App\Models\PaymentTermsModel;
 use App\Models\SupplierModel;
+use App\Models\KategoriProdukModel;
+use App\Models\KategoriProdukDetailModel;
 
 class Order extends BaseController
 {
@@ -178,8 +180,12 @@ if ($semuaKodeInvoice) {
         $kategoriData = $kategoriModel->findAll();
         $supplierModel = new SupplierModel();
         $supplierData = $supplierModel->findAll();
+        $kategoriProdukModel = new KategoriProdukModel();
+        $kategoriProdukData = $kategoriProdukModel->findAll();
+        $kategoriProdukDetailModel = new KategoriProdukDetailModel();
+        $kategoriProdukDetailData = $kategoriProdukDetailModel->findAll();
 
-        return view('inputOrderProduk', ['encodedKodeOrder' => $kodeOrder, 'kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kodeOrder' => $decodedKodeOrder]);
+        return view('inputOrderProduk', ['encodedKodeOrder' => $kodeOrder, 'kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kategoriProdukData' => $kategoriProdukData, 'kategoriProdukDetailData' => $kategoriProdukDetailData, 'kodeOrder' => $decodedKodeOrder]);
     }
     
     public function submitProduk($kodeOrder)

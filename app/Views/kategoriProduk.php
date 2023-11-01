@@ -303,13 +303,13 @@
             <label for="detail" class="form-label">Detail</label>
             <input type="text" class="form-control" name="detail<?php echo $i; ?>" id="detail" value="<?= $detail['detail']; ?>">
           </div>
-
+          <input type="text" class="form-control" style="display: none;" name="id_detail<?php echo $i; ?>" value="<?= $detail['id']; ?>">
 
           <?php $i++; ?>
           <?php endif; ?>
             <?php endforeach; ?>
-            
-            <input type="text" class="form-control" name="jumlah" id="jumlahInput" value="<?= $i-1; ?>" readonly>
+
+            <input type="text" class="form-control" style="display: none;" name="jumlah" id="jumlahInput" value="<?= $i-1; ?>" readonly>
           
         
       </div>
