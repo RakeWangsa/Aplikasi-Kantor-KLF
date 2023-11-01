@@ -9,6 +9,7 @@ use App\Models\PaymentTermsModel;
 use App\Models\SupplierModel;
 use App\Models\KategoriProdukModel;
 use App\Models\KategoriProdukDetailModel;
+use App\Models\OrderProdukSupplierModel;
 
 class Order extends BaseController
 {
@@ -140,6 +141,7 @@ if ($semuaKodeInvoice) {
         'tanggalOrder' => $tanggalOrder,
         'deadline' => $deadlineOrder,
         'ongkir' => $ongkosKirim,
+        'status' => 'Hold'
         
     ];
 
@@ -206,6 +208,7 @@ if ($semuaKodeInvoice) {
     $discount = $this->request->getPost('discount');
     $catatan_khusus = $this->request->getPost('catatan_khusus');
     $jumlahDetail = $this->request->getPost('jumlahDetail');
+    $jumlahSupplier = $this->request->getPost('jumlahSupplier');
 
     $gambarProdukModel = new GambarProdukModel();
     $gambarFiles['gambar'] = array_reverse($gambarFiles['gambar']);
@@ -233,9 +236,19 @@ if ($semuaKodeInvoice) {
         }
     }
 
-    $total_harga=$harga*$quantity;
+    $total_harga=$harga*$quantity-$discount;
 
 
+    // $detail1 = $this->request->getPost('detail1');
+    // $detail2 = $this->request->getPost('detail2');
+    // $detail3 = $this->request->getPost('detail3');
+    // $detail4 = $this->request->getPost('detail4');
+
+    // $nilai1 = $this->request->getPost('nilai1');
+    // $nilai2 = $this->request->getPost('nilai2');
+    // $nilai3 = $this->request->getPost('nilai3');
+    // $nilai4 = $this->request->getPost('nilai4');
+    // dd($detail1,$detail2,$detail3,$detail4,$nilai1,$nilai2,$nilai3,$nilai4);
 
 
     $data = [
@@ -255,14 +268,43 @@ if ($semuaKodeInvoice) {
 
 
     for ($i = 1; $i <= $jumlahDetail; $i++) {
-        $detail = $this->request->getPost('detail'.$i);
-        $nilai = $this->request->getPost('nilai'.$i);
-        $data = [
+        $detail = $this->request->getPost('detail'.$kategori.$i);
+        $nilai = $this->request->getPost('nilai'.$kategori.$i);
+        $data2 = [
             'detail'.$i => $detail,
             'nilai'.$i => $nilai 
         ];
-        $model->update($id_order_produk, $data);
+        $model->update($id_order_produk, $data2);
     }
+
+
+    $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+
+    for ($i = 1; $i <= $jumlahSupplier; $i++) {
+        $kategori_supplier = $this->request->getPost('kategori'.$i);
+        $nama_supplier = $this->request->getPost('nama_supplier'.$i);
+        $jumlah_barang = $this->request->getPost('jumlah_barang'.$i);
+        $harga_supplier = $this->request->getPost('harga'.$i);
+
+        $data = [
+            'id_order_produk' => $id_order_produk,
+            'kategori' => $kategori_supplier,
+            'nama' => $nama_supplier,
+            'jumlah_barang' => $jumlah_barang,
+            'harga' => $harga_supplier,
+        ];
+        $OrderProdukSupplierModel->insert($data);
+    }
+
+    $OrderModel = new OrderModel();
+    $nilaiOrder = $OrderModel->select('nilaiOrder')->find($decodedKodeOrder);
+    $totalNilaiOrder=$nilaiOrder['nilaiOrder']+$total_harga;
+
+    $OrderData = [
+        'nilaiOrder' => $totalNilaiOrder,
+    ];
+    $OrderModel->update($decodedKodeOrder, $OrderData);
+
 
     return redirect()->to(base_url('order/detailOrder/'.$kodeOrder))->with('success', 'Produk berhasil ditambahkan.');
     }

@@ -49,24 +49,26 @@ public function addKategori()
 
         $model = new KategoriProdukDetailModel();
         $detail = $model->find($kategori);
-    
-
-        // if (!$detail) {
-        //     return redirect()->to(base_url('kategoriProduk'))->with('error', 'Detail tidak ditemukan.');
-        // }
-    
 
         $jumlah = $this->request->getPost('jumlah');
 
+
+        
         for ($i = 1; $i <= $jumlah; $i++) {
             $detail = $this->request->getPost('detail'.$i);
             $id_detail = $this->request->getPost('id_detail'.$i);
-            $data = [
-                'kategori' => $kategori, 
-                'detail' => $detail     
-            ];
-            $model->update($id_detail, $data);
+            if($detail==""){
+                $model->delete($id_detail);
+            }else{
+                $data = [
+                    'kategori' => $kategori, 
+                    'detail' => $detail     
+                ];
+                $model->update($id_detail, $data);
+            }
         }
+
+
     
         return redirect()->to(base_url('kategoriProduk'))->with('success', 'Detail berhasil diubah.');
     }

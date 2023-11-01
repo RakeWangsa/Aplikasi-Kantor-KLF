@@ -133,7 +133,7 @@
 
             <div class="form-group mb-2">
     <label for="kategori">Kategori :</label>
-    <select class="form-select" id="kategori" name="kategori" style="max-width:1000px">
+    <select class="form-select" id="kategori" name="kategori" style="max-width:1000px" required>
       <option value="" disabled selected>Pilih Kategori!</option>
         <?php foreach ($kategoriProdukData as $kategori): ?>
             <option value="<?= $kategori['kategori'] ?>"><?= $kategori['kategori'] ?></option>
@@ -149,8 +149,8 @@
             <?php if ($detail['kategori'] === $kategori['kategori']): ?>
               <div class="form-group mb-2">
                 <label for="detail<?= $i; ?>"><?= $detail['detail'] ?> :</label>
-                <input type="text" class="form-control" style="display: none;" name="detail<?= $i; ?>" value="<?= $detail['detail'] ?> ">
-                <input type="text" class="form-control" name="nilai<?= $i; ?>" id="nilai<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>">
+                <input type="text" class="form-control" style="display: none;" name="detail<?= $kategori['kategori']; ?><?= $i; ?>" value="<?= $detail['detail'] ?> ">
+                <input type="text" class="form-control" name="nilai<?= $kategori['kategori']; ?><?= $i; ?>" id="nilai<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>">
               </div>
                 <?php $i++; ?>
             <?php endif; ?>
@@ -178,6 +178,7 @@
                 <input type="text" class="form-control" id="catatan_khusus" name="catatan_khusus" style="max-width:1000px" placeholder="Masukkan catatan">
             </div>
             <div class="form-group mb-4">
+              <input type="text" class="form-control" style="display: none;" id="jumlahSupplier" name="jumlahSupplier" style="max-width:1000px" readonly>
               <input type="button" class="btn btn-primary" value="Tambah Supplier" onclick="tambahSupplier()">
             </div>
             
@@ -230,7 +231,7 @@
       var additionalText = document.createElement('h5');
       additionalText.innerHTML = 'Supplier ' + supplierCount;
       additionalText.style.fontWeight = 'bold';
-      supplierCount++;
+      
 
       var kategoriDiv = document.createElement('div');
       kategoriDiv.className = 'form-group';
@@ -241,7 +242,7 @@
 
       var kategoriInput = document.createElement('select');
       kategoriInput.className = 'form-control';
-      kategoriInput.name = 'kategori';
+      kategoriInput.name = 'kategori'+supplierCount;
       kategoriInput.style.maxWidth = '1000px';
 
       var placeholderOption = document.createElement('option');
@@ -268,7 +269,7 @@
 
       var namaSupplierInput = document.createElement('select');
       namaSupplierInput.className = 'form-control';
-      namaSupplierInput.name = 'nama_supplier';
+      namaSupplierInput.name = 'nama_supplier'+supplierCount;
       namaSupplierInput.style.maxWidth = '1000px';
 
       kategoriInput.addEventListener('change', function() {
@@ -298,7 +299,7 @@
         var jumlahBarangInput = document.createElement('input');
         jumlahBarangInput.type = 'text';
         jumlahBarangInput.className = 'form-control';
-        jumlahBarangInput.name = 'jumlah_barang';
+        jumlahBarangInput.name = 'jumlah_barang'+supplierCount;
         jumlahBarangInput.style.maxWidth = '1000px';
         jumlahBarangInput.placeholder = 'Jumlah Barang';
 
@@ -313,9 +314,11 @@
         var hargaInput = document.createElement('input');
         hargaInput.type = 'text';
         hargaInput.className = 'form-control';
-        hargaInput.name = 'harga';
+        hargaInput.name = 'harga'+supplierCount;
         hargaInput.style.maxWidth = '1000px';
         hargaInput.placeholder = 'Harga';
+
+        supplierCount++;
 
         supplierDiv.appendChild(additionalText);
         form.insertBefore(supplierDiv, form.lastElementChild);
@@ -339,6 +342,9 @@
 
         var button = document.querySelector('input[type="button"]');
         button.value = 'Tambah Supplier ke-' + (supplierCount);
+
+        var inputJumlah = document.getElementById('jumlahSupplier');
+        inputJumlah.value = supplierCount-1;
     }
 </script>
 

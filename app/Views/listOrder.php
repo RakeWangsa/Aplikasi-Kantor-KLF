@@ -123,14 +123,14 @@
     <div class="products-area-wrapper tableView">
       <div class="products-header">
 
-        <div class="product-cell price">Tanggal Order</div>
-        <div class="product-cell category">Customer</div>
-        <div class="product-cell status-cell">Kode Order</div>
-        <div class="product-cell sales">Nilai Order</div>
-        <div class="product-cell stock">DP Masuk</div>
-        <div class="product-cell price">Status</div>
-          <div class="product-cell price">Gross Profit</div>
-          <!-- <div class="product-cell price">Actions</div> -->
+        <div class="product-cell">Tanggal Order</div>
+        <div class="product-cell">Customer</div>
+        <div class="product-cell">Kode Order</div>
+        <div class="product-cell">Nilai Order</div>
+        <div class="product-cell">DP Masuk</div>
+        <div class="product-cell">Status</div>
+          <div class="product-cell">Gross Profit</div>
+          <div class="product-cell">Grand Total</div>
       </div>
 
 
@@ -142,9 +142,18 @@
       <div class="product-cell image">
             <span><?= date('d-m-Y', strtotime($row['tanggalOrder'])); ?></span>
           </div>
-          <div class="product-cell bg-success">
-            <span><?= $row['nama']; ?></span>
-          </div>
+          <div class="product-cell 
+    <?php if ($row['status'] === 'Selesai'): ?>
+        bg-success
+    <?php elseif ($row['status'] === 'Hold'): ?>
+        bg-warning
+    <?php elseif ($row['status'] === 'Batal'): ?>
+        bg-danger
+    <?php elseif ($row['status'] === 'Delivery'): ?>
+        bg-info
+    <?php endif; ?>">
+    <span><?= $row['nama']; ?></span>
+</div>
         <div class="product-cell category"><span><?= $row['kode_order']; ?></div>
         <div class="product-cell status-cell">
           <span>
@@ -152,9 +161,9 @@
           </span>
         </div>
         <div class="product-cell sales"><span>-</span></div>
-        <div class="product-cell stock"><span>-</span></div>
+        <div class="product-cell stock"><span><?= $row['status']; ?></span></div>
         <div class="product-cell price"><span>-</span></div>
-        <!-- <div class="product-cell price"><span>-</span></div> -->
+        <div class="product-cell price"><span>-</span></div>
       </div></a>
     
 <?php endforeach; ?>
