@@ -10,6 +10,7 @@ use App\Models\SupplierModel;
 use App\Models\KategoriProdukModel;
 use App\Models\KategoriProdukDetailModel;
 use App\Models\OrderProdukSupplierModel;
+use App\Models\TaskCalendarModel;
 
 class Order extends BaseController
 {
@@ -206,6 +207,7 @@ if ($semuaKodeInvoice) {
     $harga = $this->request->getPost('harga');
     $quantity = $this->request->getPost('quantity');
     $discount = $this->request->getPost('discount');
+    $deadline = $this->request->getPost('deadline');
     $catatan_khusus = $this->request->getPost('catatan_khusus');
     $jumlahDetail = $this->request->getPost('jumlahDetail');
     $jumlahSupplier = $this->request->getPost('jumlahSupplier');
@@ -293,6 +295,16 @@ if ($semuaKodeInvoice) {
         'nilaiOrder' => $totalNilaiOrder,
     ];
     $OrderModel->update($decodedKodeOrder, $OrderData);
+
+    
+    $TaskModel = new TaskCalendarModel();
+
+    $dataTask = [
+        'parent' => $decodedKodeOrder,
+        'task' => $namaProduk,
+        'deadline' => $deadline,
+    ];
+    $TaskModel->insert($dataTask);
 
 
     return redirect()->to(base_url('order/detailOrder/'.$kodeOrder))->with('success', 'Produk berhasil ditambahkan.');

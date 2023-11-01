@@ -174,6 +174,10 @@
                 <input type="text" class="form-control" id="discount" name="discount" style="max-width:1000px" placeholder="Masukkan discount">
             </div>
             <div class="form-group mb-4">
+                <label for="deadline">Deadline :</label>
+                <input type="date" class="form-control" id="deadline" name="deadline" style="max-width:1000px">
+            </div>
+            <div class="form-group mb-4">
                 <label for="catatan_khusus">Catatan Khusus :</label>
                 <input type="text" class="form-control" id="catatan_khusus" name="catatan_khusus" style="max-width:1000px" placeholder="Masukkan catatan">
             </div>
