@@ -122,33 +122,43 @@
         <div class="row">
             <div class="col-md-6">
                 <h4>Gambar Produk</h4>
-                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-    <!-- <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-    </ol> -->
-    <div class="carousel-inner" style="width:250px">
-        <div class="carousel-item active">
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" class="d-block w-100" alt="...">
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
-    </div>
+<!-- Bootstrap Carousel -->
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width:250px">
+  <div class="carousel-inner">
+    <?php $is_first = true; ?>
+    <?php foreach ($GambarProdukData as $key => $foto): ?>
+      <div class="carousel-item <?php echo $is_first ? 'active' : ''; ?>">
+        <img src="<?= base_url('uploads/' . $foto['gambar']); ?>" class="d-block w-100" style="height: 250px; object-fit: contain; cursor: pointer;" data-toggle="modal" data-target="#modal<?=$key?>" alt="...">
+      </div>
+      <?php $is_first = false; ?>
 
+      <!-- Modal -->
+      <div class="modal fade" id="modal<?=$key?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<?=$key?>" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <img src="<?= base_url('uploads/' . $foto['gambar']); ?>" style="width: 100%; height: auto;" alt="...">
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+
+  <!-- Carousel Controls -->
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
 </div>
+
+
+
+
 
             </div>
             <div class="col-md-6 product-details">

@@ -11,6 +11,7 @@ use App\Models\KategoriProdukModel;
 use App\Models\KategoriProdukDetailModel;
 use App\Models\OrderProdukSupplierModel;
 use App\Models\TaskCalendarModel;
+use App\Models\OrderProdukDetailModel;
 
 class Order extends BaseController
 {
@@ -258,15 +259,22 @@ if ($semuaKodeInvoice) {
 
 
 
+    $OrderProdukDetailModel = new OrderProdukDetailModel();
     for ($i = 1; $i <= $jumlahDetail; $i++) {
         $detail = $this->request->getPost('detail'.$kategori.$i);
         $nilai = $this->request->getPost('nilai'.$kategori.$i);
-        $data2 = [
-            'detail'.$i => $detail,
-            'nilai'.$i => $nilai 
-        ];
-        $model->update($id_order_produk, $data2);
+    
+        // Memeriksa apakah $detail tidak kosong
+        if ($detail !== null && $detail !== '') {
+            $detailData = [
+                'id_order_produk' => $id_order_produk,
+                'detail' => $detail,
+                'nilai' => $nilai 
+            ];
+            $OrderProdukDetailModel->insert($detailData);
+        }
     }
+    
 
 
     $OrderProdukSupplierModel = new OrderProdukSupplierModel();
