@@ -110,7 +110,7 @@
   </div>
   <div class="app-content">
     <div class="app-content-header my-4">
-      <h1 class="app-content-headerText">Detail Produk (<?= $OrderProdukData['nama']; ?>)</h1>
+      <h1 class="app-content-headerText">Detail Produk</h1>
     </div>
 
     <div class="products-area-wrapper tableView">
@@ -121,243 +121,126 @@
     <div class="container text-light">
         <div class="row">
             <div class="col-md-6">
-                <!-- Gambar Produk -->
-                <img class="product-img" src="path_to_gambar" alt="Gambar Produk">
+                <h4>Gambar Produk</h4>
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <!-- <ol class="carousel-indicators">
+        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol> -->
+    <div class="carousel-inner" style="width:250px">
+        <div class="carousel-item active">
+            <img src="<?= base_url('uploads/bose.jpeg'); ?>" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="<?= base_url('uploads/bose.jpeg'); ?>" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="<?= base_url('uploads/bose.jpeg'); ?>" class="d-block w-100" alt="...">
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    </div>
+
+</div>
+
             </div>
             <div class="col-md-6 product-details">
-                <h2>Nama Produk</h2>
-                <p><strong>Harga:</strong> Harga Produk</p>
-                <p><strong>Quantity:</strong> Jumlah Produk</p>
-                <p><strong>Total Harga:</strong> Total Harga Produk</p>
-                <p><strong>Kategori:</strong> Kategori Produk</p>
-                <p><strong>Discount:</strong> Discount Produk</p>
-                <p><strong>Catatan Khusus:</strong> Catatan Khusus Produk</p>
+                <h4><?= $OrderProdukData['nama']; ?></h4>
+                <p><strong>Kategori:</strong> <?= $OrderProdukData['kategori']; ?></p>
+                <p><strong>Harga:</strong> <?= $OrderProdukData['harga']; ?></p>
+                <p><strong>Quantity:</strong> <?= $OrderProdukData['quantity']; ?></p>
+                <p><strong>Discount:</strong> <?= $OrderProdukData['discount']; ?></p>
+                <p><strong>Total Harga:</strong> <?= $OrderProdukData['total_harga']; ?></p>
+
+
+                <p><strong>Catatan Khusus:</strong> <?= $OrderProdukData['catatan_khusus']; ?></p>
                 <!-- Tambahan informasi produk lainnya -->
             </div>
         </div>
         <div class="row mt-4">
                 <div class="col-md-6">
                     <h4>List Supplier</h4>
-                    <ul class="list-group">
-    <li class="list-group-item list-group-item-action">
-    <div class="row">
+                    <div id="productList">
+      <ul class="list-group">
+  <?php foreach ($SupplierData as $row): ?>
+    <?php $id = $row['id']; ?>
+<span class="">
+<!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
+    <div class="products-row">
+      <div class="product-cell category">
+        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#list<?php echo $id; ?>" onclick="toggleIcon('icon<?php echo $id; ?>')">
+        <i id="icon<?php echo $id; ?>" class="fas fa-chevron-right" style="color:grey"></i>
+      </button><?= $row['nama']; ?> - <?= $row['kategori']; ?></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>
+          <!-- <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button> -->
+      </span>
+      </div>
+    </div>
+<!-- </a> -->
+  </span>
+    <div id="list<?php echo $id; ?>" class="collapse">
 
 
-    <div class="col">
-      <button class="icon-button" data-toggle="collapse" href="#list1" onclick="toggleIcon('icon1')">
-        <i id="icon1" class="fas fa-chevron-right"></i>
-      </button>
-      Order A
-    </div>
-    <div class="col">
-      30 Oktober
-    </div>
-    <div class="col">
-      Action
-    </div>
-  </div>
-    </li>
-    <div id="list1" class="collapse">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-action">
-
-          <div class="row">
-            <div class="col">
-              <button class="icon-button" data-toggle="collapse" href="#sublist1-1" onclick="toggleIcon('icon1-1')" style="margin-left:10px">
-                <i id="icon1-1" class="fas fa-chevron-right"></i>
-              </button>
-              Meja Makan
-            </div>
-            <div class="col">
-              29 Oktober
-            </div>
-            <div class="col">
-              Action
-            </div>
-        </div>
-        </li>
-        <div id="sublist1-1" class="collapse">
           <ul class="list-group list-group-flush">
-            <li class="list-group-item">
+        <span class="">
 
-                <div class="row">
-                  <div class="col">
-                    <i class="subofsub-icon" style="margin-left:50px"></i>Rangka
-                  </div>
-                  <div class="col">
-                    25 Oktober
-                  </div>
-                  <div class="col">
-                    Action
-                  </div>
-                </div>
+        <div class="products-row">
+      <div class="product-cell category sublist">
+        <span><i class="sublist-icon"></i>Harga : <?= $row['harga']; ?></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>
+        
+      </span>
+      </div>
+    </div>
 
-            </li>
-            <li class="list-group-item">
+      </span>
 
-                <div class="row">
-                  <div class="col">
-                    <i class="subofsub-icon" style="margin-left:50px"></i>Finishing
-                  </div>
-                  <div class="col">
-                    26 Oktober
-                  </div>
-                  <div class="col">
-                    Action
-                  </div>
-                </div>
+      <span class="">
 
-            </li>
-          </ul>
-        </div>
-        <li class="list-group-item list-group-item-action">
+        <div class="products-row">
+      <div class="product-cell category sublist">
+        <span><i class="sublist-icon"></i>Jumlah Barang : <?= $row['jumlah_barang']; ?></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span>
+        
+      </span>
+      </div>
+    </div>
 
-          <div class="row">
-            <div class="col">
-              <button class="icon-button" data-toggle="collapse" href="#sublist1-2" onclick="toggleIcon('icon1-2')" style="margin-left:10px">
-                <i id="icon1-2" class="fas fa-chevron-right"></i>
-              </button>
-              Kursi Makan
-            </div>
-            <div class="col">
-              28 Oktober
-            </div>
-            <div class="col">
-              Action
-            </div>
-        </div>
-        </li>
-        <div id="sublist1-2" class="collapse">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
+      </span>
 
-                <div class="row">
-                  <div class="col">
-                    <i class="subofsub-icon" style="margin-left:50px"></i>Rangka
-                  </div>
-                  <div class="col">
-                    24 Oktober
-                  </div>
-                  <div class="col">
-                    Action
-                  </div>
-                </div>
 
-            </li>
-          </ul>
-        </div>
+
+
       </ul>
+
+
     </div>
-    <li class="list-group-item list-group-item-action">
-    <div class="row">
 
-
-    <div class="col">
-      <button class="icon-button" data-toggle="collapse" href="#list2" onclick="toggleIcon('icon2')">
-        <i id="icon2" class="fas fa-chevron-right"></i>
-      </button>
-      Order B
-    </div>
-    <div class="col">
-      5 November
-    </div>
-    <div class="col">
-      Action
-    </div>
-  </div>
-    </li>
-    <div id="list2" class="collapse">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-action">
-
-          <div class="row">
-            <div class="col">
-              <button class="icon-button" data-toggle="collapse" href="#sublist2-1" onclick="toggleIcon('icon2-1')" style="margin-left:10px">
-                <i id="icon2-1" class="fas fa-chevron-right"></i>
-              </button>
-              Lemari
-            </div>
-            <div class="col">
-              3 November
-            </div>
-            <div class="col">
-              Action
-            </div>
-        </div>
-        </li>
-        <div id="sublist2-1" class="collapse">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-
-                <div class="row">
-                  <div class="col">
-                    <i class="subofsub-icon" style="margin-left:50px"></i>Rangka
-                  </div>
-                  <div class="col">
-                    1 November
-                  </div>
-                  <div class="col">
-                    Action
-                  </div>
-                </div>
-
-            </li>
-            <li class="list-group-item">
-
-                <div class="row">
-                  <div class="col">
-                    <i class="subofsub-icon" style="margin-left:50px"></i>Finishing
-                  </div>
-                  <div class="col">
-                    2 November
-                  </div>
-                  <div class="col">
-                    Action
-                  </div>
-                </div>
-
-            </li>
-          </ul>
-        </div>
-        <li class="list-group-item list-group-item-action">
-
-          <div class="row">
-            <div class="col">
-              <button class="icon-button" data-toggle="collapse" href="#sublist2-2" onclick="toggleIcon('icon2-2')" style="margin-left:10px">
-                <i id="icon2-2" class="fas fa-chevron-right"></i>
-              </button>
-              Buffet
-            </div>
-            <div class="col">
-              6 November
-            </div>
-            <div class="col">
-              Action
-            </div>
-        </div>
-        </li>
-        <div id="sublist2-2" class="collapse">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-
-                <div class="row">
-                  <div class="col">
-                    <i class="subofsub-icon" style="margin-left:50px"></i>Rangka
-                  </div>
-                  <div class="col">
-                    4 November
-                  </div>
-                  <div class="col">
-                    Action
-                  </div>
-                </div>
-
-            </li>
-          </ul>
-        </div>
-      </ul>
-    </div>
-  </ul>
+  <?php endforeach; ?> 
+</ul>
+</div>
                 </div>
                 <div class="col-md-6">
                     <h4>List Biaya</h4>
@@ -410,8 +293,15 @@
 </script>
 
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+
 </body>
 </html>

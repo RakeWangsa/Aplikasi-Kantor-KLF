@@ -331,10 +331,17 @@ if ($semuaKodeInvoice) {
         //     $gambar = $GambarProdukModel->where('id_order_produk', $produk['id_order_produk'])->first();
         //     $produk['gambar'] = $gambar ? $gambar['gambar'] : '';
         // }
-        
+
+        // $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+        // $OrderProdukSupplierData = $OrderProdukSupplierModel->find($decodedidOrderProduk);
 
 
-        return view('detailProduk', ['OrderProdukData' => $OrderProdukData, 'GambarProdukData' => $GambarProdukData, 'OrderProdukSupplierData' => $OrderProdukSupplierData, 'kodeOrder' => $kodeOrder]);
+        return view('detailProduk', ['OrderProdukData' => $OrderProdukData, 
+                                    'SupplierData' => $OrderProdukSupplierData, 
+                                    'GambarProdukData' => $GambarProdukData,
+                                    // 'OrderProdukSupplierData' => $OrderProdukSupplierData,
+                                    'kodeOrder' => $kodeOrder
+                                ]);
 
     }
 
