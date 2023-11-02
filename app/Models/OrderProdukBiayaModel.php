@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class OrderProdukModel extends Model
+class OrderProdukBiayaModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'order_produk';
-    protected $primaryKey       = 'id_order_produk';
+    protected $table            = 'order_produk_biaya';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_order_produk','kode_order','nama','harga','quantity','total_harga','kategori','discount','catatan_khusus','total_biaya'];
+    protected $allowedFields    = ['id','id_order_produk','detail','biaya'];
 
     // Dates
     protected $useTimestamps = false;

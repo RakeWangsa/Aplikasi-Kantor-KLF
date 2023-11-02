@@ -12,6 +12,7 @@ use App\Models\KategoriProdukDetailModel;
 use App\Models\OrderProdukSupplierModel;
 use App\Models\TaskCalendarModel;
 use App\Models\OrderProdukDetailModel;
+use App\Models\OrderProdukBiayaModel;
 
 class Order extends BaseController
 {
@@ -278,6 +279,7 @@ if ($semuaKodeInvoice) {
 
 
     $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+    $OrderProdukBiayaModel = new OrderProdukBiayaModel();
 
     for ($i = 1; $i <= $jumlahSupplier; $i++) {
         $kategori_supplier = $this->request->getPost('kategori'.$i);
@@ -292,8 +294,30 @@ if ($semuaKodeInvoice) {
             'jumlah_barang' => $jumlah_barang,
             'harga' => $harga_supplier,
         ];
+        $biayaData = [
+            'id_order_produk' => $id_order_produk,
+            'detail' => $nama_supplier,
+            'biaya' => $harga_supplier,
+        ];
         $OrderProdukSupplierModel->insert($data);
+        $OrderProdukBiayaModel->insert($biayaData);
     }
+
+    $OrderProdukBiayaData = $OrderProdukBiayaModel->where('id_order_produk', $id_order_produk)->findAll();
+    
+    $totalBiaya = 0; // Menginisialisasi total biaya
+
+    foreach ($OrderProdukBiayaData as $data) {
+        $totalBiaya += $data['biaya']; // Menambahkan biaya ke totalBiaya
+    }
+
+    $data = [
+        'total_biaya' => $totalBiaya,
+    ];
+    $model->update($id_order_produk, $data);
+
+
+
 
     $OrderModel = new OrderModel();
     $nilaiOrder = $OrderModel->select('nilaiOrder')->find($decodedKodeOrder);
@@ -334,21 +358,22 @@ if ($semuaKodeInvoice) {
         $OrderProdukSupplierModel = new OrderProdukSupplierModel();
         $OrderProdukSupplierData = $OrderProdukSupplierModel->where('id_order_produk', $decodedidOrderProduk)->findAll();
 
-        $kodeOrder=$OrderProdukData['kode_order'];
-        // foreach ($OrderProdukData as &$produk) {
-        //     $gambar = $GambarProdukModel->where('id_order_produk', $produk['id_order_produk'])->first();
-        //     $produk['gambar'] = $gambar ? $gambar['gambar'] : '';
-        // }
+        $OrderProdukDetailModel = new OrderProdukDetailModel();
+        $OrderProdukDetailData = $OrderProdukDetailModel->where('id_order_produk', $decodedidOrderProduk)->findAll();
 
-        // $OrderProdukSupplierModel = new OrderProdukSupplierModel();
-        // $OrderProdukSupplierData = $OrderProdukSupplierModel->find($decodedidOrderProduk);
+        $OrderProdukBiayaModel = new OrderProdukBiayaModel();
+        $OrderProdukBiayaData = $OrderProdukBiayaModel->where('id_order_produk', $decodedidOrderProduk)->findAll();
+
+        // $kodeOrder=$OrderProdukData['kode_order'];
+
 
 
         return view('detailProduk', ['OrderProdukData' => $OrderProdukData, 
                                     'SupplierData' => $OrderProdukSupplierData, 
                                     'GambarProdukData' => $GambarProdukData,
-                                    // 'OrderProdukSupplierData' => $OrderProdukSupplierData,
-                                    'kodeOrder' => $kodeOrder
+                                    'OrderProdukDetailData' => $OrderProdukDetailData,
+                                    'OrderProdukBiayaData' => $OrderProdukBiayaData
+                                    // 'kodeOrder' => $kodeOrder
                                 ]);
 
     }

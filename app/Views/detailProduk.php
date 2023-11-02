@@ -120,7 +120,31 @@
 
     <div class="container text-light">
         <div class="row">
-            <div class="col-md-6">
+        <div class="col-md-6 product-details border p-4">
+            <h4 style="margin-bottom:20px"><?= $OrderProdukData['nama']; ?></h4>
+            <div class="row">
+            
+              <div class="col">
+
+                <p><strong>Kategori:</strong> <?= $OrderProdukData['kategori']; ?></p>
+                <?php foreach ($OrderProdukDetailData as $row): ?>
+                  <p><strong><?= $row['detail']; ?> :</strong> <?= $row['nilai']; ?></p>
+                <?php endforeach; ?>
+                <p><strong>Catatan Khusus:</strong> <?= $OrderProdukData['catatan_khusus']; ?></p>
+              </div>
+              <div class="col">
+              <p><strong>Harga:</strong> <?= $OrderProdukData['harga']; ?></p>
+                <p><strong>Quantity:</strong> <?= $OrderProdukData['quantity']; ?></p>
+                <p><strong>Discount:</strong> <?= $OrderProdukData['discount']; ?></p>
+                <p><strong>Total Harga:</strong> <?= $OrderProdukData['total_harga']; ?></p>
+                <p><strong>Total Biaya:</strong> <?= $OrderProdukData['total_biaya']; ?></p>
+              </div>
+            </div>
+                
+
+
+            </div>
+            <div class="col-md-6 border p-4">
                 <h4>Gambar Produk</h4>
 <!-- Bootstrap Carousel -->
 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width:250px">
@@ -161,21 +185,36 @@
 
 
             </div>
-            <div class="col-md-6 product-details">
-                <h4><?= $OrderProdukData['nama']; ?></h4>
-                <p><strong>Kategori:</strong> <?= $OrderProdukData['kategori']; ?></p>
-                <p><strong>Harga:</strong> <?= $OrderProdukData['harga']; ?></p>
-                <p><strong>Quantity:</strong> <?= $OrderProdukData['quantity']; ?></p>
-                <p><strong>Discount:</strong> <?= $OrderProdukData['discount']; ?></p>
-                <p><strong>Total Harga:</strong> <?= $OrderProdukData['total_harga']; ?></p>
 
-
-                <p><strong>Catatan Khusus:</strong> <?= $OrderProdukData['catatan_khusus']; ?></p>
-                <!-- Tambahan informasi produk lainnya -->
-            </div>
         </div>
-        <div class="row mt-4">
-                <div class="col-md-6">
+        <div class="row">
+                
+                <div class="col-md-6 border p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="mb-0">Daftar Biaya</h4>
+        <button type="button" class="btn btn-success rounded-circle"><i class="fas fa-plus"></i></button>
+    </div>
+                
+
+  <div class="products-header">
+
+<div class="product-cell">Detail</div>
+<div class="product-cell">Biaya</div>
+</div>
+<?php foreach ($OrderProdukBiayaData as $row): ?>
+<div class="products-row">
+
+<div class="product-cell"><?= $row['detail']; ?></div>
+<div class="product-cell"><?= $row['biaya']; ?></div>
+</div>
+<?php endforeach; ?>
+
+
+
+
+                </div>
+
+                <div class="col-md-6 border p-4">
                     <h4>List Supplier</h4>
                     <div id="productList">
       <ul class="list-group">
@@ -189,14 +228,7 @@
         <i id="icon<?php echo $id; ?>" class="fas fa-chevron-right" style="color:grey"></i>
       </button><?= $row['nama']; ?> - <?= $row['kategori']; ?></span>
       </div>
-      <div class="product-cell status-cell">
-        <span></span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>
-          <!-- <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button> -->
-      </span>
-      </div>
+
     </div>
 <!-- </a> -->
   </span>
@@ -210,14 +242,7 @@
       <div class="product-cell category sublist">
         <span><i class="sublist-icon"></i>Harga : <?= $row['harga']; ?></span>
       </div>
-      <div class="product-cell status-cell">
-        <span></span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>
-        
-      </span>
-      </div>
+
     </div>
 
       </span>
@@ -252,14 +277,7 @@
 </ul>
 </div>
                 </div>
-                <div class="col-md-6">
-                    <h4>List Biaya</h4>
-                    <ul>
-                        <li>Biaya 1</li>
-                        <li>Biaya 2</li>
-                        <!-- Tambahkan daftar biaya lainnya -->
-                    </ul>
-                </div>
+                
             </div>
 
 
