@@ -109,133 +109,43 @@
     </div>
   </div>
   <div class="app-content">
-    <div class="app-content-header mt-4">
+    <div class="app-content-header my-4">
       <h1 class="app-content-headerText">Payment (<?= $data['kode_order']; ?>)</h1>
     </div>
+
+    <div class="products-area-wrapper tableView">
+
 
     <?php
         $encodedKodeOrder = base64_encode($data['kode_order']);
       ?>
 
-    <div class="app-content-actions">
-      <div>
-      <button onclick="expandAllLists()" class="btn btn-primary mb-2"><i class="fas fa-arrow-down"></i> Expand</button>
-      <button onclick="collapseAllLists()" class="btn btn-danger mb-2"><i class="fas fa-arrow-up"></i> Hide</button>
-      </div>
-      <a class="btn btn-primary" href="<?= base_url('order/payment/inputPayment/'. $encodedKodeOrder); ?>"><i class="fas fa-plus"></i> Input Payment</a>
-    </div>
-
-    <style>
-  .sublist {
-    text-indent: 30px;
-  }
-
-  .sublist-icon {
-    width: 6px; /* Lebar ikon bulat */
-    height: 6px; /* Tinggi ikon bulat */
-    background-color: grey; /* Warna latar belakang ikon */
-    border-radius: 50%; /* Mengatur ikon menjadi bulat */
-    display: inline-block;
-    margin-right: 3px; /* Jarak antara ikon dan teks */
-  }
-
-
-</style>
-
-    <div class="products-area-wrapper tableView">
-    <p class="text-light" style="margin-left:20px">Total DP Masuk : Rp. <?= number_format($data['dp_masuk'], 0, ",", "."); ?></p>
-      <div class="products-header">
-      <div class="product-cell status-cell">Riwayat Payment</div>
-
-      </div>
+    <form class="text-light" action="<?= base_url('order/payment/inputPayment/submit/'.$encodedKodeOrder); ?>" method="post" enctype="multipart/form-data">
+    <div class="form-group mb-2">
+    <label for="kodeOrder">Kode Order: <?= $data['kode_order']; ?></label>
+    <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" value="<?= $data['kode_order']; ?>" readonly>
+  </div>
+  <div class="form-group mb-2">
+    <label for="customer">Customer:</label>
+    <input type="text" class="form-control" id="customer" name="customer" style="max-width:1000px" value="<?= $data['nama']; ?>" readonly>
+  </div>
+  <div class="form-group mb-2">
+    <label for="tanggal">Tanggal:</label>
+    <input type="date" class="form-control" id="tanggal" name="tanggal" style="max-width:1000px">
+  </div>
+  <div class="form-group mb-2">
+    <label for="jumlahPayment">Jumlah Payment:</label>
+    <input type="number" class="form-control" id="jumlahPayment" name="jumlahPayment" style="max-width:1000px" placeholder="Masukkan jumlah payment">
+  </div>
+  <div class="form-group mb-2">
+    <label for="buktiPayment">Bukti Payment (Upload Gambar):</label>
+    <input type="file" class="form-control-file" accept="image/*" id="buktiPayment" name="buktiPayment[]">
+  </div>
+  <button type="submit" class="btn btn-primary mt-4">Kirim</button>
+</form>
 
 
-
-
-
-
-      <div id="productList">
-      <ul class="list-group">
-  <?php foreach ($PaymentData as $row): ?>
-    <?php $id = $row['id']; ?>
-<li class="">
-<!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
-    <div class="products-row">
-      <div class="product-cell category">
-        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#list<?php echo $id; ?>" onclick="toggleIcon('icon<?php echo $id; ?>')">
-        <i id="icon<?php echo $id; ?>" class="fas fa-chevron-right" style="color:grey"></i>
-      </button> <?= $row['tanggal']; ?></span>
-      </div>
-
-    </div>
-<!-- </a> -->
-    </li>
-    <div id="list<?php echo $id; ?>" class="collapse">
-
-
-          <ul class="list-group list-group-flush">
-        <li class="">
-
-        <div class="products-row">
-      <div class="product-cell sublist">
-        <span><i class="sublist-icon"></i>Jumlah Pembayaran : Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></span>
-      </div>
-
-    </div>
-
-        </li>
-        <li class="">
-
-        <div class="products-row">
-      <div class="product-cell sublist">
-        <span><i class="sublist-icon"></i>Bukti Pembayaran : 
-        <a href="#" data-toggle="modal" data-target="#gambarModal<?php echo $id; ?>">
-                <img src="<?= base_url('uploads/' . $row['bukti_payment']); ?>" style="width:300px;height:auto;margin-left:50px">
-            </a>
-          </span>
-      </div>
-
-    </div>
-
-        </li>
-
-
-      </ul>
-
-
-    </div>
-
-
-
-
-  <?php endforeach; ?> 
-</ul>
-
-</div>
-
-    <!-- Modal -->
-    <?php foreach ($PaymentData as $row): ?>
-      <?php $id = $row['id']; ?>
-    <div class="modal fade" id="gambarModal<?php echo $id; ?>" tabindex="-1" role="dialog" aria-labelledby="gambarModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="gambarModalLabel">Bukti Pembayaran</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <img src="<?= base_url('uploads/' . $row['bukti_payment']); ?>" style="width:100%;height:auto;">
-            </div>
-        </div>
-    </div>
-</div>
-<?php endforeach; ?> 
-
-
-
-
+      
 
 
       
@@ -248,53 +158,8 @@
 
   </div>
 </div>
-
-
-<script>
-  function toggleIcon(iconId) {
-    const icon = document.getElementById(iconId);
-    if (icon.classList.contains('fa-chevron-right')) {
-      icon.classList.remove('fa-chevron-right');
-      icon.classList.add('fa-chevron-down');
-    } else {
-      icon.classList.remove('fa-chevron-down');
-      icon.classList.add('fa-chevron-right');
-    }
-  }
-  
-  function expandAllLists() {
-    const collapsibleButtons = document.querySelectorAll('.icon-button');
-
-    collapsibleButtons.forEach(button => {
-      const targetId = button.getAttribute('href').replace('#', '');
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement && !targetElement.classList.contains('show')) {
-        button.click(); 
-      }
-    });
-  }
-
-  function collapseAllLists() {
-    const collapsibleButtons = document.querySelectorAll('.icon-button');
-
-    collapsibleButtons.forEach(button => {
-      const targetId = button.getAttribute('href').replace('#', '');
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement && targetElement.classList.contains('show')) {
-        button.click();
-      }
-    });
-  }
-</script>
-
+<!-- partial -->
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
-
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>

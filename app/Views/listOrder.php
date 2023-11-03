@@ -156,14 +156,12 @@
 </div>
         <div class="product-cell category"><span><?= $row['kode_order']; ?></div>
         <div class="product-cell status-cell">
-          <span>
-            <?= $row['nilaiOrder']; ?>
-          </span>
+          <span>Rp. <?= number_format($row['nilaiOrder'], 0, ",", "."); ?></span>
         </div>
-        <div class="product-cell sales"><span>-</span></div>
+        <div class="product-cell sales"><span>Rp. <?= number_format($row['dp_masuk'], 0, ",", "."); ?></span></div>
         <div class="product-cell stock"><span><?= $row['status']; ?></span></div>
-        <div class="product-cell price"><span><?= $row['gross_profit']; ?></span></div>
-        <div class="product-cell price"><span>-</span></div>
+        <div class="product-cell price"><span>Rp. <?= number_format($row['gross_profit'], 0, ",", "."); ?></span></div>
+        <div class="product-cell price"><span>Rp. <?= number_format($row['grand_total'], 0, ",", "."); ?></span></div>
       </div></a>
     
 <?php endforeach; ?>
@@ -186,7 +184,7 @@
       <a style="text-decoration: none;" href="<?= base_url('order/detailOrder/' . $encodedKodeOrder); ?>">Detail Order</a><br>
       <a style="text-decoration: none;" href="<?= base_url('order/invoice?kode_order=' . $encodedKodeOrder); ?>">Invoice Order</a><br>  
       <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Cetak Label</a><br> 
-      <a style="text-decoration: none;" href="<?= base_url('order/payment?kode_order=' . $encodedKodeOrder); ?>">Payment</a>  <br> 
+      <a style="text-decoration: none;" href="<?= base_url('order/payment/' . $encodedKodeOrder); ?>">Payment</a>  <br> 
       <!-- <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Detail</a>  <br>  -->
       <!-- <button type="button" data-toggle="modal" data-target="#info<?php echo $encodedKodeOrder; ?>"></button> -->
 

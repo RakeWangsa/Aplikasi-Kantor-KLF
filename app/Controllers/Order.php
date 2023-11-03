@@ -13,6 +13,7 @@ use App\Models\OrderProdukSupplierModel;
 use App\Models\TaskCalendarModel;
 use App\Models\OrderProdukDetailModel;
 use App\Models\OrderProdukBiayaModel;
+use App\Models\PaymentModel;
 
 class Order extends BaseController
 {
@@ -286,7 +287,7 @@ if ($semuaKodeInvoice) {
         $nama_supplier = $this->request->getPost('nama_supplier'.$i);
         $jumlah_barang = $this->request->getPost('jumlah_barang'.$i);
         $harga_supplier = $this->request->getPost('harga'.$i);
-
+        $detail_supplier= $nama_supplier.'-'.$kategori_supplier;
         $data = [
             'id_order_produk' => $id_order_produk,
             'kategori' => $kategori_supplier,
@@ -296,7 +297,7 @@ if ($semuaKodeInvoice) {
         ];
         $biayaData = [
             'id_order_produk' => $id_order_produk,
-            'detail' => $nama_supplier,
+            'detail' => $detail_supplier,
             'biaya' => $harga_supplier,
         ];
         $OrderProdukSupplierModel->insert($data);
@@ -412,13 +413,83 @@ public function invoice()
         return view('cetakInvoice');
     }
 
-    public function payment(): string
+    public function payment($kodeOrder): string
     {
-        $encodedKodeOrder = $this->request->getGet('kode_order');
-        $kodeOrder = base64_decode($encodedKodeOrder);
+        $decodedKodeOrder = base64_decode($kodeOrder);
         $model = new OrderModel();
-        $data = $model->where('kode_order', $kodeOrder)->first();
-        return view('payment', ['data' => $data]);
+        $data = $model->where('kode_order', $decodedKodeOrder)->first();
+        $PaymentModel = new PaymentModel();
+        $PaymentData = $PaymentModel->where('kode_order', $decodedKodeOrder)->findAll();
+        return view('payment', ['data' => $data,'PaymentData' => $PaymentData]);
+    }
+
+    public function inputPayment($kodeOrder): string
+    {
+        $decodedKodeOrder = base64_decode($kodeOrder);
+        $model = new OrderModel();
+        $data = $model->where('kode_order', $decodedKodeOrder)->first();
+        $PaymentModel = new PaymentModel();
+        $PaymentData = $PaymentModel->where('kode_order', $decodedKodeOrder)->findAll();
+        return view('inputPayment', ['data' => $data,'PaymentData' => $PaymentData]);
+    }
+
+    public function submitPayment($kodeOrder)
+    {
+        $decodedKodeOrder = base64_decode($kodeOrder);
+
+        $customer = $this->request->getPost('customer');
+        $tanggal = $this->request->getPost('tanggal');
+        $jumlahPayment = $this->request->getPost('jumlahPayment');
+        $buktiPayment = $this->request->getPost('buktiPayment');
+
+        $gambarFiles = $this->request->getFiles();
+
+        $orderModel = new OrderModel();
+        $model = new PaymentModel();
+
+        
+
+    foreach ($gambarFiles['buktiPayment'] as $gambar) {
+        // Pastikan ada file yang diunggah
+        if ($gambar->isValid() && !$gambar->hasMoved()) {
+            // Pastikan nama file unik
+            // $namaFile = base64_encode($gambar->getRandomName());
+
+            $uuid = uniqid(); // Generate a unique ID
+            $ekstensiAsli = pathinfo($gambar->getName(), PATHINFO_EXTENSION); // Dapatkan ekstensi asli dari nama file
+
+            $namaFile = $uuid . '.' . $ekstensiAsli; // Gabungkan ID unik dan ekstensi asli untuk nama file
+
+
+            // Pindahkan file ke direktori penyimpanan
+            $gambar->move(ROOTPATH . 'public/uploads', $namaFile);
+
+            $data = [
+                'kode_order' => $decodedKodeOrder,
+                'nama' => $customer,
+                'tanggal' => $tanggal,
+                'jumlah_payment' => $jumlahPayment,
+                'bukti_payment' => $namaFile,
+            ];
+            $model->insert($data);
+        }
+    }
+
+    $totalDpMasuk = 0;
+    $PaymentData = $model->where('kode_order', $decodedKodeOrder)->findAll();
+    foreach ($PaymentData as $dp) {
+        $totalDpMasuk += $dp['jumlah_payment'];
+    }
+
+    $nilaiOrder = $orderModel->where('kode_order', $decodedKodeOrder)->first();
+    $grandTotal = $nilaiOrder['nilaiOrder']-$totalDpMasuk;
+    $orderData= [
+        'dp_masuk' => $totalDpMasuk,
+        'grand_total' => $grandTotal,
+    ];
+    $orderModel->update($decodedKodeOrder, $orderData);
+
+        return redirect()->to(base_url('order/payment/' . $kodeOrder))->with('success', 'Payment berhasil ditambahkan.');
     }
 
     public function paymentTerms()

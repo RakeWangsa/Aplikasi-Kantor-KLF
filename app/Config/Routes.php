@@ -29,7 +29,9 @@ $routes->post('order/detailOrder/inputProduk/(:segment)/submit', 'Order::submitP
 $routes->get('order/detailOrder/detailProduk/(:segment)', 'Order::detailProduk/$1');
 $routes->get('order/invoice', 'Order::invoice');
 $routes->add('order/invoice/addPaymentTerms', 'Order::paymentTerms');
-$routes->get('order/payment', 'Order::payment');
+$routes->get('order/payment/(:segment)', 'Order::payment/$1');
+$routes->get('order/payment/inputPayment/(:segment)', 'Order::inputPayment/$1');
+$routes->post('order/payment/inputPayment/submit/(:segment)', 'Order::submitPayment/$1');
 $routes->get('order/invoice/cetak', 'Order::cetakInvoice');
 // $routes->get('order/editOrder', 'Order::editOrder');
 $routes->get('order/editOrder/(:segment)', 'Order::editOrder/$1');
