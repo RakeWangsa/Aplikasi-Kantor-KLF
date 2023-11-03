@@ -133,11 +133,11 @@
                 <p><strong>Catatan Khusus :</strong> <?= $OrderProdukData['catatan_khusus']; ?></p>
               </div>
               <div class="col">
-              <p><strong>Harga :</strong> <?= $OrderProdukData['harga']; ?></p>
+              <p><strong>Harga :</strong> Rp. <?= number_format($OrderProdukData['harga'], 0, ",", "."); ?></p>
                 <p><strong>Quantity :</strong> <?= $OrderProdukData['quantity']; ?></p>
-                <p><strong>Discount :</strong> <?= $OrderProdukData['discount']; ?></p>
-                <p><strong>Total Harga :</strong> <?= $OrderProdukData['total_harga']; ?></p>
-                <p><strong>Biaya Produksi :</strong> <?= $OrderProdukData['total_biaya']; ?></p>
+                <p><strong>Discount :</strong> Rp. <?= number_format($OrderProdukData['discount'], 0, ",", "."); ?></p>
+                <p><strong>Total Harga :</strong> Rp. <?= number_format($OrderProdukData['total_harga'], 0, ",", "."); ?></p>
+                <p><strong>Biaya Produksi :</strong> Rp. <?= number_format($OrderProdukData['total_biaya'], 0, ",", "."); ?></p>
               </div>
             </div>
                 
@@ -205,7 +205,7 @@
 <div class="products-row">
 
 <div class="product-cell"><?= $row['detail']; ?></div>
-<div class="product-cell"><?= $row['biaya']; ?></div>
+<div class="product-cell">Rp. <?= number_format($row['biaya'], 0, ",", "."); ?></div>
 </div>
 <?php endforeach; ?>
 
@@ -240,7 +240,7 @@
 
         <div class="products-row">
       <div class="product-cell category sublist">
-        <span><i class="sublist-icon"></i>Harga : <?= $row['harga']; ?></span>
+        <span><i class="sublist-icon"></i>Harga : Rp. <?= number_format($row['harga'], 0, ",", "."); ?></span>
       </div>
 
     </div>

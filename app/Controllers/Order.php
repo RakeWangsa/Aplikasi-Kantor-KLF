@@ -492,6 +492,21 @@ public function invoice()
         return redirect()->to(base_url('order/payment/' . $kodeOrder))->with('success', 'Payment berhasil ditambahkan.');
     }
 
+    public function updateStatus($kodeOrder)
+    {
+        $status = $this->request->getGet('status');
+        $decodedKodeOrder = base64_decode($kodeOrder);
+
+        $model = new orderModel();
+
+        $data = [
+            'status' => $status,
+        ];
+    
+        $model->update($decodedKodeOrder, $data);
+        return redirect()->to(base_url('order/listOrder'))->with('success', 'Status berhasil diupdate.');
+    }
+
     public function paymentTerms()
     {
         $encodedKodeOrder = $this->request->getGet('kode_order');

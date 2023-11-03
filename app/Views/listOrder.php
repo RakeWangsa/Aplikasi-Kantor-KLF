@@ -185,10 +185,10 @@
       <a style="text-decoration: none;" href="<?= base_url('order/invoice?kode_order=' . $encodedKodeOrder); ?>">Invoice Order</a><br>  
       <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Cetak Label</a><br> 
       <a style="text-decoration: none;" href="<?= base_url('order/payment/' . $encodedKodeOrder); ?>">Payment</a>  <br> 
-      <!-- <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Detail</a>  <br>  -->
-      <!-- <button type="button" data-toggle="modal" data-target="#info<?php echo $encodedKodeOrder; ?>"></button> -->
+      <a style="text-decoration: none;" href="<?= base_url('order/editOrder/' . $encodedKodeOrder); ?>">Edit</a><br> 
+      <a style="text-decoration: none;" href="" data-bs-toggle="modal" data-bs-target="#status<?= $modalId; ?>">Status</a>
 
-      <a style="text-decoration: none;" href="<?= base_url('order/editOrder/' . $encodedKodeOrder); ?>">Edit</a>
+
 
 
       </div>
@@ -202,7 +202,33 @@
 <?php endforeach; ?>
 
       
-
+<!-- Modal -->
+<?php foreach ($data as $row): ?>
+  <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
+  <?php
+        $encodedKodeOrder2 = base64_encode($row['kode_order']);
+      ?>
+<div class="modal fade" id="status<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status : <?= $row['kode_order']; ?></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <a style="text-decoration: none;" href="<?= base_url('order/updateStatus/' . $encodedKodeOrder2 . '?status=Selesai'); ?>">Selesai</a><br>
+      <a style="text-decoration: none;" href="<?= base_url('order/updateStatus/' . $encodedKodeOrder2 . '?status=Delivery'); ?>">Delivery</a><br>
+      <a style="text-decoration: none;" href="<?= base_url('order/updateStatus/' . $encodedKodeOrder2 . '?status=Hold'); ?>">Hold</a><br>
+      <a style="text-decoration: none;" href="<?= base_url('order/updateStatus/' . $encodedKodeOrder2 . '?status=Batal'); ?>">Batal</a><br>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+<?php endforeach; ?>
 
       
 
