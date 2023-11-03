@@ -320,11 +320,25 @@ if ($semuaKodeInvoice) {
 
 
     $OrderModel = new OrderModel();
-    $nilaiOrder = $OrderModel->select('nilaiOrder')->find($decodedKodeOrder);
-    $totalNilaiOrder=$nilaiOrder['nilaiOrder']+$total_harga;
+    // $nilaiOrder = $OrderModel->select('nilaiOrder')->find($decodedKodeOrder);
+    // $totalNilaiOrder=$nilaiOrder['nilaiOrder']+$total_harga;
+
+    $totalData = $model->like('id_order_produk', $decodedKodeOrder, 'after')->findAll();
+    $totalHargaOrder = 0; // Menginisialisasi total harga
+    $totalBiayaOrder = 0; // Menginisialisasi total biaya
+
+    foreach ($totalData as $data) {
+        $totalHargaOrder += $data['total_harga']; // Menambahkan biaya ke totalHargaOrder
+        $totalBiayaOrder += $data['total_biaya']; // Menambahkan biaya ke totalBiayaOrder
+    }
+
+    $grossProfit=$totalHargaOrder-$totalBiayaOrder;
+
 
     $OrderData = [
-        'nilaiOrder' => $totalNilaiOrder,
+        'nilaiOrder' => $totalHargaOrder,
+        'total_biaya_order' => $totalBiayaOrder,
+        'gross_profit' => $grossProfit
     ];
     $OrderModel->update($decodedKodeOrder, $OrderData);
 

@@ -162,7 +162,7 @@
         </div>
         <div class="product-cell sales"><span>-</span></div>
         <div class="product-cell stock"><span><?= $row['status']; ?></span></div>
-        <div class="product-cell price"><span>-</span></div>
+        <div class="product-cell price"><span><?= $row['gross_profit']; ?></span></div>
         <div class="product-cell price"><span>-</span></div>
       </div></a>
     

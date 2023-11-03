@@ -130,14 +130,14 @@
                 <?php foreach ($OrderProdukDetailData as $row): ?>
                   <p><strong><?= $row['detail']; ?> :</strong> <?= $row['nilai']; ?></p>
                 <?php endforeach; ?>
-                <p><strong>Catatan Khusus:</strong> <?= $OrderProdukData['catatan_khusus']; ?></p>
+                <p><strong>Catatan Khusus :</strong> <?= $OrderProdukData['catatan_khusus']; ?></p>
               </div>
               <div class="col">
-              <p><strong>Harga:</strong> <?= $OrderProdukData['harga']; ?></p>
-                <p><strong>Quantity:</strong> <?= $OrderProdukData['quantity']; ?></p>
-                <p><strong>Discount:</strong> <?= $OrderProdukData['discount']; ?></p>
-                <p><strong>Total Harga:</strong> <?= $OrderProdukData['total_harga']; ?></p>
-                <p><strong>Total Biaya:</strong> <?= $OrderProdukData['total_biaya']; ?></p>
+              <p><strong>Harga :</strong> <?= $OrderProdukData['harga']; ?></p>
+                <p><strong>Quantity :</strong> <?= $OrderProdukData['quantity']; ?></p>
+                <p><strong>Discount :</strong> <?= $OrderProdukData['discount']; ?></p>
+                <p><strong>Total Harga :</strong> <?= $OrderProdukData['total_harga']; ?></p>
+                <p><strong>Biaya Produksi :</strong> <?= $OrderProdukData['total_biaya']; ?></p>
               </div>
             </div>
                 

@@ -175,14 +175,14 @@
 
 
                             <p class="dashboard-box-label text-light">Total Nilai Order</p>
-                            <p class="dashboard-box-value text-light"><?= $data['nilaiOrder']; ?></p>
+                            <p class="dashboard-box-value text-light">Rp. <?= $data['nilaiOrder']; ?></p>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
                         <div class="dashboard-box">
                             <i class="fas fa-money-bill-wave dashboard-box-icon"></i>
                             <p class="dashboard-box-label text-light">Total Biaya Produksi</p>
-                            <p class="dashboard-box-value text-light">Rp. 65.000.000</p>
+                            <p class="dashboard-box-value text-light">Rp. <?= $data['total_biaya_order']; ?></p>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
@@ -190,7 +190,7 @@
                             <i class="fas fa-receipt dashboard-box-icon"></i>
 
                             <p class="dashboard-box-label text-light">Gross Profit</p>
-                            <p class="dashboard-box-value text-light">Rp. 15.000.000</p>
+                            <p class="dashboard-box-value text-light">Rp. <?= $data['gross_profit']; ?></p>
                         </div>
                     </div>
 
@@ -207,11 +207,11 @@
 
 <div class="product-cell">Gambar</div>
 <div class="product-cell">Nama</div>
-<div class="product-cell">Detail</div>
 <div class="product-cell">Harga</div>
 <div class="product-cell">Quantity</div>
 <div class="product-cell">Discount</div>
 <div class="product-cell">Total Harga</div>
+<div class="product-cell">Biaya Produksi</div>
 
 </div>
 
@@ -233,11 +233,11 @@
   <div class="product-cell">
     <span><?= $row['nama']; ?></span>
   </div>
-<div class="product-cell"><span>-</div>
 <div class="product-cell"><span><?= $row['harga']; ?></span></div>
 <div class="product-cell"><span><?= $row['quantity']; ?></span></div>
 <div class="product-cell"><span><?= $row['discount']; ?></span></div>
 <div class="product-cell"><span><?= $row['total_harga']; ?></span></div>
+<div class="product-cell"><span><?= $row['total_biaya']; ?></div>
 
 </div></a>
     
