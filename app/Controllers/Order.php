@@ -321,7 +321,7 @@ if ($semuaKodeInvoice) {
 
 
     $OrderModel = new OrderModel();
-    // $nilaiOrder = $OrderModel->select('nilaiOrder')->find($decodedKodeOrder);
+    $dpMasuk = $OrderModel->select('dp_masuk')->find($decodedKodeOrder);
     // $totalNilaiOrder=$nilaiOrder['nilaiOrder']+$total_harga;
 
     $totalData = $model->like('id_order_produk', $decodedKodeOrder, 'after')->findAll();
@@ -334,12 +334,13 @@ if ($semuaKodeInvoice) {
     }
 
     $grossProfit=$totalHargaOrder-$totalBiayaOrder;
-
+    $grandTotal=$totalHargaOrder-$dpMasuk['dp_masuk'];
 
     $OrderData = [
         'nilaiOrder' => $totalHargaOrder,
         'total_biaya_order' => $totalBiayaOrder,
-        'gross_profit' => $grossProfit
+        'gross_profit' => $grossProfit,
+        'grand_total' => $grandTotal,
     ];
     $OrderModel->update($decodedKodeOrder, $OrderData);
 
@@ -394,17 +395,30 @@ if ($semuaKodeInvoice) {
     }
 
 
-public function invoice()
+public function invoice($kodeOrder)
 {
-    $encodedKodeOrder = $this->request->getGet('kode_order');
-    $kodeOrder = base64_decode($encodedKodeOrder);
+    $decodedKodeOrder = base64_decode($kodeOrder);
 
     $model = new OrderModel();
+    $OrderProdukModel = new OrderProdukModel();
+    $OrderProdukDetailModel = new OrderProdukDetailModel();
     $paymentTermsModel = new PaymentTermsModel();
-    $data = $model->where('kode_order', $kodeOrder)->first();
-    $termin = $paymentTermsModel->where('kode_order', $kodeOrder)->first();
+    $data = $model->where('kode_order', $decodedKodeOrder)->first();
+    $termin = $paymentTermsModel->where('kode_order', $decodedKodeOrder)->first();
+    $OrderProdukData = $OrderProdukModel->where('kode_order', $decodedKodeOrder)->findAll();
+    $OrderProdukDetailData = $OrderProdukDetailModel->like('id_order_produk', $decodedKodeOrder, 'after')->findAll();
+    $gambarModel = new GambarProdukModel();
+    foreach ($OrderProdukData as &$produk) {
+        $gambar = $gambarModel->where('id_order_produk', $produk['id_order_produk'])->first();
+        $produk['gambar'] = $gambar ? $gambar['gambar'] : '';
+    }
+    $totalQuantity = 0;
+
+    foreach ($OrderProdukData as $orderProduk) {
+        $totalQuantity += $orderProduk['quantity'];
+    }
     
-    return view('invoice', ['data' => $data, 'termin' => $termin]);
+    return view('invoice', ['data' => $data, 'termin' => $termin, 'OrderProdukData' => $OrderProdukData, 'OrderProdukDetailData' => $OrderProdukDetailData, 'totalQuantity' => $totalQuantity]);
 }
 
 

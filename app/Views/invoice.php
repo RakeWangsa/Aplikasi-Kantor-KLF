@@ -220,85 +220,59 @@
         </td>
         <td style="text-align: left;"><pre style="display:inline;">Customer : <?= $data['nama']; ?></pre><br>
         <pre style="display:inline;">Address  : <?= $data['alamat']; ?></pre><br>
-        <pre style="display:inline;">Email    : -</pre><br>
+        <pre style="display:inline;">Email    : <?= $data['email']; ?></pre><br>
         <pre style="display:inline;">Mobile   : <?= $data['no_telfon']; ?></pre></td>
       </tr>
       <tr>
       </table>
       <table class="text-light">
       <tr>
-      <th colspan="10" style="background-color:#303030;">3. PRICELIST</th>
+      <th colspan="6" style="background-color:#303030;">3. PRICELIST</th>
       </tr>
       <tr style="background-color:#404040;">
-        <td rowspan="2">No</td>
-        <td rowspan="2">Gambar</td>
-        <td rowspan="2">Deskripsi</td>
-        <td colspan="3">Ukuran</td>
-        <td rowspan="2">Finishing</td>
-        <td rowspan="2">Harga(Rp)</td>
-        <td rowspan="2">Qty</td>
-        <td rowspan="2">Total Harga</td>
-      </tr>
-      <tr style="background-color:#404040;">
-        <td>W cm</td>
-        <td>D cm</td>
-        <td>H cm</td>
-      </tr>
-      <tr style="background-color:#707070;">
-        <td>1</td>
-        <td>    <?php
-    // Pecah nilai $row['foto'] menjadi array berdasarkan koma (,)
-    $fotoArray = explode(',', $data['gambar']);
-
-    // Loop untuk menampilkan setiap foto
-    foreach ($fotoArray as $foto):
-    ?>
-        <img src="<?= base_url('uploads/' . $foto); ?>" style="max-width: 100px;" alt="Gambar">
-    <?php
-    endforeach;
-    ?></td>
-        <td>Buffet<br>
-200x40x90<br>
-Kaki stainless gold<br>
-Warna Excellente White <br>
-Nippon<br>
-Marmer white carrara</td>
-
-        <td>200</td>
-        <td>40</td>
-        <td>90</td>
+        <td>No</td>
+        <td>Gambar</td>
         <td>Deskripsi</td>
-        <td>Rp. 8.000.000</td>
-        <td>1</td>
-        <td>Rp. 8.000.000</td>
+        <td>Harga(Rp)</td>
+        <td>Qty</td>
+        <td>Total Harga</td>
       </tr>
+
+      <?php $i = 1; ?>
+      <?php foreach ($OrderProdukData as $row): ?>
       <tr style="background-color:#707070;">
-        <td>2</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><?= $i ?></td>
+        <td><img src="<?= base_url('uploads/'.$row['gambar']); ?>" style="width: 150px; height: auto;"></td>
+        <td><?= $row['nama'] ?><br>
+        <?php foreach ($OrderProdukDetailData as $detail): ?>
+          <?php if ($detail['id_order_produk']==$row['id_order_produk']): ?>
+          <?= $detail['detail'] ?> : <?= $detail['nilai'] ?><br>
+          <?php endif; ?>
+          <?php endforeach; ?>
+
+
+        <td>Rp. <?= number_format($row['harga'], 0, ",", "."); ?></td>
+        <td><?= $row['quantity'] ?></td>
+        <td>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></td>
       </tr>
+      <?php $i++; ?>
+      <?php endforeach; ?>
+
       <tr>
-        <td colspan="7"></td>
+        <td colspan="3"></td>
         <td style="background-color:#707070;">SUBTOTAL</td>
-        <td style="background-color:#707070;">1</td>
-        <td style="background-color:#707070;">Rp. 8.000.000</td>
+        <td style="background-color:#707070;"><?= $totalQuantity ?></td>
+        <td style="background-color:#707070;">Rp. <?= number_format($data['nilaiOrder'], 0, ",", "."); ?></td>
       </tr>
       <tr>
-        <td colspan="7"></td>
+        <td colspan="3"></td>
         <td style="background-color:#707070;">DP</td>
-        <td colspan="2" style="background-color:#707070;">Rp. 3.000.000</td>
+        <td colspan="2" style="background-color:#707070;">Rp. <?= number_format($data['dp_masuk'], 0, ",", "."); ?></td>
       </tr>
       <tr>
-        <td colspan="7"></td>
+        <td colspan="3"></td>
         <td style="background-color:#707070;">GRAND TOTAL</td>
-        <td colspan="2" style="background-color:#707070;">Rp. 5.000.000</td>
+        <td colspan="2" style="background-color:#707070;">Rp. <?= number_format($data['grand_total'], 0, ",", "."); ?></td>
       </tr>
 
       

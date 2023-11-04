@@ -182,7 +182,7 @@
         $encodedKodeOrder = base64_encode($row['kode_order']);
       ?>
       <a style="text-decoration: none;" href="<?= base_url('order/detailOrder/' . $encodedKodeOrder); ?>">Detail Order</a><br>
-      <a style="text-decoration: none;" href="<?= base_url('order/invoice?kode_order=' . $encodedKodeOrder); ?>">Invoice Order</a><br>  
+      <a style="text-decoration: none;" href="<?= base_url('order/invoice/' . $encodedKodeOrder); ?>">Invoice Order</a><br>  
       <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Cetak Label</a><br> 
       <a style="text-decoration: none;" href="<?= base_url('order/payment/' . $encodedKodeOrder); ?>">Payment</a>  <br> 
       <a style="text-decoration: none;" href="<?= base_url('order/editOrder/' . $encodedKodeOrder); ?>">Edit</a><br> 

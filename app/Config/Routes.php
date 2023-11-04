@@ -28,7 +28,7 @@ $routes->get('order/detailOrder/inputProduk/(:segment)', 'Order::inputProduk/$1'
 $routes->post('order/detailOrder/inputProduk/(:segment)/submit', 'Order::submitProduk/$1');
 $routes->get('order/detailOrder/detailProduk/(:segment)', 'Order::detailProduk/$1');
 $routes->get('order/updateStatus/(:segment)', 'Order::updateStatus/$1');
-$routes->get('order/invoice', 'Order::invoice');
+$routes->get('order/invoice/(:segment)', 'Order::invoice/$1');
 $routes->add('order/invoice/addPaymentTerms', 'Order::paymentTerms');
 $routes->get('order/payment/(:segment)', 'Order::payment/$1');
 $routes->get('order/payment/inputPayment/(:segment)', 'Order::inputPayment/$1');
