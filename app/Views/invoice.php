@@ -124,7 +124,7 @@
 <div class="modal fade" id="paymentTerms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    <form action="<?= base_url('order/invoice/addPaymentTerms?kode_order=' . $encodedKodeOrder); ?>" method="post">
+    <form action="<?= base_url('order/invoice/addPaymentTerms/' . $encodedKodeOrder); ?>" method="post">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Payment Terms</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -181,8 +181,8 @@
 
   <table class="text-light">
   <tr style="background-color:#707070;">
-  <td rowspan="5"><img src="<?= base_url('uploads/klflogo.png'); ?>" style="max-width:500px"></td>
-  <td rowspan="5">v.1</td>
+  <td rowspan="4"><img src="<?= base_url('uploads/klflogo.png'); ?>" style="max-width:500px"></td>
+
     <td>Invoice <?= $data['nama']; ?></td>
   </tr>
   <tr style="background-color:#707070;">
@@ -195,9 +195,6 @@
   <td style="text-align: left;">DEADLINE &nbsp; <?= date('d-m-Y', strtotime($data['deadline'])); ?></td>
 
 
-  </tr>
-  <tr style="background-color:#707070;">
-    <td style="text-align: left;">REV &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -</td>
   </tr>
 
 </table>
@@ -232,7 +229,7 @@
       <tr style="background-color:#404040;">
         <td>No</td>
         <td>Gambar</td>
-        <td>Deskripsi</td>
+        <td>Detail</td>
         <td>Harga(Rp)</td>
         <td>Qty</td>
         <td>Total Harga</td>
@@ -243,7 +240,7 @@
       <tr style="background-color:#707070;">
         <td><?= $i ?></td>
         <td><img src="<?= base_url('uploads/'.$row['gambar']); ?>" style="width: 150px; height: auto;"></td>
-        <td><?= $row['nama'] ?><br>
+        <td><strong><?= $row['nama'] ?></strong><br>
         <?php foreach ($OrderProdukDetailData as $detail): ?>
           <?php if ($detail['id_order_produk']==$row['id_order_produk']): ?>
           <?= $detail['detail'] ?> : <?= $detail['nilai'] ?><br>

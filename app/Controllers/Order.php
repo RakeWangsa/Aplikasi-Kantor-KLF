@@ -521,26 +521,25 @@ public function invoice($kodeOrder)
         return redirect()->to(base_url('order/listOrder'))->with('success', 'Status berhasil diupdate.');
     }
 
-    public function paymentTerms()
+    public function paymentTerms($kodeOrder)
     {
-        $encodedKodeOrder = $this->request->getGet('kode_order');
-        $kodeOrder = base64_decode($encodedKodeOrder);
+        $decodedKodeOrder = base64_decode($kodeOrder);
         $termin1 = $this->request->getPost('termin1');
         $termin2 = $this->request->getPost('termin2');
         $termin3 = $this->request->getPost('termin3');
 
         $model = new PaymentTermsModel();
-        $data = $model->where('kode_order', $kodeOrder)->first();
+        $data = $model->where('kode_order', $decodedKodeOrder)->first();
 
         $data = [
-            'kode_order' => $kodeOrder,
+            'kode_order' => $decodedKodeOrder,
             'termin1' => $termin1,
             'termin2' => $termin2,
             'termin3' => $termin3,
         ];
     
         $model->insert($data);
-        return redirect()->to(base_url('order/invoice/?kode_order=' . $encodedKodeOrder))->with('success', 'Order berhasil ditambahkan.');
+        return redirect()->to(base_url('order/invoice/' . $kodeOrder))->with('success', 'Order berhasil ditambahkan.');
     }
 
     public function editOrder($kodeOrder)

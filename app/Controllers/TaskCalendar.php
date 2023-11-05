@@ -100,4 +100,21 @@ class TaskCalendar extends BaseController
         return view('taskCalendarCetakQC', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'TaskCalendarData' => $TaskCalendarData]);
     }
 
+    public function cetakQCdownload()
+    {
+        $OrderModel = new OrderModel();
+        $OrderData = $OrderModel->findAll();
+        $jumlahTask = count($OrderData);
+        $array=[];
+        for ($i = 1; $i <= $jumlahTask; $i++) {
+            $radio = $this->request->getPost('radio'.$i);
+            if ($radio != NULL) {
+                $array[] = $radio;
+            }
+        }
+        foreach($array as $arr){
+
+        }
+    }
+
 }

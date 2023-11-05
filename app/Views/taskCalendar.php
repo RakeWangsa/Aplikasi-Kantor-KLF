@@ -203,7 +203,13 @@
       <div class="product-cell category subtask">
         <span><button class="icon-button bg-dark" data-toggle="collapse" href="#sub<?php echo $taskCalendar['id']; ?>" onclick="toggleIcon('iconsub<?php echo $taskCalendar['id']; ?>')">
         <i id="iconsub<?php echo $taskCalendar['id']; ?>" class="fas fa-chevron-right" style="color:grey"></i>
-      </button> <?= $taskCalendar['task']; ?> <img src="<?= base_url('uploads/' . $taskCalendar['gambar']); ?>" style="width:70px;height:auto;margin-left:50px"></span>
+      </button> <?= $taskCalendar['task']; ?> 
+
+      <img src="<?= base_url('uploads/' . $taskCalendar['gambar']); ?>" style="width:70px;height:auto;margin-left:50px" data-toggle="modal" data-target="#modal<?= $taskCalendar['id'] ?>" alt="...">
+
+
+
+    </span>
       </div>
       <div class="product-cell status-cell">
         <span><?= date('d-m-Y', strtotime($taskCalendar['deadline'])); ?></span>
@@ -250,7 +256,21 @@
         </div>
 
       </ul>
+      
+            <!-- Modal -->
+            <div class="modal fade" id="modal<?= $taskCalendar['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<?= $taskCalendar['id'] ?>" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <img src="<?= base_url('uploads/' . $taskCalendar['gambar']); ?>" style="width: 100%; height: auto;" alt="...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
         <?php endif; ?>
+        
     <?php endforeach; ?>
 
     </div>
@@ -260,6 +280,27 @@
 </div>
 
 
+
+<!-- modal gambar -->
+<?php foreach ($TaskCalendarData as $taskCalendar): ?>
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="imageModalLabel">Gambar</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img src="" class="img-fluid" alt="Gambar">
+      </div>
+    </div>
+  </div>
+</div>
+
+  <?php endforeach; ?> 
 
 
 

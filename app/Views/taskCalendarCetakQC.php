@@ -143,12 +143,15 @@
       
     </div>
 
-    <!-- <div class="app-content-actions">
-      <input class="search-bar" placeholder="Search..." id="searchInput" type="text">
-      <a class="btn btn-primary" href="<?= base_url('order/inputOrder'); ?>">Input Order</a>
-    </div> -->
+    <form class="text-light" action="<?= base_url('taskCalendar/cetakQC/download'); ?>" method="post">
 
-    <div class="products-area-wrapper tableView mt-4">
+    <div class="app-content-actions">
+      <!-- <input class="search-bar" placeholder="Search..." id="searchInput" type="text"> -->
+      <div></div>
+      <button type="submit" class="btn btn-secondary downloadButton"><i class="fas fa-download"></i> Download</button>
+    </div>
+
+    <div class="products-area-wrapper tableView">
       <div class="products-header">
       <div class="product-cell status-cell">To Do (<?= $jumlahTask; ?> Tasks)</div>
         <div class="product-cell sales">Deadline</div>
@@ -162,6 +165,7 @@
 
       <div id="productList">
       <ul class="list-group">
+      <?php $i=1; ?>
   <?php foreach ($OrderData as $row): ?>
     <?php $task = str_replace('/', '_', $row['kode_order']); ?>
 <li class="">
@@ -178,11 +182,10 @@
       <div class="product-cell status-cell">
         <span>
 
-        <form action="" method="post">
         <!-- <label for="radioButton<?= $task; ?>">Cetak</label> -->
-    <input type="checkbox" id="radioButton<?= $task; ?>" name="radioGroup" value="<?= $row['kode_order']; ?>">
+    <input type="checkbox" id="radioButton<?= $task; ?>" name="radio<?= $i; ?>" value="<?= $row['kode_order']; ?>">
     <!-- <button type="submit">Kirim</button> -->
-</form>
+
 
       </span>
       </div>
@@ -200,7 +203,13 @@
       <div class="product-cell category subtask">
         <span><button class="icon-button bg-dark" data-toggle="collapse" href="#sub<?php echo $taskCalendar['id']; ?>" onclick="toggleIcon('iconsub<?php echo $taskCalendar['id']; ?>')">
         <i id="iconsub<?php echo $taskCalendar['id']; ?>" class="fas fa-chevron-right" style="color:grey"></i>
-      </button> <?= $taskCalendar['task']; ?></span>
+      </button> <?= $taskCalendar['task']; ?>
+    
+      <img src="<?= base_url('uploads/' . $taskCalendar['gambar']); ?>" style="width:70px;height:auto;margin-left:50px" data-toggle="modal" data-target="#modal<?= $taskCalendar['id'] ?>" alt="...">
+
+
+
+    </span>
       </div>
       <div class="product-cell status-cell">
         <span><?= date('d-m-Y', strtotime($taskCalendar['deadline'])); ?></span>
@@ -248,192 +257,19 @@
 
     </div>
 
+    <?php $i++; ?>
   <?php endforeach; ?> 
 
 
-<!-- button cetak -->
-<!-- <li class="">
 
-    <div class="products-row task">
-      <div class="product-cell category">
-        <span></span>
-      </div>
-      <div class="product-cell status-cell">
-        <span></span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>
-
-        <button class="btn btn-secondary">Cetak</button>
-
-      </span>
-      </div>
-    </div>
-    </li> -->
-<!-- button end -->
 
 </ul>
 </div>
 
 
-<button class="btn btn-secondary mt-4" style="margin-left:15px"><i class="fas fa-print"></i> Cetak</button>
 
 
-<!-- tambah subtask -->
 
-<?php foreach ($OrderData as $row): ?>
-  <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
-  <?php
-        $parent = base64_encode($row['kode_order']);
-      ?>
-  <div class="modal fade" id="add<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['kode_order']; ?> (Tambah Subtask)</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
-          <div class="mb-3">
-            <label for="task" class="form-label">Task</label>
-            <input type="text" class="form-control" id="task" name="task">
-          </div>
-          <div class="mb-3">
-            <label for="deadline" class="form-label">Deadline</label>
-            <input type="date" class="form-control" id="deadline" name="deadline">
-          </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-<?php endforeach; ?>
-
-      
-<?php foreach ($TaskCalendarData as $row): ?>
-  <?php $modalId = $row['id']; ?>
-  <?php
-        $parent = base64_encode($row['id']);
-      ?>
-  <div class="modal fade" id="add<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['task']; ?> (Tambah Subtask)</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
-          <div class="mb-3">
-            <label for="task" class="form-label">Task</label>
-            <input type="text" class="form-control" id="task" name="task">
-          </div>
-          <div class="mb-3">
-            <label for="deadline" class="form-label">Deadline</label>
-            <input type="date" class="form-control" id="deadline" name="deadline">
-          </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-<?php endforeach; ?>
-
-
-<!-- edit subtask -->
-
-<?php foreach ($TaskCalendarData as $row): ?>
-  <?php $modalId = $row['id']; ?>
-
-  <div class="modal fade" id="edit<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <form action="<?= base_url('taskCalendar/editSubtask?id=' . $row['id']); ?>" method="post">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['task']; ?> (Edit Subtask)</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
-          <div class="mb-3">
-            <label for="task" class="form-label">Task</label>
-            <input type="text" class="form-control" name="task" id="task" value="<?= $row['task']; ?>">
-            <!-- <input type="text" class="form-control" id="task" name="task"> -->
-          </div>
-          <div class="mb-3">
-            <label for="deadline" class="form-label">Deadline</label>
-            <input type="date" class="form-control" name="deadline" id="deadline" value="<?= $row['deadline']; ?>">
-            <!-- <input type="date" class="form-control" id="deadline" name="deadline"> -->
-          </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-<?php endforeach; ?>
-
-
-<!-- detail -->
-
-<?php foreach ($OrderData as $row): ?>
-  <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
-  <?php
-        $parent = base64_encode($row['kode_order']);
-      ?>
-  <div class="modal fade" id="info<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <!-- <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post"> -->
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['kode_order']; ?> (Informasi Produk)</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
-          <div class="mb-3">
-            <p>Nama :<br><?= $row['nama']; ?></p>
-          </div>
-          <div class="mb-3">
-            <p>Gambar</p>
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" style="width:100px">
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" style="width:100px">
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" style="width:100px">
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" style="width:100px">
-          </div>
-          <div class="mb-3">
-            <p>Details :<br>tes</p>
-          </div>
-          <div class="mb-3">
-            <p>Deadline :<br><?= date('d-m-Y', strtotime($row['deadline'])); ?></p>
-          </div>
-          <div class="mb-3">
-            <p>Quantity :<br><?= $row['jumlah_barang']; ?></p>
-          </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-      <!-- </form> -->
-    </div>
-  </div>
-</div>
-<?php endforeach; ?>
 
 
 
@@ -441,13 +277,47 @@
 
     </div>
 
-
+    </form>
 
 
 
   </div>
 </div>
-<!-- partial -->
+
+<script>
+    // Get all the buttons triggering the collapse
+    const collapseButtons = document.querySelectorAll('.icon-button');
+
+    // Add a click event listener to each collapse button
+    collapseButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default action
+
+            const clickedButton = event.target;
+            const buttonIcon = clickedButton.querySelector('i');
+
+            const isDownloadButton = clickedButton.classList.contains('downloadButton');
+
+            if (isDownloadButton) {
+                // Perform form submission
+                // You can choose to submit the form via AJAX or any other method here
+                document.querySelector('form').submit(); // This submits the form
+            } else {
+                // Toggle the collapse for the clicked button
+                const taskId = clickedButton.getAttribute('href').replace('#', ''); // Extract task ID
+                const iconId = 'icon' + taskId;
+
+                toggleIcon(iconId); // Your function to toggle the icon
+            }
+        });
+    });
+
+    // Your function to toggle the icon
+    function toggleIcon(iconId) {
+        // Implement your logic to toggle the icon
+    }
+</script>
+
 
 <script>
   function toggleIcon(iconId) {

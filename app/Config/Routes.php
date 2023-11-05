@@ -29,7 +29,7 @@ $routes->post('order/detailOrder/inputProduk/(:segment)/submit', 'Order::submitP
 $routes->get('order/detailOrder/detailProduk/(:segment)', 'Order::detailProduk/$1');
 $routes->get('order/updateStatus/(:segment)', 'Order::updateStatus/$1');
 $routes->get('order/invoice/(:segment)', 'Order::invoice/$1');
-$routes->add('order/invoice/addPaymentTerms', 'Order::paymentTerms');
+$routes->add('order/invoice/addPaymentTerms/(:segment)', 'Order::paymentTerms/$1');
 $routes->get('order/payment/(:segment)', 'Order::payment/$1');
 $routes->get('order/payment/inputPayment/(:segment)', 'Order::inputPayment/$1');
 $routes->post('order/payment/inputPayment/submit/(:segment)', 'Order::submitPayment/$1');
@@ -37,13 +37,14 @@ $routes->get('order/invoice/cetak', 'Order::cetakInvoice');
 // $routes->get('order/editOrder', 'Order::editOrder');
 $routes->get('order/editOrder/(:segment)', 'Order::editOrder/$1');
 
-
+ 
 
 $routes->get('taskCalendar', 'TaskCalendar::index');
 $routes->add('taskCalendar/addSubtask', 'TaskCalendar::addSubtask');
 $routes->post('taskCalendar/editSubtask', 'TaskCalendar::editSubtask');
 $routes->get('taskCalendar/deleteSubtask', 'TaskCalendar::deleteSubtask');
-$routes->add('taskCalendar/cetakQC', 'TaskCalendar::cetakQC');
+$routes->get('taskCalendar/cetakQC', 'TaskCalendar::cetakQC');
+$routes->post('taskCalendar/cetakQC/download', 'TaskCalendar::CetakQCdownload');
 
 $routes->get('kategoriProduk', 'KategoriProduk::index');
 $routes->post('kategoriProduk/addKategori', 'KategoriProduk::addKategori');
