@@ -16,10 +16,18 @@ class Dashboard extends BaseController
         $romawi = $this->convertToRoman($bulanSekarang);
     
         // Mencari data dengan bulan yang sesuai
-        $data = $model->like('kode_order', '%/' . date('y') . '/' . $romawi . '/%')->findAll();
+        $orderBulan = $model->like('kode_order', '%/' . date('y') . '/' . $romawi . '/%')->findAll();
+
+        $data = $model->findAll();
+        $sisaSaldo = 0;
+        $totalTagihan = 0;
+        foreach($data as $row){
+            $sisaSaldo += $row['grand_total'];
+            $totalTagihan += $row['total_biaya_order'];
+        }
         
-        $jumlahOrder = count($data);
-        return view('dashboard', ['data' => $data, 'jumlahOrder' => $jumlahOrder]);
+        $jumlahOrder = count($orderBulan);
+        return view('dashboard', ['data' => $data, 'jumlahOrder' => $jumlahOrder, 'sisaSaldo' => $sisaSaldo, 'totalTagihan' => $totalTagihan]);
     }
     
     // Fungsi untuk mengonversi angka ke angka Romawi

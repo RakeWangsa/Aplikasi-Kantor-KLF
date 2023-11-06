@@ -176,7 +176,7 @@
                         <div class="dashboard-box">
                             <i class="fas fa-money-bill-wave dashboard-box-icon"></i>
                             <p class="dashboard-box-label text-light">Sisa Saldo Di Luar</p>
-                            <p class="dashboard-box-value text-light">Rp. 65.000.000</p>
+                            <p class="dashboard-box-value text-light">Rp. <?= number_format($sisaSaldo, 0, ",", "."); ?></p>
                         </div>
                     </div>
                     <div class="col-md-4 mb-4">
@@ -184,7 +184,7 @@
                             <i class="fas fa-receipt dashboard-box-icon"></i>
 
                             <p class="dashboard-box-label text-light">Total Tagihan Semua Supplier</p>
-                            <p class="dashboard-box-value text-light">Rp. 15.000.000</p>
+                            <p class="dashboard-box-value text-light">Rp. <?= number_format($totalTagihan, 0, ",", "."); ?></p>
                         </div>
                     </div>
 

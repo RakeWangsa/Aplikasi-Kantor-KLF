@@ -170,6 +170,9 @@
       <ul class="list-group">
   <?php foreach ($OrderData as $row): ?>
     <?php $task = str_replace('/', '_', $row['kode_order']); ?>
+    <?php
+        $encodedKodeOrder = base64_encode($row['kode_order']);
+      ?>
 <li class="">
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
     <div class="products-row task">
@@ -183,10 +186,12 @@
       </div>
       <div class="product-cell status-cell">
         <span>
-          <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $task; ?>"><i class="fas fa-plus"></i></button>
+          <!-- <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $task; ?>"><i class="fas fa-plus"></i></button>
           <button type="button" class="btn btn-primary rounded-circle" onclick="alert('Judul task tidak dapat diedit!')"><i class="fas fa-pencil-alt"></i></button>
           <button type="button" class="btn btn-danger rounded-circle" onclick="alert('Judul task tidak dapat dihapus!')"><i class="fas fa-trash"></i></button>
-          <button type="button" class="btn btn-secondary rounded-circle" data-toggle="modal" data-target="#info<?php echo $task; ?>"><i class="fas fa-file"></i></button>
+          <button type="button" class="btn btn-secondary rounded-circle" data-toggle="modal" data-target="#info<?php echo $task; ?>"><i class="fas fa-file"></i></button>  -->
+          <a class="btn btn-secondary rounded-circle" href="<?= base_url('order/detailOrder/' . $encodedKodeOrder); ?>"><i class="fas fa-file"></i></a>
+
       </span>
       </div>
     </div>
@@ -217,8 +222,8 @@
       <div class="product-cell status-cell">
         <span>
         <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $taskCalendar['id']; ?>"><i class="fas fa-plus"></i></button>
-          <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $taskCalendar['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
-          <a class="btn btn-danger rounded-circle" href="<?= base_url('taskCalendar/deleteSubtask?id=' . $taskCalendar['id']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>    
+          <!-- <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $taskCalendar['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
+          <a class="btn btn-danger rounded-circle" href="<?= base_url('taskCalendar/deleteSubtask?id=' . $taskCalendar['id']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>     -->
       </span>
       </div>
     </div>
@@ -240,7 +245,7 @@
       </div>
       <div class="product-cell status-cell">
         <span>
-        <button type="button" class="btn btn-success rounded-circle" onclick="alert('tidak dapat menambah sub task pada sub of sub')"><i class="fas fa-plus"></i></button>
+        <!-- <button type="button" class="btn btn-success rounded-circle" onclick="alert('tidak dapat menambah sub task pada sub of sub')"><i class="fas fa-plus"></i></button> -->
         <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $taskCalendar2['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
         <a class="btn btn-danger rounded-circle" href="<?= base_url('taskCalendar/deleteSubtask?id=' . $taskCalendar2['id']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>  
         </span>

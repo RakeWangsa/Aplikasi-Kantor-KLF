@@ -189,7 +189,7 @@
     <td style="text-align: left;">CODE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?= $data['kode_invoice']; ?></td>
   </tr>
   <tr style="background-color:#707070;">
-    <td style="text-align: left;">DATE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -</td>
+    <td style="text-align: left;">DATE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <?= date('d-m-Y', strtotime($data['tanggalOrder'])); ?></td>
   </tr>
   <tr style="background-color:#707070;">
   <td style="text-align: left;">DEADLINE &nbsp; <?= date('d-m-Y', strtotime($data['deadline'])); ?></td>
