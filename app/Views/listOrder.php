@@ -139,10 +139,10 @@
         <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
         <a href="" style="text-decoration: none;" data-bs-toggle="modal" data-bs-target="#modal<?= $modalId; ?>">
         <div class="products-row">
-      <div class="product-cell image">
+      <div class="product-cell date">
             <span><?= date('d-m-Y', strtotime($row['tanggalOrder'])); ?></span>
           </div>
-          <div class="product-cell 
+          <div class="product-cell nama
     <?php if ($row['status'] === 'Selesai'): ?>
         bg-success
     <?php elseif ($row['status'] === 'Hold'): ?>
@@ -154,7 +154,7 @@
     <?php endif; ?>">
     <span><?= $row['nama']; ?></span>
 </div>
-        <div class="product-cell category"><span><?= $row['kode_order']; ?></div>
+        <div class="product-cell code"><span><?= $row['kode_order']; ?></div>
         <div class="product-cell status-cell">
           <span>Rp. <?= number_format($row['nilaiOrder'], 0, ",", "."); ?></span>
         </div>
@@ -251,9 +251,9 @@ searchInput.addEventListener("input", function () {
   const productRows = productList.getElementsByClassName("products-row");
 
   for (const row of productRows) {
-    const productName = row.querySelector(".product-cell.bg-success span").textContent.toLowerCase();
-    const month = row.querySelector(".product-cell.image span").textContent.toLowerCase();
-    const orderCode = row.querySelector(".product-cell.category span").textContent.toLowerCase();
+    const productName = row.querySelector(".product-cell.nama span").textContent.toLowerCase();
+    const month = row.querySelector(".product-cell.date span").textContent.toLowerCase();
+    const orderCode = row.querySelector(".product-cell.code span").textContent.toLowerCase();
 
     if (productName.includes(searchTerm) || month.includes(searchTerm) || orderCode.includes(searchTerm)) {
       row.classList.remove("d-none"); // Menghapus kelas "d-none" untuk menampilkan

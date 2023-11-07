@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\OrderModel;
+use App\Models\OrderProdukModel;
 use App\Models\TaskCalendarModel;
 
 class TaskCalendar extends BaseController
@@ -112,9 +113,19 @@ class TaskCalendar extends BaseController
                 $array[] = $radio;
             }
         }
-        foreach($array as $arr){
 
+        $OrderProdukModel = new OrderProdukModel();
+        $OrderProdukData = [];
+
+        foreach ($array as $kode) {
+            $orderProduk = $OrderProdukModel->where('kode_order', $kode)->findAll();
+            if ($orderProduk) {
+                $OrderProdukData[] = $orderProduk;
+            }
         }
+        dd($OrderProdukData);
+
+        return view('cetakQC', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'array' => $array, 'OrderProdukData' => $OrderProdukData]);
     }
 
 }

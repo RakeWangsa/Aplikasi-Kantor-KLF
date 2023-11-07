@@ -13,7 +13,7 @@ class OrderModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kode_order','kode_invoice','nama','no_telfon','email','alamat','nilaiOrder','tanggalOrder','deadline','ongkir','total_biaya_order','dp_masuk','gross_profit','grand_total','status'];
+    protected $allowedFields    = ['kode_order','kode_invoice','nama','no_telfon','email','alamat','nilaiOrder','tanggalOrder','deadline','ongkir','discount','total_biaya_order','dp_masuk','gross_profit','grand_total','status'];
 
     // Dates
     protected $useTimestamps = false;

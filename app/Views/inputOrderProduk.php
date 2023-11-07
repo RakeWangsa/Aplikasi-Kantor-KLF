@@ -169,10 +169,6 @@
                 <label for="quantity">Quantity :</label>
                 <input type="number" class="form-control" id="quantity" name="quantity" style="max-width:1000px" placeholder="Masukkan harga">
             </div>
-            <div class="form-group mb-2">
-                <label for="discount">Discount :</label>
-                <input type="text" class="form-control" id="discount" name="discount" style="max-width:1000px" placeholder="Masukkan discount">
-            </div>
             <div class="form-group mb-4">
                 <label for="deadline">Deadline :</label>
                 <input type="date" class="form-control" id="deadline" name="deadline" style="max-width:1000px">

@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - Detail Produk</title>
+  <title>KLF - Detail Biaya</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-
 </head>
 <body>
 
@@ -109,127 +108,95 @@
     </div>
   </div>
   <div class="app-content">
-    <div class="app-content-header my-4">
-      <h1 class="app-content-headerText">Detail Produk</h1>
+  <?php
+        $encodedKodeOrder = base64_encode($OrderData['kode_order']);
+      ?>
+  <div class="app-content-header my-4">
+  <h1 class="app-content-headerText">Detail Biaya (<?= $OrderData['kode_order']; ?> - <?= $OrderData['nama']; ?>)</h1>
+  <div class="d-flex">
+    
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
+    <i class="fas fa-plus"></i> Tambah Pengeluaran
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Pengeluaran</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="<?= base_url('order/detailOrder/inputPengeluaran/' . $encodedKodeOrder); ?>" method="post">
+      <div class="modal-body">
+      <div class="mb-3">
+            <label for="detail" class="form-label">Detail :</label>
+            <input type="text" class="form-control" id="detail" name="detail">
+          </div>
+          <div class="mb-3">
+            <label for="biaya" class="form-label">Biaya :</label>
+            <input type="int" class="form-control" id="biaya" name="biaya">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
     </div>
+  </div>
+</div>
+
+  </div>
+</div>
+
+  
+
+
 
     <div class="products-area-wrapper tableView">
 
 
 
 
-    <div class="container text-light">
-        <div class="row">
-        <div class="col-md-6 product-details border p-4">
-            <h4 style="margin-bottom:20px"><?= $OrderProdukData['nama']; ?></h4>
-            <div class="row">
-            
-              <div class="col">
-
-                <p><strong>Kategori:</strong> <?= $OrderProdukData['kategori']; ?></p>
-                <?php foreach ($OrderProdukDetailData as $row): ?>
-                  <p><strong><?= $row['detail']; ?> :</strong> <?= $row['nilai']; ?></p>
-                <?php endforeach; ?>
-                <p><strong>Catatan Khusus :</strong> <?= $OrderProdukData['catatan_khusus']; ?></p>
-              </div>
-              <div class="col">
-              <p><strong>Harga :</strong> Rp. <?= number_format($OrderProdukData['harga'], 0, ",", "."); ?></p>
-                <p><strong>Quantity :</strong> <?= $OrderProdukData['quantity']; ?></p>
-                <p><strong>Discount :</strong> </p>
-                <p><strong>Total Harga :</strong> Rp. <?= number_format($OrderProdukData['total_harga'], 0, ",", "."); ?></p>
-                <p><strong>Biaya Produksi :</strong> Rp. <?= number_format($OrderProdukData['total_biaya'], 0, ",", "."); ?></p>
-              </div>
-            </div>
-                
 
 
-            </div>
-            <div class="col-md-6 border p-4">
-                <h4>Gambar Produk</h4>
-<!-- Bootstrap Carousel -->
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" style="width:250px">
-  <div class="carousel-inner">
-    <?php $is_first = true; ?>
-    <?php foreach ($GambarProdukData as $key => $foto): ?>
-      <div class="carousel-item <?php echo $is_first ? 'active' : ''; ?>">
-        <img src="<?= base_url('uploads/' . $foto['gambar']); ?>" class="d-block w-100" style="height: 250px; object-fit: contain; cursor: pointer;" data-toggle="modal" data-target="#modal<?=$key?>" alt="...">
-      </div>
-      <?php $is_first = false; ?>
 
-      <!-- Modal -->
-      <div class="modal fade" id="modal<?=$key?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<?=$key?>" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-body">
-              <img src="<?= base_url('uploads/' . $foto['gambar']); ?>" style="width: 100%; height: auto;" alt="...">
-            </div>
-          </div>
-        </div>
-      </div>
-    <?php endforeach; ?>
-  </div>
+    <div class="products-header">
 
-  <!-- Carousel Controls -->
-  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
+<div class="product-cell">No</div>
+<div class="product-cell" style="margin-left:-200px">Detail</div>
+<div class="product-cell">Biaya</div>
+
 </div>
 
 
+<div id="productList">
+<?php $i=1 ?> 
+<?php foreach ($OrderProdukData as $row): ?>
 
 
-
-            </div>
-
-        </div>
-        <div class="row">
-                
-                <div class="col-md-12 border p-4">
-                <div class="mb-3">
-        <h4 class="mb-0">Daftar Supplier</h4>
-    </div>
-                
-
-  <div class="products-header">
-
-  <div class="product-cell" style="margin-right:-200px">No</div>
-<div class="product-cell">Supplier</div>
-<div class="product-cell">Biaya Satuan</div>
-<div class="product-cell">Quantity</div>
-<div class="product-cell">Total Biaya</div>
-</div>
-<?php $i=1 ?>
-<?php foreach ($SupplierData as $row): ?>
 <div class="products-row">
-<div class="product-cell" style="margin-right:-200px"><?= $i; ?></div>
-<div class="product-cell"><?= $row['nama']; ?> - <?= $row['kategori']; ?></div>
-<div class="product-cell">Rp. <?= number_format($row['harga'], 0, ",", "."); ?></div>
-<div class="product-cell"><?= $row['jumlah_barang']; ?></div>
-<div class="product-cell">Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></div>
+<div class="product-cell"><span><?= $i; ?></span></div>
+  <div class="product-cell" style="margin-left:-200px"><span><?= $row['nama']; ?></span></div>
+<div class="product-cell"><span>Rp. <?= number_format($row['total_biaya'], 0, ",", "."); ?></span></div>
+
 </div>
-<?php $i++ ?>
-<?php endforeach; ?>
+<?php $i++ ?> 
+    <?php endforeach; ?>
 
 
-
-
-                </div>
-
-    
-                
-            </div>
-
-
-    </div>
-      
-
+</div>
+  
 
       
+
+
+
+
+
+
+
+
 
     </div>
 
@@ -240,40 +207,13 @@
   </div>
 </div>
 
-<script>
-  function toggleIcon(iconId) {
-    const icon = document.getElementById(iconId);
-    if (icon.classList.contains('fa-chevron-right')) {
-      icon.classList.remove('fa-chevron-right');
-      icon.classList.add('fa-chevron-down');
-    } else {
-      icon.classList.remove('fa-chevron-down');
-      icon.classList.add('fa-chevron-right');
-    }
-  }
 
-  function toggleAllLists() {
-    const collapsibleButtons = document.querySelectorAll('.list-group-item-action button');
-    collapsibleButtons.forEach(button => {
-      if (!button.getAttribute('aria-expanded') || button.getAttribute('aria-expanded') === 'false') {
-        button.click();
-      } else {
-        button.click();
-      }
-    });
-  }
-</script>
+
+
 
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
-  
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
-
-
 </body>
 </html>

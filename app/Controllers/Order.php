@@ -12,7 +12,7 @@ use App\Models\KategoriProdukDetailModel;
 use App\Models\OrderProdukSupplierModel;
 use App\Models\TaskCalendarModel;
 use App\Models\OrderProdukDetailModel;
-use App\Models\OrderProdukBiayaModel;
+use App\Models\OrderBiayaModel;
 use App\Models\PaymentModel;
 
 class Order extends BaseController
@@ -209,7 +209,7 @@ if ($semuaKodeInvoice) {
     $kategori = $this->request->getPost('kategori');
     $harga = $this->request->getPost('harga');
     $quantity = $this->request->getPost('quantity');
-    $discount = $this->request->getPost('discount');
+
     $deadline = $this->request->getPost('deadline');
     $catatan_khusus = $this->request->getPost('catatan_khusus');
     $jumlahDetail = $this->request->getPost('jumlahDetail');
@@ -241,7 +241,7 @@ if ($semuaKodeInvoice) {
         }
     }
 
-    $total_harga=$harga*$quantity-$discount;
+    $total_harga=$harga*$quantity;
 
 
 
@@ -253,7 +253,6 @@ if ($semuaKodeInvoice) {
         'quantity' => $quantity,
         'total_harga' => $total_harga,
         'kategori' => $kategori,
-        'discount' => $discount,
         'catatan_khusus' => $catatan_khusus,
         
     ];
@@ -280,37 +279,29 @@ if ($semuaKodeInvoice) {
 
 
     $OrderProdukSupplierModel = new OrderProdukSupplierModel();
-    $OrderProdukBiayaModel = new OrderProdukBiayaModel();
 
+    $totalBiaya = 0;
     for ($i = 1; $i <= $jumlahSupplier; $i++) {
         $kategori_supplier = $this->request->getPost('kategori'.$i);
         $nama_supplier = $this->request->getPost('nama_supplier'.$i);
         $jumlah_barang = $this->request->getPost('jumlah_barang'.$i);
         $harga_supplier = $this->request->getPost('harga'.$i);
-        $detail_supplier= $nama_supplier.'-'.$kategori_supplier;
+
+        $total_harga_supplier=$harga_supplier*$jumlah_barang;
+        $totalBiaya += $total_harga_supplier;
         $data = [
             'id_order_produk' => $id_order_produk,
             'kategori' => $kategori_supplier,
             'nama' => $nama_supplier,
             'jumlah_barang' => $jumlah_barang,
             'harga' => $harga_supplier,
+            'total_harga' => $total_harga_supplier
         ];
-        $biayaData = [
-            'id_order_produk' => $id_order_produk,
-            'detail' => $detail_supplier,
-            'biaya' => $harga_supplier,
-        ];
+
         $OrderProdukSupplierModel->insert($data);
-        $OrderProdukBiayaModel->insert($biayaData);
+
     }
 
-    $OrderProdukBiayaData = $OrderProdukBiayaModel->where('id_order_produk', $id_order_produk)->findAll();
-    
-    $totalBiaya = 0; // Menginisialisasi total biaya
-
-    foreach ($OrderProdukBiayaData as $data) {
-        $totalBiaya += $data['biaya']; // Menambahkan biaya ke totalBiaya
-    }
 
     $data = [
         'total_biaya' => $totalBiaya,
@@ -377,8 +368,8 @@ if ($semuaKodeInvoice) {
         $OrderProdukDetailModel = new OrderProdukDetailModel();
         $OrderProdukDetailData = $OrderProdukDetailModel->where('id_order_produk', $decodedidOrderProduk)->findAll();
 
-        $OrderProdukBiayaModel = new OrderProdukBiayaModel();
-        $OrderProdukBiayaData = $OrderProdukBiayaModel->where('id_order_produk', $decodedidOrderProduk)->findAll();
+        // $OrderProdukBiayaModel = new OrderProdukBiayaModel();
+        // $OrderProdukBiayaData = $OrderProdukBiayaModel->where('id_order_produk', $decodedidOrderProduk)->findAll();
 
         // $kodeOrder=$OrderProdukData['kode_order'];
 
@@ -388,7 +379,7 @@ if ($semuaKodeInvoice) {
                                     'SupplierData' => $OrderProdukSupplierData, 
                                     'GambarProdukData' => $GambarProdukData,
                                     'OrderProdukDetailData' => $OrderProdukDetailData,
-                                    'OrderProdukBiayaData' => $OrderProdukBiayaData
+                                    // 'OrderProdukBiayaData' => $OrderProdukBiayaData
                                     // 'kodeOrder' => $kodeOrder
                                 ]);
 
@@ -556,5 +547,32 @@ public function invoice($kodeOrder)
 
     }
     
+    public function inputDiscount($kodeOrder)
+    {
+        $decodedKodeOrder = base64_decode($kodeOrder);
+        $model = new OrderModel();
+        $discount = $this->request->getPost('discount');
+        $data = [
+            'discount' => $discount,
+        ];
+        $model->update($decodedKodeOrder, $data);
+        return redirect()->to(base_url('order/detailOrder/'.$kodeOrder))->with('success', 'Discount berhasil ditambahkan.');
+    }
+
+    public function biaya($kodeOrder)
+    {
+
+        $decodedKodeOrder = base64_decode($kodeOrder);
+
+        $OrderModel = new OrderModel();
+        $OrderData = $OrderModel->where('kode_order', $decodedKodeOrder)->first();
+        $OrderBiayaModel = new OrderBiayaModel();
+        $OrderBiayaData = $OrderBiayaModel->where('kode_order', $decodedKodeOrder)->findAll();
+        $OrderProdukModel = new OrderProdukModel();
+        $OrderProdukData = $OrderProdukModel->where('kode_order', $decodedKodeOrder)->findAll();
+        
+        return view('detailBiaya', ['OrderData' => $OrderData,'OrderBiayaData' => $OrderBiayaData, 'OrderProdukData' => $OrderProdukData]);
+
+    }
 
 }

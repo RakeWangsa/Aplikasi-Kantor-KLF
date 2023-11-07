@@ -13,7 +13,7 @@ class OrderProdukModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id_order_produk','kode_order','nama','harga','quantity','total_harga','kategori','discount','catatan_khusus','total_biaya'];
+    protected $allowedFields    = ['id_order_produk','kode_order','nama','harga','quantity','total_harga','kategori','catatan_khusus','total_biaya'];
 
     // Dates
     protected $useTimestamps = false;

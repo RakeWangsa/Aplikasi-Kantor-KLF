@@ -27,6 +27,9 @@ $routes->get('order/detailOrder/(:segment)', 'Order::detailOrder/$1');
 $routes->get('order/detailOrder/inputProduk/(:segment)', 'Order::inputProduk/$1');
 $routes->post('order/detailOrder/inputProduk/(:segment)/submit', 'Order::submitProduk/$1');
 $routes->get('order/detailOrder/detailProduk/(:segment)', 'Order::detailProduk/$1');
+$routes->post('order/detailOrder/inputDiscount/(:segment)', 'Order::inputDiscount/$1');
+$routes->get('order/detailOrder/biaya/(:segment)', 'Order::biaya/$1');
+$routes->post('order/detailOrder/biaya/inputPengeluaran/(:segment)', 'Order::inputPengeluaran/$1');
 $routes->get('order/updateStatus/(:segment)', 'Order::updateStatus/$1');
 $routes->get('order/invoice/(:segment)', 'Order::invoice/$1');
 $routes->add('order/invoice/addPaymentTerms/(:segment)', 'Order::paymentTerms/$1');
@@ -34,7 +37,6 @@ $routes->get('order/payment/(:segment)', 'Order::payment/$1');
 $routes->get('order/payment/inputPayment/(:segment)', 'Order::inputPayment/$1');
 $routes->post('order/payment/inputPayment/submit/(:segment)', 'Order::submitPayment/$1');
 $routes->get('order/invoice/cetak', 'Order::cetakInvoice');
-// $routes->get('order/editOrder', 'Order::editOrder');
 $routes->get('order/editOrder/(:segment)', 'Order::editOrder/$1');
 
  

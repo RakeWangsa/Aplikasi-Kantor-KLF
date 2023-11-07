@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -169,7 +169,7 @@
 
     <div class="products-area-wrapper tableView">
     <div class="row mt-4">
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-3 mb-4">
                         <div class="dashboard-box">
                         <i class="fas fa-file-invoice dashboard-box-icon"></i>
 
@@ -178,14 +178,24 @@
                             <p class="dashboard-box-value text-light">Rp. <?= number_format($data['nilaiOrder'], 0, ",", "."); ?></p>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-4">
-                        <div class="dashboard-box">
-                            <i class="fas fa-money-bill-wave dashboard-box-icon"></i>
-                            <p class="dashboard-box-label text-light">Total Biaya Produksi</p>
-                            <p class="dashboard-box-value text-light">Rp. <?= number_format($data['total_biaya_order'], 0, ",", "."); ?></p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-4">
+                    <div class="col-md-3 mb-4">
+    <div class="dashboard-box" id="discountBox" data-target="discountModal">
+        <i class="fas fa-percent dashboard-box-icon"></i>
+        <p class="dashboard-box-label text-light">Discount</p>
+        <p class="dashboard-box-value text-light">Rp. <?= number_format($data['discount'], 0, ",", "."); ?></p>
+    </div>
+</div>
+<div class="col-md-3 mb-4">
+    <a href="<?= base_url('order/detailOrder/biaya/' . $encodedKodeOrder); ?>" style="text-decoration:none">
+        <div class="dashboard-box">
+            <i class="fas fa-money-bill-wave dashboard-box-icon"></i>
+            <p class="dashboard-box-label text-light">Total Biaya Produksi</p>
+            <p class="dashboard-box-value text-light">Rp. <?= number_format($data['total_biaya_order'], 0, ",", "."); ?></p>
+        </div>
+    </a>
+</div>
+
+                    <div class="col-md-3 mb-4">
                         <div class="dashboard-box">
                             <i class="fas fa-receipt dashboard-box-icon"></i>
 
@@ -193,6 +203,30 @@
                             <p class="dashboard-box-value text-light">Rp. <?= number_format($data['gross_profit'], 0, ",", "."); ?></p>
                         </div>
                     </div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="discountModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Input Discount</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="<?= base_url('order/detailOrder/inputDiscount/' . $encodedKodeOrder); ?>" method="post">
+      <div class="modal-body">
+      <div class="mb-3">
+            <label for="discount" class="form-label">Discount :</label>
+            <input type="int" class="form-control" id="discount" name="discount" value="<?= $data['discount']; ?>">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
                 </div>
@@ -209,7 +243,6 @@
 <div class="product-cell">Nama</div>
 <div class="product-cell">Harga</div>
 <div class="product-cell">Quantity</div>
-<div class="product-cell">Discount</div>
 <div class="product-cell">Total Harga</div>
 <div class="product-cell">Biaya Produksi</div>
 
@@ -235,7 +268,6 @@
   </div>
 <div class="product-cell"><span>Rp. <?= number_format($row['harga'], 0, ",", "."); ?></span></div>
 <div class="product-cell"><span><?= $row['quantity']; ?></span></div>
-<div class="product-cell"><span>Rp. <?= number_format($row['discount'], 0, ",", "."); ?></span></div>
 <div class="product-cell"><span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span></div>
 <div class="product-cell"><span>Rp. <?= number_format($row['total_biaya'], 0, ",", "."); ?></div>
 
@@ -265,7 +297,17 @@
 
   </div>
 </div>
-<!-- partial -->
+
+<script>
+    $(document).ready(function() {
+        $('#discountBox').on('click', function() {
+            $('#discountModal').modal('show');
+        });
+    });
+</script>
+
+
+
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
