@@ -410,8 +410,11 @@ public function invoice($kodeOrder)
     foreach ($OrderProdukData as $orderProduk) {
         $totalQuantity += $orderProduk['quantity'];
     }
+
+    $PaymentModel = new PaymentModel();
+    $PaymentData = $PaymentModel->findAll();
     
-    return view('invoice', ['data' => $data, 'termin' => $termin, 'OrderProdukData' => $OrderProdukData, 'OrderProdukDetailData' => $OrderProdukDetailData, 'totalQuantity' => $totalQuantity]);
+    return view('invoice', ['data' => $data, 'termin' => $termin, 'OrderProdukData' => $OrderProdukData, 'OrderProdukDetailData' => $OrderProdukDetailData, 'totalQuantity' => $totalQuantity, 'PaymentData' => $PaymentData]);
 }
 
 

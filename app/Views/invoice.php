@@ -263,9 +263,18 @@
       </tr>
       <tr>
         <td colspan="3"></td>
-        <td style="background-color:#707070;">DP</td>
-        <td colspan="2" style="background-color:#707070;">Rp. <?= number_format($data['dp_masuk'], 0, ",", "."); ?></td>
+        <td style="background-color:#707070;">Discount</td>
+        <td colspan="2" style="background-color:#707070;">Rp. <?= number_format($data['discount'], 0, ",", "."); ?></td>
       </tr>
+      <?php foreach ($PaymentData as $row): ?>
+        <?php if ($row['kode_order']==$data['kode_order']): ?>
+      <tr>
+        <td colspan="3"></td>
+        <td style="background-color:#707070;">DP (<?= date('d-m-Y', strtotime($row['tanggal'])); ?>)</td>
+        <td colspan="2" style="background-color:#707070;">Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></td>
+      </tr>
+      <?php endif; ?>
+      <?php endforeach; ?>
       <tr>
         <td colspan="3"></td>
         <td style="background-color:#707070;">GRAND TOTAL</td>

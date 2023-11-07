@@ -125,12 +125,9 @@ class TaskCalendar extends BaseController
         $OrderProdukDetailData = $OrderProdukDetailModel->findAll();
 
         $gambarModel = new GambarProdukModel();
-        foreach ($OrderProdukData as &$produk) {
-            $gambar = $gambarModel->where('id_order_produk', $produk['id_order_produk'])->first();
-            $produk['gambar'] = $gambar ? $gambar['gambar'] : '';
-        }
+        $gambarData = $gambarModel->findAll();
 
-        return view('cetakQC', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'array' => $array, 'OrderProdukData' => $OrderProdukData, 'OrderProdukDetailData' => $OrderProdukDetailData]);
+        return view('cetakQC', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'array' => $array, 'OrderProdukData' => $OrderProdukData, 'OrderProdukDetailData' => $OrderProdukDetailData, 'gambarData' => $gambarData]);
     }
 
     public function updateStatus($id)

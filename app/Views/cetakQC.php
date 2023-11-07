@@ -57,7 +57,25 @@
         <?php if ($produk['kode_order']==$row): ?>
       <tr>
         <td><?= $i ?></td>
-        <td><img src="<?= base_url('uploads/' . $produk['gambar']); ?>" style="width:150px;height:auto"></td>
+        <td style="width:300px">
+        <?php foreach ($gambarData as $gambar): ?>
+
+          <?php $jumlah_gambar = 0; ?>
+          <?php foreach ($gambarData as $hitung): ?>
+            <?php if ($hitung['id_order_produk']==$gambar['id_order_produk']): ?>
+              <?php $jumlah_gambar++; ?>
+              <?php endif; ?>
+            <?php endforeach; ?>
+
+          <?php 
+    
+    $ukuran = 200 / $jumlah_gambar;
+  ?>
+          <?php if ($gambar['id_order_produk']==$produk['id_order_produk']): ?>
+          <img src="<?= base_url('uploads/' . $gambar['gambar']); ?>" style="width:<?= $ukuran ?>px;height:auto">
+          <?php endif; ?>
+          <?php endforeach; ?>
+        </td>
         <td><?= $produk['nama'] ?><br>
         <?php foreach ($OrderProdukDetailData as $detail): ?>
           <?php if ($detail['id_order_produk']==$produk['id_order_produk']): ?>
