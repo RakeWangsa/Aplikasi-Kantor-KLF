@@ -156,9 +156,10 @@
 
     <div class="products-area-wrapper tableView">
       <div class="products-header">
-      <div class="product-cell status-cell">To Do (<?= $jumlahTask; ?> Tasks)</div>
-        <div class="product-cell sales">Deadline</div>
-        <div class="product-cell sales">Actions</div>
+      <div class="product-cell" style="padding-right:200px">To Do (<?= $jumlahTask; ?> Tasks)</div>
+        <div class="product-cell">Deadline</div>
+        <div class="product-cell">Status</div>
+        <div class="product-cell">Actions</div>
       </div>
 
 
@@ -176,37 +177,82 @@
 <li class="">
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
     <div class="products-row task">
-      <div class="product-cell category">
-        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#<?php echo $task; ?>" onclick="toggleIcon('icon<?php echo $task; ?>')">
+      <div class="product-cell category" style="padding-right:200px">
+        <span style="margin-right:-200px"><button class="icon-button bg-dark" data-toggle="collapse" href="#<?php echo $task; ?>" onclick="toggleIcon('icon<?php echo $task; ?>')">
         <i id="icon<?php echo $task; ?>" class="fas fa-chevron-right" style="color:grey"></i>
       </button> <?= $row['kode_order']; ?> - <?= $row['nama']; ?></span>
       </div>
-      <div class="product-cell status-cell">
+      <div class="product-cell">
         <span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span>
       </div>
-      <div class="product-cell status-cell">
+      <div class="product-cell">     
+
+        <a style="text-decoration:none;color:       
+        <?php if ($row['status_task'] === 'Selesai'): ?>
+          #00ff00
+    <?php elseif ($row['status_task'] === 'On Progress'): ?>
+      #0099ff
+    <?php elseif ($row['status_task'] === 'Belum Dikerjakan'): ?>
+        #ff0000
+    <?php endif; ?>" data-bs-toggle="modal" data-bs-target="#modal<?= $task; ?>"><span><?= $row['status_task']; ?></span></a>
+      </div>
+      <div class="product-cell">
         <span>
           <!-- <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $task; ?>"><i class="fas fa-plus"></i></button>
           <button type="button" class="btn btn-primary rounded-circle" onclick="alert('Judul task tidak dapat diedit!')"><i class="fas fa-pencil-alt"></i></button>
           <button type="button" class="btn btn-danger rounded-circle" onclick="alert('Judul task tidak dapat dihapus!')"><i class="fas fa-trash"></i></button>
           <button type="button" class="btn btn-secondary rounded-circle" data-toggle="modal" data-target="#info<?php echo $task; ?>"><i class="fas fa-file"></i></button>  -->
+          <a class="btn btn-warning rounded-circle" href="<?= base_url('taskCalendar/catatan/' . $encodedKodeOrder . '?&task=order'); ?>"><i class="fas fa-sticky-note" style="color:white"></i></a>
           <a class="btn btn-secondary rounded-circle" href="<?= base_url('order/detailOrder/' . $encodedKodeOrder); ?>"><i class="fas fa-file"></i></a>
+
 
       </span>
       </div>
     </div>
+
+<!-- modal -->
+    <div class="modal fade" id="modal<?= $task; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status : <?= $row['kode_order']; ?></h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <?php
+        $encodedKodeOrder = base64_encode($row['kode_order']);
+      ?>
+      <a style="text-decoration: none;" href="<?= base_url('taskCalendar/updateStatus/' . $encodedKodeOrder . '?status=Selesai&task=order'); ?>">Selesai</a><br>
+      <a style="text-decoration: none;" href="<?= base_url('taskCalendar/updateStatus/' . $encodedKodeOrder . '?status=On Progress&task=order'); ?>">On Progress</a><br>
+      <a style="text-decoration: none;" href="<?= base_url('taskCalendar/updateStatus/' . $encodedKodeOrder . '?status=Belum Dikerjakan&task=order'); ?>">Belum Dikerjakan</a><br>
+
+
+
+
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
 <!-- </a> -->
     </li>
     <div id="<?php echo $task; ?>" class="collapse">
 
     <?php foreach ($TaskCalendarData as $taskCalendar): ?>
       <?php if ($taskCalendar['parent'] == $row['kode_order']): ?>
+        <?php
+        $encodedId = base64_encode($taskCalendar['id']);
+      ?>
           <ul class="list-group list-group-flush">
         <li class="">
 
         <div class="products-row task">
-      <div class="product-cell category subtask">
-        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#sub<?php echo $taskCalendar['id']; ?>" onclick="toggleIcon('iconsub<?php echo $taskCalendar['id']; ?>')">
+      <div class="product-cell category subtask" style="padding-right:200px">
+        <span style="margin-right:-200px"><button class="icon-button bg-dark" data-toggle="collapse" href="#sub<?php echo $taskCalendar['id']; ?>" onclick="toggleIcon('iconsub<?php echo $taskCalendar['id']; ?>')">
         <i id="iconsub<?php echo $taskCalendar['id']; ?>" class="fas fa-chevron-right" style="color:grey"></i>
       </button> <?= $taskCalendar['task']; ?> 
 
@@ -216,15 +262,27 @@
 
     </span>
       </div>
-      <div class="product-cell status-cell">
+      <div class="product-cell">
         <span><?= date('d-m-Y', strtotime($taskCalendar['deadline'])); ?></span>
       </div>
-      <div class="product-cell status-cell">
+      <div class="product-cell">
+      <a style="text-decoration:none;color:       
+        <?php if ($taskCalendar['status'] === 'Selesai'): ?>
+        #00ff00
+    <?php elseif ($taskCalendar['status'] === 'On Progress'): ?>
+        #0099ff
+    <?php elseif ($taskCalendar['status'] === 'Belum Dikerjakan'): ?>
+        #ff0000
+    <?php endif; ?>" data-bs-toggle="modal" data-bs-target="#status<?= $taskCalendar['id']; ?>"><span><?= $taskCalendar['status']; ?></span></a>
+      </div>
+      <div class="product-cell">
         <span>
+        <a class="btn btn-warning rounded-circle" href="<?= base_url('taskCalendar/catatan/' . $encodedId . '?&task=sub'); ?>"><i class="fas fa-sticky-note" style="color:white"></i></a>
         <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $taskCalendar['id']; ?>"><i class="fas fa-plus"></i></button>
           <!-- <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $taskCalendar['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
           <a class="btn btn-danger rounded-circle" href="<?= base_url('taskCalendar/deleteSubtask?id=' . $taskCalendar['id']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>     -->
-      </span>
+
+        </span>
       </div>
     </div>
 
@@ -233,22 +291,37 @@
 
         <?php foreach ($TaskCalendarData as $taskCalendar2): ?>
           <?php if ($taskCalendar2['parent'] == $taskCalendar['id']): ?>
+            <?php
+        $encodedId = base64_encode($taskCalendar2['id']);
+      ?>
           <ul class="list-group list-group-flush">
             <li class="">
 
             <div class="products-row task">
-      <div class="product-cell category subofsub">
-        <span><i class="subofsub-icon"></i> <?= $taskCalendar2['task']; ?></span>
+      <div class="product-cell category subofsub" style="padding-right:200px">
+        <span style="margin-right:-200px"><i class="subofsub-icon"></i> <?= $taskCalendar2['task']; ?></span>
       </div>
       <div class="product-cell status-cell">
         <span><?= date('d-m-Y', strtotime($taskCalendar2['deadline'])); ?></span>
       </div>
+      <div class="product-cell">
+      <a style="text-decoration:none;color:       
+        <?php if ($taskCalendar2['status'] === 'Selesai'): ?>
+          #00ff00
+    <?php elseif ($taskCalendar2['status'] === 'On Progress'): ?>
+        #0099ff
+    <?php elseif ($taskCalendar2['status'] === 'Belum Dikerjakan'): ?>
+      #ff0000
+    <?php endif; ?>" data-bs-toggle="modal" data-bs-target="#status<?= $taskCalendar2['id']; ?>"><span><?= $taskCalendar2['status']; ?></span></a>
+      </div>
       <div class="product-cell status-cell">
         <span>
+        <a class="btn btn-warning rounded-circle" href="<?= base_url('taskCalendar/catatan/' . $encodedId . '?&task=sub'); ?>"><i class="fas fa-sticky-note" style="color:white"></i></a> 
         <!-- <button type="button" class="btn btn-success rounded-circle" onclick="alert('tidak dapat menambah sub task pada sub of sub')"><i class="fas fa-plus"></i></button> -->
         <button type="button" class="btn btn-primary rounded-circle" data-toggle="modal" data-target="#edit<?php echo $taskCalendar2['id']; ?>"><i class="fas fa-pencil-alt"></i></button>
         <a class="btn btn-danger rounded-circle" href="<?= base_url('taskCalendar/deleteSubtask?id=' . $taskCalendar2['id']); ?>" onclick="return confirm('Anda yakin ingin menghapus subtask ini?');"><i class="fas fa-trash"></i></a>  
-        </span>
+ 
+      </span>
       </div>
     </div>
 
@@ -418,48 +491,34 @@
 <?php endforeach; ?>
 
 
-<!-- detail -->
+<!-- update status -->
 
-<?php foreach ($OrderData as $row): ?>
-  <?php $modalId = str_replace('/', '_', $row['kode_order']); ?>
+<?php foreach ($TaskCalendarData as $row): ?>
   <?php
-        $parent = base64_encode($row['kode_order']);
+        $encodedId = base64_encode($row['id']);
       ?>
-  <div class="modal fade" id="info<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- modal -->
+<div class="modal fade" id="status<?= $row['id']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    <!-- <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post"> -->
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['kode_order']; ?> (Informasi Produk)</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Status : <?= $row['task']; ?></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        
-          <div class="mb-3">
-            <p>Nama :<br><?= $row['nama']; ?></p>
-          </div>
-          <div class="mb-3">
-            <p>Gambar</p>
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" style="width:100px">
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" style="width:100px">
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" style="width:100px">
-            <img src="<?= base_url('uploads/bose.jpeg'); ?>" style="width:100px">
-          </div>
-          <div class="mb-3">
-            <p>Details :<br>tes</p>
-          </div>
-          <div class="mb-3">
-            <p>Deadline :<br><?= date('d-m-Y', strtotime($row['deadline'])); ?></p>
-          </div>
-          <div class="mb-3">
-            <p>Quantity :<br></p>
-          </div>
-        
+
+      <a style="text-decoration: none;" href="<?= base_url('taskCalendar/updateStatus/' . $encodedId . '?status=Selesai&task=sub'); ?>">Selesai</a><br>
+      <a style="text-decoration: none;" href="<?= base_url('taskCalendar/updateStatus/' . $encodedId . '?status=On Progress&task=sub'); ?>">On Progress</a><br>
+      <a style="text-decoration: none;" href="<?= base_url('taskCalendar/updateStatus/' . $encodedId . '?status=Belum Dikerjakan&task=sub'); ?>">Belum Dikerjakan</a><br>
+
+
+
+
       </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-      <!-- </form> -->
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
     </div>
   </div>
 </div>

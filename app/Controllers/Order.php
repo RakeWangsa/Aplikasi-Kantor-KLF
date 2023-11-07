@@ -145,7 +145,8 @@ if ($semuaKodeInvoice) {
         'tanggalOrder' => $tanggalOrder,
         'deadline' => $deadlineOrder,
         'ongkir' => $ongkosKirim,
-        'status' => 'Hold'
+        'status' => 'Hold',
+        'status_task' => 'Belum Dimulai'
         
     ];
 
@@ -343,7 +344,8 @@ if ($semuaKodeInvoice) {
         'parent' => $decodedKodeOrder,
         'task' => $namaProduk,
         'deadline' => $deadline,
-        'gambar' => $gambarTask['gambar']
+        'gambar' => $gambarTask['gambar'],
+        'status' => 'Belum Dimulai'
     ];
     $TaskModel->insert($dataTask);
 
@@ -556,6 +558,8 @@ public function invoice($kodeOrder)
             'discount' => $discount,
         ];
         $model->update($decodedKodeOrder, $data);
+
+        $this->updateData($kodeOrder);
         return redirect()->to(base_url('order/detailOrder/'.$kodeOrder))->with('success', 'Discount berhasil ditambahkan.');
     }
 
@@ -575,4 +579,41 @@ public function invoice($kodeOrder)
 
     }
 
+    public function inputPengeluaran($kodeOrder)
+    {
+        $decodedKodeOrder = base64_decode($kodeOrder);
+        $OrderBiayaModel = new OrderBiayaModel();
+        $OrderModel = new OrderModel();
+        $OrderData = $OrderModel->where('kode_order', $decodedKodeOrder)->first();
+        $detail = $this->request->getPost('detail');
+        $biaya = $this->request->getPost('biaya');
+        $data = [
+            'kode_order' => $decodedKodeOrder,
+            'detail' => $detail,
+            'biaya' => $biaya
+        ];
+        $OrderBiayaModel->insert($data);
+
+        $total_biaya_order = $OrderData['total_biaya_order']+$biaya;
+        $data2 = [
+            'total_biaya_order' => $total_biaya_order,
+        ];
+        $OrderModel->update($decodedKodeOrder, $data2);
+        $this->updateData($kodeOrder);
+        return redirect()->to(base_url('order/detailOrder/biaya/'.$kodeOrder))->with('success', 'Pengeluaran berhasil ditambahkan.');
+    }
+
+    private function updateData($kodeOrder)
+    {
+        $decodedKodeOrder = base64_decode($kodeOrder);
+        $OrderModel = new OrderModel();
+        $OrderData = $OrderModel->where('kode_order', $decodedKodeOrder)->first();
+        $grossProfit = $OrderData['nilaiOrder']-$OrderData['discount']-$OrderData['total_biaya_order'];
+        $grandTotal = $OrderData['nilaiOrder']-$OrderData['discount']-$OrderData['dp_masuk'];
+        $data = [
+            'gross_profit' => $grossProfit,
+            'grand_total' => $grandTotal,
+        ];
+        $OrderModel->update($decodedKodeOrder, $data);
+    }
 }

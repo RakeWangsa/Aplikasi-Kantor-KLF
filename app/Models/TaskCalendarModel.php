@@ -13,7 +13,7 @@ class TaskCalendarModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id','parent','task','deadline','gambar'];
+    protected $allowedFields    = ['id','parent','task','deadline','gambar','status'];
 
     // Dates
     protected $useTimestamps = false;

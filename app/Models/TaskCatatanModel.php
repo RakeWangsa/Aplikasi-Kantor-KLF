@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class OrderModel extends Model
+class TaskCatatanModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'list_order';
-    protected $primaryKey       = 'kode_order';
+    protected $table            = 'task_catatan';
+    protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['kode_order','kode_invoice','nama','no_telfon','email','alamat','nilaiOrder','tanggalOrder','deadline','ongkir','discount','total_biaya_order','dp_masuk','gross_profit','grand_total','status','status_task'];
+    protected $allowedFields    = ['id','id_task','gambar','catatan'];
 
     // Dates
     protected $useTimestamps = false;

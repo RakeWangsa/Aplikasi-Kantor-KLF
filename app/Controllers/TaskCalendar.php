@@ -4,6 +4,7 @@ namespace App\Controllers;
 use App\Models\OrderModel;
 use App\Models\OrderProdukModel;
 use App\Models\TaskCalendarModel;
+use App\Models\TaskCatatanModel;
 
 class TaskCalendar extends BaseController
 {
@@ -30,6 +31,7 @@ class TaskCalendar extends BaseController
             'parent' => $parent,
             'task' => $task,
             'deadline' => $deadline,
+            'status' => 'Belum Dimulai'
         ];
     
         $model->insert($data);
@@ -127,5 +129,47 @@ class TaskCalendar extends BaseController
 
         return view('cetakQC', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'array' => $array, 'OrderProdukData' => $OrderProdukData]);
     }
+
+    public function updateStatus($id)
+    {
+        $status = $this->request->getGet('status');
+        $task = $this->request->getGet('task');
+        $decodedId = base64_decode($id);
+
+        if($task=="order"){
+            $model = new OrderModel();
+
+            $data = [
+                'status_task' => $status,
+            ];
+        
+            $model->update($decodedId, $data);
+        }else{
+            $model = new TaskCalendarModel();
+
+            $data = [
+                'status' => $status,
+            ];
+        
+            $model->update($decodedId, $data);
+        }
+
+        return redirect()->to(base_url('taskCalendar'))->with('success', 'Status berhasil diupdate.');
+    }
+
+
+
+    public function catatan($encodedId)
+    {
+        $id = base64_decode($encodedId);
+        $TaskCalendarModel = new TaskCalendarModel();
+        $TaskCalendarData = $TaskCalendarModel->find($id);
+
+        $TaskCatatanModel = new TaskCatatanModel();
+        $TaskCatatanData = $TaskCatatanModel->where('id_task',$id)->findAll();
+        
+        return view('taskCalendarCatatan', ['TaskCatatanData' => $TaskCatatanData, 'TaskCalendarData' => $TaskCalendarData]);
+    }
+
 
 }

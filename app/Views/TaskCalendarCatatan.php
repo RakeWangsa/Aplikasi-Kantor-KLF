@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - Detail Biaya</title>
+  <title>KLF - Catatan</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -34,7 +34,7 @@
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="sidebar-list-item active">
+      <li class="sidebar-list-item">
         <a href="<?= base_url('order/listOrder'); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list-order">
     <line x1="5" y1="6" x2="19" y2="6" />
@@ -47,7 +47,7 @@
         </a>
       </li>
 
-      <li class="sidebar-list-item">
+      <li class="sidebar-list-item active">
         <a href="<?= base_url('taskCalendar'); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-task-calendar">
     <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
@@ -108,15 +108,13 @@
     </div>
   </div>
   <div class="app-content">
-  <?php
-        $encodedKodeOrder = base64_encode($OrderData['kode_order']);
-      ?>
+
   <div class="app-content-header my-4">
-  <h1 class="app-content-headerText">Detail Biaya (<?= $OrderData['kode_order']; ?> - <?= $OrderData['nama']; ?>)</h1>
+  <h1 class="app-content-headerText">Catatan (<?= $TaskCalendarData['task']; ?>)</h1>
   <div class="d-flex">
     
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
-    <i class="fas fa-plus"></i> Tambah Pengeluaran
+    <i class="fas fa-plus"></i> Tambah Catatan
 </button>
 
 <!-- Modal -->
@@ -124,17 +122,17 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Pengeluaran</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Catatan</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="<?= base_url('order/detailOrder/biaya/inputPengeluaran/' . $encodedKodeOrder); ?>" method="post">
+      <form action="<?= base_url('taskCalendar/catatan/inputCatatan/'); ?>" method="post">
       <div class="modal-body">
       <div class="mb-3">
-            <label for="detail" class="form-label">Detail :</label>
+            <label for="detail" class="form-label">Gambar :</label>
             <input type="text" class="form-control" id="detail" name="detail">
           </div>
           <div class="mb-3">
-            <label for="biaya" class="form-label">Biaya :</label>
+            <label for="biaya" class="form-label">Catatan :</label>
             <input type="int" class="form-control" id="biaya" name="biaya">
           </div>
       </div>
@@ -160,42 +158,30 @@
 
 
 
-<p class="text-light">Total Biaya : Rp. <?= number_format($OrderData['total_biaya_order'], 0, ",", "."); ?></p>
     <div class="products-header">
 
 <div class="product-cell">No</div>
-<div class="product-cell" style="margin-left:-200px">Detail</div>
-<div class="product-cell">Biaya</div>
+<div class="product-cell" style="margin-left:-200px">Gambar</div>
+<div class="product-cell">Catatan</div>
 
 </div>
 
 
 <div id="productList">
 <?php $i=1 ?> 
-<?php foreach ($OrderProdukData as $row): ?>
+<?php foreach ($TaskCatatanData as $row): ?>
 
 
 <div class="products-row">
 <div class="product-cell"><span><?= $i; ?></span></div>
-  <div class="product-cell" style="margin-left:-200px"><span><?= $row['nama']; ?></span></div>
-<div class="product-cell"><span>Rp. <?= number_format($row['total_biaya'], 0, ",", "."); ?></span></div>
+<div class="product-cell" style="margin-left:-200px"><span><?= $row['gambar']; ?></span></div>
+<div class="product-cell"><span><?= $row['catatan']; ?></span></div>
 
 </div>
 <?php $i++ ?> 
     <?php endforeach; ?>
 
 
-    <?php foreach ($OrderBiayaData as $row): ?>
-
-
-<div class="products-row">
-<div class="product-cell"><span><?= $i; ?></span></div>
-  <div class="product-cell" style="margin-left:-200px"><span><?= $row['detail']; ?></span></div>
-<div class="product-cell"><span>Rp. <?= number_format($row['biaya'], 0, ",", "."); ?></span></div>
-
-</div>
-<?php $i++ ?> 
-    <?php endforeach; ?>
 
 </div>
   
