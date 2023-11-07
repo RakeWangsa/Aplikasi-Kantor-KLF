@@ -41,9 +41,8 @@
 
   <table>
   <tr>
-  <td rowspan="5"><img src="<?= base_url('uploads/klflogo.png'); ?>" style="max-width:500px"></td>
-  <td rowspan="5">v.1</td>
-    <td>INVOICE Ny. Eva</td>
+  <td rowspan="4"><img src="<?= base_url('uploads/klflogo.png'); ?>" style="max-width:500px"></td>
+    <td>INVOICE <?= $data['nama']; ?></td>
   </tr>
   <tr>
     <td style="text-align: left;">CODE &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Eva/23/IX/01</td>
@@ -53,9 +52,6 @@
   </tr>
   <tr>
     <td style="text-align: left;">DEADLINE &nbsp; 30 Oktober 2023</td>
-  </tr>
-  <tr>
-    <td style="text-align: left;">REV &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1</td>
   </tr>
 
 </table>
@@ -74,10 +70,10 @@
           <pre style="display:inline;">Email    : nino@karyalogamfurniture.com</pre><br>
           <pre style="display:inline;">Mobile   : +6281327737717 / +62895411499535</pre></td>
         </td>
-        <td style="text-align: left;"><pre style="display:inline;">Customer : Ny. Eva</pre><br>
-        <pre style="display:inline;">Address  : Semarang</pre><br>
-        <pre style="display:inline;">Email    : eva@gmail.com</pre><br>
-        <pre style="display:inline;">Mobile   : +62 815-4215-0996</pre></td>
+        <td style="text-align: left;"><pre style="display:inline;">Customer : <?= $data['nama']; ?></pre><br>
+        <pre style="display:inline;">Address  : <?= $data['alamat']; ?></pre><br>
+        <pre style="display:inline;">Email    : <?= $data['email']; ?></pre><br>
+        <pre style="display:inline;">Mobile   : <?= $data['no_telfon']; ?></pre></td>
       </tr>
       <tr>
       </table>
@@ -86,65 +82,60 @@
       <th colspan="10">3. PRICELIST</th>
       </tr>
       <tr style="background-color:#e0e0e0;">
-        <td rowspan="2">No</td>
-        <td rowspan="2">Gambar</td>
-        <td rowspan="2">Deskripsi</td>
-        <td colspan="3">Ukuran</td>
-        <td rowspan="2">Finishing</td>
-        <td rowspan="2">Harga(Rp)</td>
-        <td rowspan="2">Qty</td>
-        <td rowspan="2">Total Harga</td>
+        <td>No</td>
+        <td>Gambar</td>
+        <td>Detail</td>
+        <td>Harga(Rp)</td>
+        <td>Qty</td>
+        <td>Total Harga</td>
       </tr>
-      <tr style="background-color:#e0e0e0;">
-        <td>W cm</td>
-        <td>D cm</td>
-        <td>H cm</td>
-      </tr>
-      <tr>
-        <td>1</td>
-        <td><img src="<?= base_url('uploads/bose.jpeg'); ?>" style="max-width:200px"></td>
-        <td>Buffet<br>
-200x40x90<br>
-Kaki stainless gold<br>
-Warna Excellente White <br>
-Nippon<br>
-Marmer white carrara</td>
 
-        <td>200</td>
-        <td>40</td>
-        <td>90</td>
-        <td>Deskripsi</td>
-        <td>Rp. 8.000.000</td>
-        <td>1</td>
-        <td>Rp. 8.000.000</td>
-      </tr>
+      <?php $i = 1; ?>
+      <?php foreach ($OrderProdukData as $row): ?>
       <tr>
-        <td>2</td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><?= $i ?></td>
+        <td><img src="<?= base_url('uploads/'.$row['gambar']); ?>" style="width: 150px; height: auto;"></td>
+        <td><strong><?= $row['nama'] ?></strong><br>
+        <?php foreach ($OrderProdukDetailData as $detail): ?>
+          <?php if ($detail['id_order_produk']==$row['id_order_produk']): ?>
+          <?= $detail['detail'] ?> : <?= $detail['nilai'] ?><br>
+          <?php endif; ?>
+          <?php endforeach; ?>
+
+
+        <td>Rp. <?= number_format($row['harga'], 0, ",", "."); ?></td>
+        <td><?= $row['quantity'] ?></td>
+        <td>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></td>
       </tr>
+      <?php $i++; ?>
+      <?php endforeach; ?>
+
+
+
       <tr>
-        <td colspan="7"></td>
+        <td colspan="3"></td>
         <td>SUBTOTAL</td>
-        <td>1</td>
-        <td>Rp. 8.000.000</td>
+        <td><?= $totalQuantity ?></td>
+        <td>Rp. <?= number_format($data['nilaiOrder'], 0, ",", "."); ?></td>
       </tr>
       <tr>
-        <td colspan="7"></td>
-        <td>DP</td>
-        <td colspan="2">Rp. 3.000.000</td>
+        <td colspan="3"></td>
+        <td>Discount</td>
+        <td colspan="2">Rp. <?= number_format($data['discount'], 0, ",", "."); ?></td>
       </tr>
+      <?php foreach ($PaymentData as $row): ?>
+        <?php if ($row['kode_order']==$data['kode_order']): ?>
       <tr>
-        <td colspan="7"></td>
+        <td colspan="3"></td>
+        <td>DP (<?= date('d-m-Y', strtotime($row['tanggal'])); ?>)</td>
+        <td colspan="2">Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></td>
+      </tr>
+      <?php endif; ?>
+      <?php endforeach; ?>
+      <tr>
+        <td colspan="3"></td>
         <td>GRAND TOTAL</td>
-        <td colspan="2">Rp. 5.000.000</td>
+        <td colspan="2">Rp. <?= number_format($data['grand_total'], 0, ",", "."); ?></td>
       </tr>
 
       

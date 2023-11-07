@@ -36,7 +36,7 @@ $routes->add('order/invoice/addPaymentTerms/(:segment)', 'Order::paymentTerms/$1
 $routes->get('order/payment/(:segment)', 'Order::payment/$1');
 $routes->get('order/payment/inputPayment/(:segment)', 'Order::inputPayment/$1');
 $routes->post('order/payment/inputPayment/submit/(:segment)', 'Order::submitPayment/$1');
-$routes->get('order/invoice/cetak', 'Order::cetakInvoice');
+$routes->get('order/invoice/cetak/(:segment)', 'Order::cetakInvoice/$1');
 $routes->get('order/editOrder/(:segment)', 'Order::editOrder/$1');
 
  

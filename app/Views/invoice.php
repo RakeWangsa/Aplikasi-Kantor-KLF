@@ -108,18 +108,21 @@
                   </a>
     </div>
   </div>
+  
+  <?php
+        $encodedKodeOrder = base64_encode($data['kode_order']);
+      ?>
+
   <div class="app-content">
   <div class="app-content-header my-4">
   <h1 class="app-content-headerText">Invoice Order</h1>
   <div class="d-flex">
     <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#paymentTerms" style="margin-right:10px"><i class="fas fa-credit-card"></i> Payment Terms</button>
-    <a class="btn btn-primary" href="<?= base_url('order/invoice/cetak'); ?>"><i class="fas fa-file-pdf"></i> Cetak Invoice</a>
+    <a class="btn btn-primary" href="<?= base_url('order/invoice/cetak/'.$encodedKodeOrder); ?>"><i class="fas fa-file-pdf"></i> Cetak Invoice</a>
   </div>
 </div>
 
-<?php
-        $encodedKodeOrder = base64_encode($data['kode_order']);
-      ?>
+
 <!-- Payment terms -->
 <div class="modal fade" id="paymentTerms" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

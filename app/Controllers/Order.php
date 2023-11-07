@@ -418,9 +418,32 @@ public function invoice($kodeOrder)
 }
 
 
-    public function cetakInvoice(): string
+    public function cetakInvoice($kodeOrder): string
     {
-        return view('cetakInvoice');
+        $decodedKodeOrder = base64_decode($kodeOrder);
+
+        $model = new OrderModel();
+        $OrderProdukModel = new OrderProdukModel();
+        $OrderProdukDetailModel = new OrderProdukDetailModel();
+        $paymentTermsModel = new PaymentTermsModel();
+        $data = $model->where('kode_order', $decodedKodeOrder)->first();
+        $termin = $paymentTermsModel->where('kode_order', $decodedKodeOrder)->first();
+        $OrderProdukData = $OrderProdukModel->where('kode_order', $decodedKodeOrder)->findAll();
+        $OrderProdukDetailData = $OrderProdukDetailModel->like('id_order_produk', $decodedKodeOrder, 'after')->findAll();
+        $gambarModel = new GambarProdukModel();
+        foreach ($OrderProdukData as &$produk) {
+            $gambar = $gambarModel->where('id_order_produk', $produk['id_order_produk'])->first();
+            $produk['gambar'] = $gambar ? $gambar['gambar'] : '';
+        }
+        $totalQuantity = 0;
+    
+        foreach ($OrderProdukData as $orderProduk) {
+            $totalQuantity += $orderProduk['quantity'];
+        }
+    
+        $PaymentModel = new PaymentModel();
+        $PaymentData = $PaymentModel->findAll();
+        return view('cetakInvoice', ['data' => $data, 'termin' => $termin, 'OrderProdukData' => $OrderProdukData, 'OrderProdukDetailData' => $OrderProdukDetailData, 'totalQuantity' => $totalQuantity, 'PaymentData' => $PaymentData]);
     }
 
     public function payment($kodeOrder): string
