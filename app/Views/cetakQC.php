@@ -52,13 +52,23 @@
         <td>Detail</td>
         <td>Quantity</td>
       </tr>
+      <?php $i=1; ?>
       <?php foreach ($OrderProdukData as $produk): ?>
+        <?php if ($produk['kode_order']==$row): ?>
       <tr>
-        <td><?= $produk ?></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><?= $i ?></td>
+        <td><img src="<?= base_url('uploads/' . $produk['gambar']); ?>" style="width:150px;height:auto"></td>
+        <td><?= $produk['nama'] ?><br>
+        <?php foreach ($OrderProdukDetailData as $detail): ?>
+          <?php if ($detail['id_order_produk']==$produk['id_order_produk']): ?>
+          <?= $detail['detail'] ?> : <?= $detail['nilai'] ?><br>
+          <?php endif; ?>
+          <?php endforeach; ?>
+          </td>
+        <td><?= $produk['quantity'] ?></td>
       </tr>
+      <?php $i++; ?>
+      <?php endif; ?>
       <?php endforeach; ?>
 
       

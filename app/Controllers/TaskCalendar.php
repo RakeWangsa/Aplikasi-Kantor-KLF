@@ -2,9 +2,11 @@
 
 namespace App\Controllers;
 use App\Models\OrderModel;
+use App\Models\OrderProdukDetailModel;
 use App\Models\OrderProdukModel;
 use App\Models\TaskCalendarModel;
 use App\Models\TaskCatatanModel;
+use App\Models\GambarProdukModel;
 
 class TaskCalendar extends BaseController
 {
@@ -117,17 +119,18 @@ class TaskCalendar extends BaseController
         }
 
         $OrderProdukModel = new OrderProdukModel();
-        $OrderProdukData = [];
+        $OrderProdukData = $OrderProdukModel->whereIn('kode_order', $array)->findAll();
 
-        foreach ($array as $kode) {
-            $orderProduk = $OrderProdukModel->where('kode_order', $kode)->findAll();
-            if ($orderProduk) {
-                $OrderProdukData[] = $orderProduk;
-            }
+        $OrderProdukDetailModel = new OrderProdukDetailModel();
+        $OrderProdukDetailData = $OrderProdukDetailModel->findAll();
+
+        $gambarModel = new GambarProdukModel();
+        foreach ($OrderProdukData as &$produk) {
+            $gambar = $gambarModel->where('id_order_produk', $produk['id_order_produk'])->first();
+            $produk['gambar'] = $gambar ? $gambar['gambar'] : '';
         }
-        // dd($OrderProdukData);
 
-        return view('cetakQC', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'array' => $array, 'OrderProdukData' => $OrderProdukData]);
+        return view('cetakQC', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'array' => $array, 'OrderProdukData' => $OrderProdukData, 'OrderProdukDetailData' => $OrderProdukDetailData]);
     }
 
     public function updateStatus($id)
