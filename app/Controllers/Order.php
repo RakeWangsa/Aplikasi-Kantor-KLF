@@ -146,7 +146,7 @@ if ($semuaKodeInvoice) {
         'deadline' => $deadlineOrder,
         'ongkir' => $ongkosKirim,
         'status' => 'Hold',
-        'status_task' => 'Belum Dimulai'
+        'status_task' => 'Belum Dikerjakan'
         
     ];
 
@@ -345,7 +345,7 @@ if ($semuaKodeInvoice) {
         'task' => $namaProduk,
         'deadline' => $deadline,
         'gambar' => $gambarTask['gambar'],
-        'status' => 'Belum Dimulai'
+        'status' => 'Belum Dikerjakan'
     ];
     $TaskModel->insert($dataTask);
 

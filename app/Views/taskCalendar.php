@@ -392,7 +392,7 @@
   <div class="modal fade" id="add<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post">
+    <form action="<?= base_url('taskCalendar/addSubtask/' . $parent); ?>" method="post">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['kode_order']; ?> (Tambah Subtask)</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -427,7 +427,7 @@
   <div class="modal fade" id="add<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-    <form action="<?= base_url('taskCalendar/addSubtask?parent=' . $parent); ?>" method="post">
+    <form action="<?= base_url('taskCalendar/addSubtask/' . $parent); ?>" method="post">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel"><?= $row['task']; ?> (Tambah Subtask)</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>

@@ -110,7 +110,14 @@
   <div class="app-content">
 
   <div class="app-content-header my-4">
-  <h1 class="app-content-headerText">Catatan (<?= $TaskCalendarData['task']; ?>)</h1>
+  <h1 class="app-content-headerText">
+    <?php if (isset($TaskCalendarData) && isset($TaskCalendarData['task'])) : ?>
+        Catatan (<?= $TaskCalendarData['task']; ?>)
+    <?php else : ?>
+        Catatan (<?= $OrderData['kode_order']; ?>)
+    <?php endif; ?>
+</h1>
+
   <div class="d-flex">
     
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#Modal">
@@ -125,15 +132,15 @@
         <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Catatan</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="<?= base_url('taskCalendar/catatan/inputCatatan/'); ?>" method="post">
+      <form action="<?= base_url('taskCalendar/catatan/inputCatatan/' . $encodedId); ?>" method="post" enctype="multipart/form-data">
       <div class="modal-body">
       <div class="mb-3">
-            <label for="detail" class="form-label">Gambar :</label>
-            <input type="text" class="form-control" id="detail" name="detail">
+      <label for="gambar">Gambar :</label>
+    <input type="file" class="form-control-file" accept="image/*" id="gambar" name="gambar[]">
           </div>
           <div class="mb-3">
-            <label for="biaya" class="form-label">Catatan :</label>
-            <input type="int" class="form-control" id="biaya" name="biaya">
+            <label for="catatan" class="form-label">Catatan :</label>
+            <input type="int" class="form-control" id="catatan" name="catatan">
           </div>
       </div>
       <div class="modal-footer">
@@ -174,7 +181,7 @@
 
 <div class="products-row">
 <div class="product-cell"><span><?= $i; ?></span></div>
-<div class="product-cell" style="margin-left:-200px"><span><?= $row['gambar']; ?></span></div>
+<div class="product-cell" style="margin-left:-200px"><span><img src="<?= base_url('uploads/' . $row['gambar']); ?>" style="width:200px;height:auto"></span></div>
 <div class="product-cell"><span><?= $row['catatan']; ?></span></div>
 
 </div>

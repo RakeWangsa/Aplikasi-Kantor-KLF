@@ -42,13 +42,14 @@ $routes->get('order/editOrder/(:segment)', 'Order::editOrder/$1');
  
 
 $routes->get('taskCalendar', 'TaskCalendar::index');
-$routes->add('taskCalendar/addSubtask', 'TaskCalendar::addSubtask');
+$routes->add('taskCalendar/addSubtask/(:segment)', 'TaskCalendar::addSubtask/$1');
 $routes->post('taskCalendar/editSubtask', 'TaskCalendar::editSubtask');
 $routes->get('taskCalendar/deleteSubtask', 'TaskCalendar::deleteSubtask');
 $routes->get('taskCalendar/cetakQC', 'TaskCalendar::cetakQC');
 $routes->post('taskCalendar/cetakQC/download', 'TaskCalendar::CetakQCdownload');
 $routes->get('taskCalendar/updateStatus/(:segment)', 'TaskCalendar::updateStatus/$1');
 $routes->get('taskCalendar/catatan/(:segment)', 'TaskCalendar::catatan/$1');
+$routes->post('taskCalendar/catatan/inputCatatan/(:segment)', 'TaskCalendar::inputCatatan/$1');
 
 $routes->get('kategoriProduk', 'KategoriProduk::index');
 $routes->post('kategoriProduk/addKategori', 'KategoriProduk::addKategori');

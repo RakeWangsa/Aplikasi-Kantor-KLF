@@ -18,9 +18,9 @@ class TaskCalendar extends BaseController
         return view('taskCalendar', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'TaskCalendarData' => $TaskCalendarData]);
     }
 
-    public function addSubtask()
+    public function addSubtask($encodedParent)
     {
-        $encodedParent = $this->request->getGet('parent');
+        // $encodedParent = $this->request->getGet('parent');
         $parent = base64_decode($encodedParent);
         $task = $this->request->getPost('task');
         $deadline = $this->request->getPost('deadline');
@@ -31,7 +31,7 @@ class TaskCalendar extends BaseController
             'parent' => $parent,
             'task' => $task,
             'deadline' => $deadline,
-            'status' => 'Belum Dimulai'
+            'status' => 'Belum Dikerjakan'
         ];
     
         $model->insert($data);
@@ -162,13 +162,77 @@ class TaskCalendar extends BaseController
     public function catatan($encodedId)
     {
         $id = base64_decode($encodedId);
-        $TaskCalendarModel = new TaskCalendarModel();
-        $TaskCalendarData = $TaskCalendarModel->find($id);
+        $task = $this->request->getGet('task');
+        if($task=="order"){
+            $OrderModel = new OrderModel();
+            $OrderData = $OrderModel->find($id);
 
+            $TaskCatatanModel = new TaskCatatanModel();
+            $TaskCatatanData = $TaskCatatanModel->where('id_task',$id)->findAll();
+            return view('taskCalendarCatatan', ['TaskCatatanData' => $TaskCatatanData, 'OrderData' => $OrderData, 'encodedId' => $encodedId]);
+        }else{
+            $TaskCalendarModel = new TaskCalendarModel();
+            $TaskCalendarData = $TaskCalendarModel->find($id);
+    
+            $TaskCatatanModel = new TaskCatatanModel();
+            $TaskCatatanData = $TaskCatatanModel->where('id_task',$id)->findAll();
+            return view('taskCalendarCatatan', ['TaskCatatanData' => $TaskCatatanData, 'TaskCalendarData' => $TaskCalendarData, 'encodedId' => $encodedId]);
+        }
+
+    }
+
+    public function inputCatatan($id)
+    {
+        $previousURL = $_SERVER['HTTP_REFERER'];
+session()->setFlashdata('previousURL', $previousURL);
+
+        $decodedId = base64_decode($id);
+
+        $catatan = $this->request->getPost('catatan');
+        $gambarFiles = $this->request->getFiles();
+
+        $orderModel = new OrderModel();
         $TaskCatatanModel = new TaskCatatanModel();
-        $TaskCatatanData = $TaskCatatanModel->where('id_task',$id)->findAll();
+
         
-        return view('taskCalendarCatatan', ['TaskCatatanData' => $TaskCatatanData, 'TaskCalendarData' => $TaskCalendarData]);
+
+    foreach ($gambarFiles['gambar'] as $gambar) {
+        // Pastikan ada file yang diunggah
+        if ($gambar->isValid() && !$gambar->hasMoved()) {
+            // Pastikan nama file unik
+            // $namaFile = base64_encode($gambar->getRandomName());
+
+            $uuid = uniqid(); // Generate a unique ID
+            $ekstensiAsli = pathinfo($gambar->getName(), PATHINFO_EXTENSION); // Dapatkan ekstensi asli dari nama file
+
+            $namaFile = $uuid . '.' . $ekstensiAsli; // Gabungkan ID unik dan ekstensi asli untuk nama file
+
+
+            // Pindahkan file ke direktori penyimpanan
+            $gambar->move(ROOTPATH . 'public/uploads', $namaFile);
+        }
+    }
+    if(isset($namaFile)){
+        $data = [
+            'id_task' => $decodedId,
+            'gambar' => $namaFile,
+            'catatan' => $catatan,
+        ];
+    }else{
+        $data = [
+            'id_task' => $decodedId,
+            'catatan' => $catatan,
+        ];
+    }
+
+    $TaskCatatanModel->insert($data);
+
+
+    if (is_string($previousURL) && !empty($previousURL)) {
+        return redirect()->to($previousURL);
+    } else {
+        return redirect()->to(base_url());
+    }
     }
 
 
