@@ -153,9 +153,10 @@
 
     <div class="products-area-wrapper tableView">
       <div class="products-header">
-      <div class="product-cell status-cell">To Do (<?= $jumlahTask; ?> Tasks)</div>
-        <div class="product-cell sales">Deadline</div>
-        <div class="product-cell sales">Cetak</div>
+      <div class="product-cell" style="padding-right:200px">To Do (<?= $jumlahTask; ?> Tasks)</div>
+        <div class="product-cell">Deadline</div>
+        <div class="product-cell">Status</div>
+        <div class="product-cell">Cetak</div>
       </div>
 
 
@@ -171,13 +172,23 @@
 <li class="">
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
     <div class="products-row task">
-      <div class="product-cell category">
-        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#<?php echo $task; ?>" onclick="toggleIcon('icon<?php echo $task; ?>')">
+      <div class="product-cell category" style="padding-right:200px">
+        <span style="margin-right:-200px"><button class="icon-button bg-dark" data-toggle="collapse" href="#<?php echo $task; ?>" onclick="toggleIcon('icon<?php echo $task; ?>')">
         <i id="icon<?php echo $task; ?>" class="fas fa-chevron-right" style="color:grey"></i>
       </button> <?= $row['kode_order']; ?> - <?= $row['nama']; ?></span>
       </div>
       <div class="product-cell status-cell">
         <span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span>
+      </div>
+      <div class="product-cell status-cell">
+        <span style="color:       
+        <?php if ($row['status_task'] === 'Selesai'): ?>
+          #00ff00
+    <?php elseif ($row['status_task'] === 'On Progress'): ?>
+      #0099ff
+    <?php elseif ($row['status_task'] === 'Belum Dikerjakan'): ?>
+        #ff0000
+    <?php endif; ?>"><?= $row['status_task']; ?></span>
       </div>
       <div class="product-cell status-cell">
         <span>
@@ -200,8 +211,8 @@
         <li class="">
 
         <div class="products-row task">
-      <div class="product-cell category subtask">
-        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#sub<?php echo $taskCalendar['id']; ?>" onclick="toggleIcon('iconsub<?php echo $taskCalendar['id']; ?>')">
+      <div class="product-cell category subtask" style="padding-right:200px">
+        <span style="margin-right:-200px"><button class="icon-button bg-dark" data-toggle="collapse" href="#sub<?php echo $taskCalendar['id']; ?>" onclick="toggleIcon('iconsub<?php echo $taskCalendar['id']; ?>')">
         <i id="iconsub<?php echo $taskCalendar['id']; ?>" class="fas fa-chevron-right" style="color:grey"></i>
       </button> <?= $taskCalendar['task']; ?>
     
@@ -213,6 +224,16 @@
       </div>
       <div class="product-cell status-cell">
         <span><?= date('d-m-Y', strtotime($taskCalendar['deadline'])); ?></span>
+      </div>
+      <div class="product-cell status-cell">
+      <span style="color:       
+        <?php if ($taskCalendar['status'] === 'Selesai'): ?>
+          #00ff00
+    <?php elseif ($taskCalendar['status'] === 'On Progress'): ?>
+      #0099ff
+    <?php elseif ($taskCalendar['status'] === 'Belum Dikerjakan'): ?>
+        #ff0000
+    <?php endif; ?>"><?= $taskCalendar['status']; ?></span>
       </div>
       <div class="product-cell status-cell">
         <span>
@@ -230,11 +251,21 @@
             <li class="">
 
             <div class="products-row task">
-      <div class="product-cell category subofsub">
-        <span><i class="subofsub-icon"></i> <?= $taskCalendar2['task']; ?></span>
+      <div class="product-cell category subofsub" style="padding-right:200px">
+        <span style="margin-right:-200px"><i class="subofsub-icon"></i> <?= $taskCalendar2['task']; ?></span>
       </div>
       <div class="product-cell status-cell">
         <span><?= date('d-m-Y', strtotime($taskCalendar2['deadline'])); ?></span>
+      </div>
+      <div class="product-cell status-cell">
+      <span style="color:       
+        <?php if ($taskCalendar2['status'] === 'Selesai'): ?>
+          #00ff00
+    <?php elseif ($taskCalendar2['status'] === 'On Progress'): ?>
+      #0099ff
+    <?php elseif ($taskCalendar2['status'] === 'Belum Dikerjakan'): ?>
+        #ff0000
+    <?php endif; ?>"><?= $taskCalendar2['status']; ?></span>
       </div>
       <div class="product-cell status-cell">
         <span>

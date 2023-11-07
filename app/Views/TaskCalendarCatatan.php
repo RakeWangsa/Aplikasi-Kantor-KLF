@@ -181,7 +181,7 @@
 
 <div class="products-row">
 <div class="product-cell"><span><?= $i; ?></span></div>
-<div class="product-cell" style="margin-left:-200px"><span><img src="<?= base_url('uploads/' . $row['gambar']); ?>" style="width:200px;height:auto"></span></div>
+<div class="product-cell" style="margin-left:-200px"><span><?php if ($row['gambar']!='') : ?><img src="<?= base_url('uploads/' . $row['gambar']); ?>" style="width:200px;height:auto"><?php endif ?></span></div>
 <div class="product-cell"><span><?= $row['catatan']; ?></span></div>
 
 </div>

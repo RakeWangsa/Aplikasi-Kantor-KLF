@@ -125,7 +125,7 @@ class TaskCalendar extends BaseController
                 $OrderProdukData[] = $orderProduk;
             }
         }
-        dd($OrderProdukData);
+        // dd($OrderProdukData);
 
         return view('cetakQC', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'array' => $array, 'OrderProdukData' => $OrderProdukData]);
     }
