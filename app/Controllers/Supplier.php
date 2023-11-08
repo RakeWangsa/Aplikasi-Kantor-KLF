@@ -44,14 +44,20 @@ public function addKategori()
     {
         $decodedId = base64_decode($id);
         $OrderProdukSupplierModel = new OrderProdukSupplierModel();
-        $OrderProdukSupplierData = $OrderProdukSupplierModel->find($decodedId);
+        $OrderProdukSupplierData = $OrderProdukSupplierModel->where('id_supplier', $decodedId)->findAll();
+    
+        $SupplierModel = new SupplierModel();
+        $SupplierData = $SupplierModel->find($decodedId);
+
         $OrderProdukModel = new OrderProdukModel();
-        // $OrderProdukData = $OrderProdukModel->findAll();
+    
         foreach ($OrderProdukSupplierData as &$supplier) {
             $produk = $OrderProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
             $supplier['nama_produk'] = $produk ? $produk['nama'] : '';
         }
-        return view('supplierInfo', ['OrderProdukSupplierData' => $OrderProdukSupplierData, 'OrderProdukData' => $OrderProdukData]);
-    }  
+    
+        return view('supplierInfo', ['OrderProdukSupplierData' => $OrderProdukSupplierData, 'SupplierData' => $SupplierData]);
+    }
+    
 
 }

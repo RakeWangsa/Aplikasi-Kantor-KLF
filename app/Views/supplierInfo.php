@@ -128,7 +128,7 @@
   </div>
   <div class="app-content">
     <div class="app-content-header mt-4">
-      <h1 class="app-content-headerText">Supplier Info</h1>
+      <h1 class="app-content-headerText">Supplier Info [<?= $SupplierData['kategori']; ?> - <?= $SupplierData['nama']; ?>]</h1>
       
     </div>
 
@@ -169,7 +169,7 @@
     <div class="products-area-wrapper tableView">
       <div class="products-header">
       <div class="product-cell status-cell">Supplier</div>
-        <div class="product-cell sales"></div>
+        <div class="product-cell sales">Total Harga</div>
         <div class="product-cell sales">Action</div>
       </div>
 
@@ -186,12 +186,10 @@
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
     <div class="products-row">
       <div class="product-cell category">
-        <span><button class="icon-button bg-dark" data-toggle="collapse" href="#list<?php echo $id; ?>" onclick="toggleIcon('icon<?php echo $id; ?>')">
-        <i id="icon<?php echo $id; ?>" class="fas fa-chevron-right" style="color:grey"></i>
-      </button> <?= $row['nama_produk']; ?></span>
+        <span><?= $row['nama_produk']; ?></span>
       </div>
       <div class="product-cell status-cell">
-        <span></span>
+        <span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span>
       </div>
       <div class="product-cell status-cell">
         <span>
