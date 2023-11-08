@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - Supplier</title>
+  <title>KLF - Supplier Info</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -128,7 +128,7 @@
   </div>
   <div class="app-content">
     <div class="app-content-header mt-4">
-      <h1 class="app-content-headerText">Supplier</h1>
+      <h1 class="app-content-headerText">Supplier Info</h1>
       
     </div>
 
@@ -180,7 +180,7 @@
 
       <div id="productList">
       <ul class="list-group">
-  <?php foreach ($KategoriData as $row): ?>
+      <?php foreach ($OrderProdukSupplierData as $row): ?>
     <?php $id = $row['id']; ?>
 <li class="">
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
@@ -188,7 +188,7 @@
       <div class="product-cell category">
         <span><button class="icon-button bg-dark" data-toggle="collapse" href="#list<?php echo $id; ?>" onclick="toggleIcon('icon<?php echo $id; ?>')">
         <i id="icon<?php echo $id; ?>" class="fas fa-chevron-right" style="color:grey"></i>
-      </button> <?= $row['kategori']; ?></span>
+      </button> <?= $row['nama_produk']; ?></span>
       </div>
       <div class="product-cell status-cell">
         <span></span>
@@ -201,77 +201,15 @@
     </div>
 <!-- </a> -->
     </li>
-    <div id="list<?php echo $id; ?>" class="collapse">
-
-    <?php foreach ($SupplierData as $supplier): ?>
-      <?php if ($supplier['kategori'] == $row['kategori']): ?>
-        <?php
-        $encodedId = base64_encode($supplier['id']);
-      ?>
-        <a style="text-decoration:none;" href="<?= base_url('supplier/info/'.$encodedId); ?>">
-          <ul class="list-group list-group-flush">
-        <li class="">
-
-        <div class="products-row">
-      <div class="product-cell category sublist">
-        <span><i class="sublist-icon"></i> <?= $supplier['nama']; ?></span>
-      </div>
-      <div class="product-cell status-cell">
-        <span></span>
-      </div>
-      <div class="product-cell status-cell">
-        <span>
-
-      </span>
-      </div>
-    </div>
-
-        </li>
 
 
-      </ul>
-      </a>
-        <?php endif; ?>
-    <?php endforeach; ?>
-
-    </div>
 
   <?php endforeach; ?> 
 </ul>
 </div>
 
 
-<!-- tambah supplier -->
-<?php foreach ($KategoriData as $row): ?>
-  <?php $modalId = $row['id']; ?>
-  <div class="modal fade" id="add<?= $modalId; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-    <form action="<?= base_url('supplier/addSupplier/' . $row['kategori']); ?>" method="post">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Supplier</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
-          <div class="mb-3">
-            <label for="kategori" class="form-label">Kategori:</label>
-            <input type="text" class="form-control" id="kategori" name="kategori" value="<?php echo $row['kategori']; ?>" disabled>
-          </div>
-          <div class="mb-3">
-            <label for="nama" class="form-label">Nama:</label>
-            <input type="text" class="form-control" id="nama" name="nama">
-          </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-<?php endforeach; ?>
+
 
 
 

@@ -60,5 +60,6 @@ $routes->post('kategoriProduk/editDetail/(:segment)', 'KategoriProduk::editDetai
 $routes->get('supplier', 'Supplier::index');
 $routes->post('supplier/addKategori', 'Supplier::addKategori');
 $routes->post('supplier/addSupplier/(:segment)', 'Supplier::addSupplier/$1');
+$routes->get('supplier/info/(:segment)', 'Supplier::info/$1');
 
 $routes->get('katalogProduk', 'KatalogProduk::index');

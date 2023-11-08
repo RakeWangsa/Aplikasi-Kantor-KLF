@@ -280,6 +280,7 @@ if ($semuaKodeInvoice) {
 
 
     $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+    $SupplierModel = new SupplierModel();
 
     $totalBiaya = 0;
     for ($i = 1; $i <= $jumlahSupplier; $i++) {
@@ -288,10 +289,13 @@ if ($semuaKodeInvoice) {
         $jumlah_barang = $this->request->getPost('jumlah_barang'.$i);
         $harga_supplier = $this->request->getPost('harga'.$i);
 
+        $supplier = $SupplierModel->where('kategori', $kategori_supplier)->where('nama', $nama_supplier)->first();
+
         $total_harga_supplier=$harga_supplier*$jumlah_barang;
         $totalBiaya += $total_harga_supplier;
         $data = [
             'id_order_produk' => $id_order_produk,
+            'id_supplier' => $supplier['id'],
             'kategori' => $kategori_supplier,
             'nama' => $nama_supplier,
             'jumlah_barang' => $jumlah_barang,

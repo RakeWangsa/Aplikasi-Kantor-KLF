@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\KategoriSupplierModel;
+use App\Models\OrderProdukModel;
+use App\Models\OrderProdukSupplierModel;
 use App\Models\SupplierModel;
 
 class Supplier extends BaseController
@@ -37,5 +39,19 @@ public function addKategori()
         $model->insert($data);
         return redirect()->to(base_url('supplier'))->with('success', 'Supplier berhasil ditambahkan.');
     }
+
+    public function info($id)
+    {
+        $decodedId = base64_decode($id);
+        $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+        $OrderProdukSupplierData = $OrderProdukSupplierModel->find($decodedId);
+        $OrderProdukModel = new OrderProdukModel();
+        // $OrderProdukData = $OrderProdukModel->findAll();
+        foreach ($OrderProdukSupplierData as &$supplier) {
+            $produk = $OrderProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
+            $supplier['nama_produk'] = $produk ? $produk['nama'] : '';
+        }
+        return view('supplierInfo', ['OrderProdukSupplierData' => $OrderProdukSupplierData, 'OrderProdukData' => $OrderProdukData]);
+    }  
 
 }
