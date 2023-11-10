@@ -127,15 +127,14 @@
     </div>
   </div>
   <div class="app-content">
-    <div class="app-content-header mt-4">
+    <div class="app-content-header my-4">
       <h1 class="app-content-headerText">Supplier Info [<?= $SupplierData['kategori']; ?> - <?= $SupplierData['nama']; ?>]</h1>
       
     </div>
 
-    <div class="app-content-actions">
+    <!-- <div class="app-content-actions">
       <div>
-      <button onclick="expandAllLists()" class="btn btn-primary mb-2"><i class="fas fa-arrow-down"></i> Expand</button>
-      <button onclick="collapseAllLists()" class="btn btn-danger mb-2"><i class="fas fa-arrow-up"></i> Hide</button>
+
       </div>
     
 
@@ -143,7 +142,7 @@
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-plus"></i> Tambah Kategori</button>
 
 
-    <!-- Modal -->
+    Modal
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -164,13 +163,20 @@
       </div>
     </div>
 
-    </div>
+    </div> -->
 
     <div class="products-area-wrapper tableView">
-      <div class="products-header">
-      <div class="product-cell status-cell">Supplier</div>
-        <div class="product-cell sales">Total Harga</div>
-        <div class="product-cell sales">Action</div>
+
+    <div class="container text-light">
+        <div class="row">
+        <div class="col-md-6 product-details border p-4">
+        <h4>Rincian Pesanan</h4>
+      <div class="products-header mt-2">
+
+      <div class="product-cell">Produk</div>
+      <div class="product-cell">Quantity</div>
+        <div class="product-cell">Total Harga</div>
+        <!-- <div class="product-cell sales">Action</div> -->
       </div>
 
 
@@ -182,23 +188,27 @@
       <ul class="list-group">
       <?php foreach ($OrderProdukSupplierData as $row): ?>
     <?php $id = $row['id']; ?>
-<li class="">
+<!-- <li class=""> -->
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
     <div class="products-row">
-      <div class="product-cell category">
+
+      <div class="product-cell">
         <span><?= $row['nama_produk']; ?></span>
       </div>
-      <div class="product-cell status-cell">
+      <div class="product-cell">
+        <span><?= $row['jumlah_barang']; ?></span>
+      </div>
+      <div class="product-cell">
         <span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span>
       </div>
-      <div class="product-cell status-cell">
+      <!-- <div class="product-cell status-cell">
         <span>
           <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button>
       </span>
-      </div>
+      </div> -->
     </div>
 <!-- </a> -->
-    </li>
+    <!-- </li> -->
 
 
 
@@ -211,9 +221,62 @@
 
 
 
+    </div>
+
+    <div class="col-md-6 product-details border p-4">
+        <h4>Paymment</h4>
+      <div class="products-header mt-2">
+
+      <div class="product-cell">Tanggal</div>
+      <div class="product-cell">Jumlah Pembayaran</div>
+      </div>
 
 
 
+
+
+
+      <div id="productList">
+      <ul class="list-group">
+      <?php foreach ($OrderProdukSupplierData as $row): ?>
+    <?php $id = $row['id']; ?>
+<!-- <li class=""> -->
+<!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
+    <div class="products-row">
+
+      <div class="product-cell">
+        <span><?= $row['nama_produk']; ?></span>
+      </div>
+      <div class="product-cell">
+        <span><?= $row['jumlah_barang']; ?></span>
+      </div>
+      <div class="product-cell">
+        <span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span>
+      </div>
+      <!-- <div class="product-cell status-cell">
+        <span>
+          <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button>
+      </span>
+      </div> -->
+    </div>
+<!-- </a> -->
+    <!-- </li> -->
+
+
+
+  <?php endforeach; ?> 
+</ul>
+</div>
+
+
+
+
+
+
+    </div>
+
+    </div>
+    </div>
 
       
 
@@ -225,46 +288,7 @@
 
   </div>
 </div>
-<!-- partial -->
 
-<script>
-  function toggleIcon(iconId) {
-    const icon = document.getElementById(iconId);
-    if (icon.classList.contains('fa-chevron-right')) {
-      icon.classList.remove('fa-chevron-right');
-      icon.classList.add('fa-chevron-down');
-    } else {
-      icon.classList.remove('fa-chevron-down');
-      icon.classList.add('fa-chevron-right');
-    }
-  }
-  
-  function expandAllLists() {
-    const collapsibleButtons = document.querySelectorAll('.icon-button');
-
-    collapsibleButtons.forEach(button => {
-      const targetId = button.getAttribute('href').replace('#', '');
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement && !targetElement.classList.contains('show')) {
-        button.click(); // Click to expand if not already expanded
-      }
-    });
-  }
-
-  function collapseAllLists() {
-    const collapsibleButtons = document.querySelectorAll('.icon-button');
-
-    collapsibleButtons.forEach(button => {
-      const targetId = button.getAttribute('href').replace('#', '');
-      const targetElement = document.getElementById(targetId);
-
-      if (targetElement && targetElement.classList.contains('show')) {
-        button.click(); // Click to collapse if already expanded
-      }
-    });
-  }
-</script>
 
 
 

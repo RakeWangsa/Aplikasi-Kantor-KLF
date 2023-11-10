@@ -54,6 +54,7 @@ public function addKategori()
         foreach ($OrderProdukSupplierData as &$supplier) {
             $produk = $OrderProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
             $supplier['nama_produk'] = $produk ? $produk['nama'] : '';
+            // $supplier['kode_order'] = $produk ? $produk['kode_order'] : '';
         }
     
         return view('supplierInfo', ['OrderProdukSupplierData' => $OrderProdukSupplierData, 'SupplierData' => $SupplierData]);
