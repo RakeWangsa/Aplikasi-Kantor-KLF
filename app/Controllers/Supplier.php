@@ -61,7 +61,18 @@ public function addKategori()
         $PaymentSupplierModel = new PaymentSupplierModel();
         $PaymentSupplierData = $PaymentSupplierModel->where('id_supplier', $decodedId)->findAll();
     
-        return view('supplierInfo', ['OrderProdukSupplierData' => $OrderProdukSupplierData, 'SupplierData' => $SupplierData, 'PaymentSupplierData' => $PaymentSupplierData, 'encodedId' => $id]);
+        $totalTagihan=0;
+        foreach($OrderProdukSupplierData as $supplier){
+            $totalTagihan+=$supplier['total_harga'];
+        }
+
+        return view('supplierInfo', [
+            'OrderProdukSupplierData' => $OrderProdukSupplierData, 
+            'SupplierData' => $SupplierData,
+            'PaymentSupplierData' => $PaymentSupplierData,
+            'encodedId' => $id,
+            'totalTagihan' => $totalTagihan
+        ]);
     }
     
     public function addPayment($id)

@@ -170,7 +170,10 @@
     <div class="container text-light">
         <div class="row">
         <div class="col-md-6 product-details border p-4">
-        <h4>Rincian Pesanan</h4>
+        <div class="d-flex align-items-center justify-content-between">
+        <h4 class="mb-0">Rincian Pesanan</h4>
+
+        </div>
       <div class="products-header mt-2">
 
       <div class="product-cell">Produk</div>
@@ -226,9 +229,11 @@
     <div class="col-md-6 product-details border p-4">
     <div class="d-flex align-items-center justify-content-between">
         <h4 class="mb-0">Payment</h4>
+        
         <button type="button" class="btn btn-success btn-sm rounded-circle" data-toggle="modal" data-target="#addPayment">
             <i class="fas fa-plus"></i>
         </button>
+        <h6>Tagihan : Rp. <?= number_format($totalTagihan, 0, ",", "."); ?></h6>
 
         <!-- Modal -->
     <div class="modal fade" id="addPayment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -292,17 +297,22 @@
         <span>Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></span>
       </div>
       <div class="product-cell">
-        <span></span>
+        <span><img src="<?= base_url('uploads/'.$row['bukti_payment']); ?>" style="width: 50px; height: auto;" data-toggle="modal" data-target="#modal<?= $row['id'] ?>"></span>
       </div>
-      <!-- <div class="product-cell status-cell">
-        <span>
-          <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button>
-      </span>
-      </div> -->
     </div>
 <!-- </a> -->
     <!-- </li> -->
 
+            <!-- Modal -->
+            <div class="modal fade" id="modal<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<?= $row['id'] ?>" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <img src="<?= base_url('uploads/' . $row['bukti_payment']); ?>" style="width: 100%; height: auto;" alt="...">
+            </div>
+          </div>
+        </div>
+      </div>
 
 
   <?php endforeach; ?> 
