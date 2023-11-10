@@ -141,6 +141,29 @@
       
   </table>
 
+  <div class="row mt-4">
+    <div style="width:70%">
+            <div class="alert bg-primary text-light">
+                PAYMENT TERMS :<br>
+                <?php if (isset($termin['termin1'])): ?>
+                    - Termin 1 &nbsp;&nbsp;: <?= $termin['termin1']; ?><br>
+                <?php else: ?>
+                    - Termin 1 &nbsp;&nbsp;: -<br>
+                <?php endif; ?>
+                <?php if (isset($termin['termin2'])): ?>
+                    - Termin 2 &nbsp;: <?= $termin['termin2']; ?><br>
+                <?php else: ?>
+                    - Termin 2 &nbsp;: -<br>
+                <?php endif; ?>
+                <?php if (isset($termin['termin3'])): ?>
+                    - Termin 3 &nbsp;: <?= $termin['termin3']; ?><br>
+                <?php else: ?>
+                    - Termin 3 &nbsp;: -<br>
+                <?php endif; ?>
+                BCA a.n. Alfennino Ferdiansyah Gunawan
+            </div>
+    </div>
+</div>
   
 
       
