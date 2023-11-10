@@ -51,12 +51,6 @@ public function addKategori()
         $SupplierData = $SupplierModel->find($decodedId);
 
         $OrderProdukModel = new OrderProdukModel();
-    
-        foreach ($OrderProdukSupplierData as &$supplier) {
-            $produk = $OrderProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
-            $supplier['nama_produk'] = $produk ? $produk['nama'] : '';
-            // $supplier['kode_order'] = $produk ? $produk['kode_order'] : '';
-        }
 
         $PaymentSupplierModel = new PaymentSupplierModel();
         $PaymentSupplierData = $PaymentSupplierModel->where('id_supplier', $decodedId)->findAll();
@@ -65,6 +59,17 @@ public function addKategori()
         foreach($OrderProdukSupplierData as $supplier){
             $totalTagihan+=$supplier['total_harga'];
         }
+        foreach($PaymentSupplierData as $supplier){
+            $totalTagihan-=$supplier['jumlah_payment'];
+        }
+    
+        foreach ($OrderProdukSupplierData as &$supplier) {
+            $produk = $OrderProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
+            $supplier['nama_produk'] = $produk ? $produk['nama'] : '';
+            // $supplier['kode_order'] = $produk ? $produk['kode_order'] : '';
+        }
+
+
 
         return view('supplierInfo', [
             'OrderProdukSupplierData' => $OrderProdukSupplierData, 

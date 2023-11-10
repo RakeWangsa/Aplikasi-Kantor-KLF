@@ -230,10 +230,12 @@
     <div class="d-flex align-items-center justify-content-between">
         <h4 class="mb-0">Payment</h4>
         
-        <button type="button" class="btn btn-success btn-sm rounded-circle" data-toggle="modal" data-target="#addPayment">
+        <div class="d-flex align-items-center">
+        <button type="button" class="btn btn-success btn-sm rounded-circle mr-2" data-toggle="modal" data-target="#addPayment">
             <i class="fas fa-plus"></i>
         </button>
-        <h6>Tagihan : Rp. <?= number_format($totalTagihan, 0, ",", "."); ?></h6>
+        <h6 class="mb-0" style="margin-left:10px">Tagihan : Rp. <?= number_format($totalTagihan, 0, ",", "."); ?></h6>
+    </div>
 
         <!-- Modal -->
     <div class="modal fade" id="addPayment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
