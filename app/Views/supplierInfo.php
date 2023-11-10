@@ -224,11 +224,52 @@
     </div>
 
     <div class="col-md-6 product-details border p-4">
-        <h4>Paymment</h4>
+    <div class="d-flex align-items-center justify-content-between">
+        <h4 class="mb-0">Payment</h4>
+        <button type="button" class="btn btn-success btn-sm rounded-circle" data-toggle="modal" data-target="#addPayment">
+            <i class="fas fa-plus"></i>
+        </button>
+
+        <!-- Modal -->
+    <div class="modal fade" id="addPayment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog text-dark">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Input Payment</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form action="<?= base_url('supplier/addPayment/'.$encodedId); ?>" method="post" enctype="multipart/form-data">
+          <div class="modal-body">
+
+          <div class="mb-3">
+            <label for="tanggal" class="form-label">Tanggal :</label>
+            <input type="date" class="form-control" name="tanggal" id="tanggal">
+          </div>
+          <div class="mb-3">
+            <label for="jumlahPayment" class="form-label">Jumlah Payment :</label>
+            <input type="number" class="form-control" name="jumlahPayment" id="jumlahPayment">
+          </div>
+          <div class="mb-3">
+          <label for="gambar">Bukti Payment :</label>
+                <input type="file" class="form-control-file" accept="image/*" id="gambar" name="gambar[]" required>
+          </div>
+
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+    </div>
       <div class="products-header mt-2">
 
       <div class="product-cell">Tanggal</div>
       <div class="product-cell">Jumlah Pembayaran</div>
+      <div class="product-cell">Bukti Pembayaran</div>
       </div>
 
 
@@ -238,20 +279,20 @@
 
       <div id="productList">
       <ul class="list-group">
-      <?php foreach ($OrderProdukSupplierData as $row): ?>
+      <?php foreach ($PaymentSupplierData as $row): ?>
     <?php $id = $row['id']; ?>
 <!-- <li class=""> -->
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
     <div class="products-row">
 
       <div class="product-cell">
-        <span><?= $row['nama_produk']; ?></span>
+        <span><?= date('d-m-Y', strtotime($row['tanggal'])); ?></span>
       </div>
       <div class="product-cell">
-        <span><?= $row['jumlah_barang']; ?></span>
+        <span>Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></span>
       </div>
       <div class="product-cell">
-        <span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span>
+        <span></span>
       </div>
       <!-- <div class="product-cell status-cell">
         <span>
