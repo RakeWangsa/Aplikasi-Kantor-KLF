@@ -135,7 +135,6 @@
               <div class="col">
               <p><strong>Harga :</strong> Rp. <?= number_format($OrderProdukData['harga'], 0, ",", "."); ?></p>
                 <p><strong>Quantity :</strong> <?= $OrderProdukData['quantity']; ?></p>
-                <p><strong>Discount :</strong> </p>
                 <p><strong>Total Harga :</strong> Rp. <?= number_format($OrderProdukData['total_harga'], 0, ",", "."); ?></p>
                 <p><strong>Biaya Produksi :</strong> Rp. <?= number_format($OrderProdukData['total_biaya'], 0, ",", "."); ?></p>
               </div>

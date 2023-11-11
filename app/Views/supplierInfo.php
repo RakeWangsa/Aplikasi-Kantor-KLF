@@ -235,10 +235,11 @@
         <h4 class="mb-0">Payment</h4>
         
         <div class="d-flex align-items-center">
+        <h6 class="mb-0" style="margin-right:10px">Tagihan : Rp. <?= number_format($totalTagihan, 0, ",", "."); ?></h6>
         <button type="button" class="btn btn-success btn-sm rounded-circle mr-2" data-toggle="modal" data-target="#addPayment">
             <i class="fas fa-plus"></i>
         </button>
-        <h6 class="mb-0" style="margin-left:10px">Tagihan : Rp. <?= number_format($totalTagihan, 0, ",", "."); ?></h6>
+        
     </div>
 
         <!-- Modal -->
@@ -340,6 +341,7 @@
         <div class="products-header mt-2">
 
 <div class="product-cell">Produk</div>
+<div class="product-cell">Gambar</div>
 <div class="product-cell">Quantity</div>
   <div class="product-cell">Total Harga</div>
   <div class="product-cell">Status</div>
@@ -354,14 +356,17 @@
 <ul class="list-group">
 <?php foreach ($OrderProdukSupplierData as $row): ?>
   <?php if ($row['status']=='Selesai'): ?>
-<?php $id = $row['id']; ?>
+
 <!-- <li class=""> -->
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
 <div class="products-row">
 
 <div class="product-cell">
-  <span><?= $row['nama_produk']; ?></span>
+  <span><?= $row['nama_produk']; ?><br><?= $row['kode_order']; ?></span>
 </div>
+<div class="product-cell">
+        <span><img src="<?= base_url('uploads/'.$row['gambar']); ?>" style="width: 150px; height: auto;" data-toggle="modal" data-target="#gambar<?= $row['id'] ?>"></span>
+      </div>
 <div class="product-cell">
   <span><?= $row['jumlah_barang']; ?></span>
 </div>
@@ -380,6 +385,16 @@
 <!-- </a> -->
 <!-- </li> -->
 
+            <!-- Modal -->
+            <div class="modal fade" id="gambar<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<?= $row['id'] ?>" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <img src="<?= base_url('uploads/' . $row['gambar']); ?>" style="width: 100%; height: auto;" alt="...">
+            </div>
+          </div>
+        </div>
+      </div>
 
 <?php endif; ?> 
 <?php endforeach; ?> 
