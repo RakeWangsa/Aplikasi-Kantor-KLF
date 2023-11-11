@@ -147,11 +147,14 @@
       <div>
       <button onclick="expandAllLists()" class="btn btn-primary mb-2"><i class="fas fa-arrow-down"></i> Expand</button>
       <button onclick="collapseAllLists()" class="btn btn-danger mb-2"><i class="fas fa-arrow-up"></i> Hide</button>
+      
       </div>
     
-
-
-      <a class="btn btn-primary" href="<?= base_url('taskCalendar/cetakQC'); ?>"><i class="fas fa-print"></i> Cetak QC</a>
+<div>
+      <a class="btn btn-primary mb-2" href="<?= base_url('taskCalendar/cetakQC'); ?>"><i class="fas fa-print"></i> Cetak QC</a>
+      <a class="btn btn-success mb-2" href="<?= base_url('taskCalendar/calendarView'); ?>"><i class="fas fa-calendar"></i> Calendar View</a>
+      </div>
+      
     </div>
 
     <div class="products-area-wrapper tableView">

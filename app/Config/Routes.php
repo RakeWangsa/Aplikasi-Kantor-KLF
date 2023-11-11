@@ -42,6 +42,7 @@ $routes->get('order/editOrder/(:segment)', 'Order::editOrder/$1');
  
 
 $routes->get('taskCalendar', 'TaskCalendar::index');
+$routes->get('taskCalendar/calendarView', 'TaskCalendar::calendarView');
 $routes->add('taskCalendar/addSubtask/(:segment)', 'TaskCalendar::addSubtask/$1');
 $routes->post('taskCalendar/editSubtask', 'TaskCalendar::editSubtask');
 $routes->get('taskCalendar/deleteSubtask', 'TaskCalendar::deleteSubtask');
