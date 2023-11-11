@@ -20,6 +20,16 @@ class TaskCalendar extends BaseController
         return view('taskCalendar', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'TaskCalendarData' => $TaskCalendarData]);
     }
 
+    public function calendarView()
+    {
+        $OrderModel = new OrderModel();
+        $OrderData = $OrderModel->findAll();
+        $jumlahTask = count($OrderData);
+        $TaskCalendarModel = new TaskCalendarModel();
+        $TaskCalendarData = $TaskCalendarModel->findAll();
+        return view('taskCalendar2', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'TaskCalendarData' => $TaskCalendarData]);
+    }
+
     public function addSubtask($encodedParent)
     {
         // $encodedParent = $this->request->getGet('parent');
