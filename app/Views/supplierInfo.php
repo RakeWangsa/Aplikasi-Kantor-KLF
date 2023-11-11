@@ -179,7 +179,7 @@
       <div class="product-cell">Produk</div>
       <div class="product-cell">Quantity</div>
         <div class="product-cell">Total Harga</div>
-        <!-- <div class="product-cell sales">Action</div> -->
+        <div class="product-cell">Status</div>
       </div>
 
 
@@ -190,6 +190,7 @@
       <div id="productList">
       <ul class="list-group">
       <?php foreach ($OrderProdukSupplierData as $row): ?>
+        <?php if ($row['status']!='Selesai'): ?>
     <?php $id = $row['id']; ?>
 <!-- <li class=""> -->
 <!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
@@ -204,6 +205,9 @@
       <div class="product-cell">
         <span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span>
       </div>
+      <div class="product-cell">
+        <span><?= $row['status']; ?></span>
+      </div>
       <!-- <div class="product-cell status-cell">
         <span>
           <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button>
@@ -214,7 +218,7 @@
     <!-- </li> -->
 
 
-
+    <?php endif; ?> 
   <?php endforeach; ?> 
 </ul>
 </div>
@@ -329,6 +333,61 @@
     </div>
 
     </div>
+
+    <div class="row">
+        <div class="col-md-12 product-details border p-4">
+        <h4 class="mb-0">Riwayat Pesanan</h4>
+        <div class="products-header mt-2">
+
+<div class="product-cell">Produk</div>
+<div class="product-cell">Quantity</div>
+  <div class="product-cell">Total Harga</div>
+  <div class="product-cell">Status</div>
+</div>
+
+
+
+
+
+
+<div id="productList">
+<ul class="list-group">
+<?php foreach ($OrderProdukSupplierData as $row): ?>
+  <?php if ($row['status']=='Selesai'): ?>
+<?php $id = $row['id']; ?>
+<!-- <li class=""> -->
+<!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
+<div class="products-row">
+
+<div class="product-cell">
+  <span><?= $row['nama_produk']; ?></span>
+</div>
+<div class="product-cell">
+  <span><?= $row['jumlah_barang']; ?></span>
+</div>
+<div class="product-cell">
+  <span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span>
+</div>
+<div class="product-cell">
+  <span><?= $row['status']; ?></span>
+</div>
+<!-- <div class="product-cell status-cell">
+  <span>
+    <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button>
+</span>
+</div> -->
+</div>
+<!-- </a> -->
+<!-- </li> -->
+
+
+<?php endif; ?> 
+<?php endforeach; ?> 
+</ul>
+</div>
+        </div>
+      </div>
+
     </div>
 
       

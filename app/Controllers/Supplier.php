@@ -7,6 +7,7 @@ use App\Models\OrderProdukModel;
 use App\Models\OrderProdukSupplierModel;
 use App\Models\SupplierModel;
 use App\Models\PaymentSupplierModel;
+use App\Models\TaskCalendarModel;
 
 class Supplier extends BaseController
 {
@@ -50,6 +51,7 @@ public function addKategori()
         $SupplierModel = new SupplierModel();
         $SupplierData = $SupplierModel->find($decodedId);
 
+        $TaskCalendarModel = new TaskCalendarModel();
         $OrderProdukModel = new OrderProdukModel();
 
         $PaymentSupplierModel = new PaymentSupplierModel();
@@ -65,7 +67,9 @@ public function addKategori()
     
         foreach ($OrderProdukSupplierData as &$supplier) {
             $produk = $OrderProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
+            $task = $TaskCalendarModel->where('parent', $produk['kode_order'])->where('task', $produk['nama'])->first();
             $supplier['nama_produk'] = $produk ? $produk['nama'] : '';
+            $supplier['status'] = $task ? $task['status'] : '';
             // $supplier['kode_order'] = $produk ? $produk['kode_order'] : '';
         }
 
