@@ -148,7 +148,7 @@
   </div>
   <div class="app-content">
     <div class="app-content-header mt-4">
-      <h1 class="app-content-headerText"><?= $bulanSkrg ?> - <?= $tahunIni ?></h1>
+      <h1 class="app-content-headerText"><?= $namaBulan ?> - <?= $tahunIni ?></h1>
       
     </div>
 
@@ -167,8 +167,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            <form id="formPilihBulan" action="<?= base_url('taskCalendar/calendarView/pilih'); ?>" method="post">
             <div class="modal-body">
-                <form id="formPilihBulan" action="<?= base_url('taskCalendar/calendarView/pilih'); ?>" method="post">
+
                     <div class="mb-3">
                         <label for="bulan" class="form-label" style="float:left">Bulan:</label>
                         <select class="form-control" id="bulan" name="bulan">
@@ -191,16 +192,22 @@
                         <select class="form-control" id="tahun" name="tahun">
                             <?php
                             for ($tahun = $tahunIni - 1; $tahun <= $tahunIni + 1; $tahun++) {
+                              if($tahun==$tahunIni){
+                                echo "<option value=\"$tahun\" selected>$tahun</option>";
+                              }else{
                                 echo "<option value=\"$tahun\">$tahun</option>";
+                              }
                             }
                             ?>
                         </select>
                     </div>
-                </form>
+     
             </div>
+            
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="submitForm()">Pilih</button>
+                <button type="submit" class="btn btn-primary" onclick="submitForm()">Pilih</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -278,65 +285,7 @@
 </div>
 
 
-<!-- <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const calendarBody = document.getElementById('calendar-body');
-            const calendarInfo = document.getElementById('calendar-info');
 
-            function generateCalendar() {
-                calendarBody.innerHTML = '';
-
-                const currentDate = new Date();
-                const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-                const lastDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
-
-                let date = new Date(firstDayOfMonth);
-                let row = calendarBody.insertRow();
-
-                // Mulai dengan menambahkan sel kosong untuk hari sebelum tanggal pertama bulan
-                for (let i = 0; i < date.getDay(); i++) {
-                    row.insertCell();
-                }
-
-                while (date <= lastDayOfMonth) {
-                    const cell = row.insertCell();
-                    const day = date.getDate();
-
-                    // Tambahkan informasi ke sel kalender
-                    cell.innerHTML = day;
-
-                    // Tambahkan kelas CSS 'today' jika hari ini
-                    if (isToday(date)) {
-                        cell.classList.add('today');
-                    }
-
-                    date.setDate(day + 1);
-
-                    if (date.getDay() === 0) {
-                        row = calendarBody.insertRow();
-                    }
-                }
-
-                // Tambahkan informasi tanggal, bulan, dan tahun di bagian atas
-                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-                const currentMonth = monthNames[currentDate.getMonth()];
-                const currentYear = currentDate.getFullYear();
-
-                calendarInfo.innerHTML = `<h3>${currentMonth} ${currentYear}</h3>`;
-            }
-
-            function isToday(date) {
-                const today = new Date();
-                return (
-                    date.getDate() === today.getDate() &&
-                    date.getMonth() === today.getMonth() &&
-                    date.getFullYear() === today.getFullYear()
-                );
-            }
-
-            generateCalendar();
-        });
-    </script> -->
 
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
 

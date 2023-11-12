@@ -20,6 +20,13 @@ class TaskCalendar extends BaseController
         return view('taskCalendar', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'TaskCalendarData' => $TaskCalendarData]);
     }
 
+    public function pilihBulan()
+    {
+        $bulan = $this->request->getPost('bulan');
+        $tahun = $this->request->getPost('tahun');
+        return redirect()->to(base_url('taskCalendar/calendarView/'.$bulan.'/'.$tahun));
+    }
+
     public function calendarView($bulan,$tahun)
     {
         $OrderModel = new OrderModel();
@@ -36,9 +43,10 @@ class TaskCalendar extends BaseController
         $awalHari = date('N', strtotime("$tahunIni-$bulanIni-01"));
         $akhirHari = date('l', strtotime("$tahunIni-$bulanIni-$jumlahHari"));
         $tanggalSkrg = date('d');
-        $bulanSkrg = date('F'); 
+        $tanggal = "$tahun-$bulan-1";
+        $namaBulan = date('F', strtotime($tanggal)); 
 
-        // dd($jumlahHari,$awalHari,$akhirHari,$jumlahHariBulanLalu,$tanggalSkrg);
+        // dd($jumlahHari,$awalHari,$akhirHari,$jumlahHariBulanLalu,$tanggalSkrg,$namaBulan);
         return view('taskCalendar2', [
             'OrderData' => $OrderData, 
             'jumlahTask' => $jumlahTask, 
@@ -46,7 +54,7 @@ class TaskCalendar extends BaseController
             'awalHari' => $awalHari,
             'jumlahHari' => $jumlahHari,
             'tanggalSkrg' => $tanggalSkrg,
-            'bulanSkrg' => $bulanSkrg,
+            'namaBulan' => $namaBulan,
             'tahunIni' => $tahunIni,
             'jumlahHariBulanLalu' => $jumlahHariBulanLalu,
 
