@@ -31,7 +31,6 @@ class TaskCalendar extends BaseController
     {
         $OrderModel = new OrderModel();
         $OrderData = $OrderModel->findAll();
-        $jumlahTask = count($OrderData);
         $TaskCalendarModel = new TaskCalendarModel();
         $TaskCalendarData = $TaskCalendarModel->findAll();
         foreach ($TaskCalendarData as &$task) {
@@ -61,7 +60,6 @@ class TaskCalendar extends BaseController
 
         return view('taskCalendar2', [
             'OrderData' => $OrderData, 
-            'jumlahTask' => $jumlahTask, 
             'taskCalendarData' => $TaskCalendarData,
             'awalHari' => $awalHari,
             'jumlahHari' => $jumlahHari,
