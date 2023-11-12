@@ -27,6 +27,15 @@ class TaskCalendar extends BaseController
         $jumlahTask = count($OrderData);
         $TaskCalendarModel = new TaskCalendarModel();
         $TaskCalendarData = $TaskCalendarModel->findAll();
+        $bulanIni = date('n'); // Mengambil angka bulan saat ini (1-12)
+        $tahunIni = date('Y'); // Mengambil tahun saat ini
+        $jumlahHari = cal_days_in_month(CAL_GREGORIAN, $bulanIni, $tahunIni);
+        $jumlahHariBulanLalu = cal_days_in_month(CAL_GREGORIAN, $bulanIni-1, $tahunIni);
+        $awalHari = date('l', strtotime("$tahunIni-$bulanIni-01"));
+        $akhirHari = date('l', strtotime("$tahunIni-$bulanIni-$jumlahHari"));
+        $tanggalSkrg = date('d');
+
+        // dd($jumlahHari,$awalHari,$akhirHari,$jumlahHariBulanLalu,$tanggalSkrg);
         return view('taskCalendar2', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'TaskCalendarData' => $TaskCalendarData]);
     }
 

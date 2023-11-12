@@ -34,7 +34,7 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color: #767676;
         }
 
         td {
@@ -172,16 +172,28 @@
     <table>
         <thead>
             <tr>
-                <th>Sun</th>
-                <th>Mon</th>
-                <th>Tue</th>
-                <th>Wed</th>
-                <th>Thu</th>
-                <th>Fri</th>
-                <th>Sat</th>
+                <th>Senin</th>
+                <th>Selasa</th>
+                <th>Rabu</th>
+                <th>Kamis</th>
+                <th>Jumat</th>
+                <th>Sabtu</th>
+                <th>Minggu</th>
             </tr>
         </thead>
         <tbody id="calendar-body">
+          <?php $tgl=1 ?>
+        <?php for ($i = 0; $i < 5; $i++) { ?>
+            <tr>
+                <td><?= $tgl++ ?></td>
+                <td><?= $tgl++ ?></td>
+                <td><?= $tgl++ ?></td>
+                <td><?= $tgl++ ?></td>
+                <td><?= $tgl++ ?></td>
+                <td><?= $tgl++ ?></td>
+                <td><?= $tgl++ ?></td>
+            </tr>
+        <?php } ?>
         </tbody>
     </table>
 
@@ -197,7 +209,7 @@
 </div>
 
 
-<script>
+<!-- <script>
         document.addEventListener('DOMContentLoaded', function () {
             const calendarBody = document.getElementById('calendar-body');
             const calendarInfo = document.getElementById('calendar-info');
@@ -255,7 +267,7 @@
 
             generateCalendar();
         });
-    </script>
+    </script> -->
 
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
 
