@@ -31,12 +31,24 @@ class TaskCalendar extends BaseController
         $tahunIni = date('Y'); // Mengambil tahun saat ini
         $jumlahHari = cal_days_in_month(CAL_GREGORIAN, $bulanIni, $tahunIni);
         $jumlahHariBulanLalu = cal_days_in_month(CAL_GREGORIAN, $bulanIni-1, $tahunIni);
-        $awalHari = date('l', strtotime("$tahunIni-$bulanIni-01"));
+        $awalHari = date('N', strtotime("$tahunIni-$bulanIni-01"));
         $akhirHari = date('l', strtotime("$tahunIni-$bulanIni-$jumlahHari"));
         $tanggalSkrg = date('d');
+        $bulanSkrg = date('F'); // Mengambil angka bulan saat ini (1-12)
 
         // dd($jumlahHari,$awalHari,$akhirHari,$jumlahHariBulanLalu,$tanggalSkrg);
-        return view('taskCalendar2', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'TaskCalendarData' => $TaskCalendarData]);
+        return view('taskCalendar2', [
+            'OrderData' => $OrderData, 
+            'jumlahTask' => $jumlahTask, 
+            'TaskCalendarData' => $TaskCalendarData,
+            'awalHari' => $awalHari,
+            'jumlahHari' => $jumlahHari,
+            'tanggalSkrg' => $tanggalSkrg,
+            'bulanSkrg' => $bulanSkrg,
+            'tahunIni' => $tahunIni,
+            'jumlahHariBulanLalu' => $jumlahHariBulanLalu,
+
+        ]);
     }
 
     public function addSubtask($encodedParent)

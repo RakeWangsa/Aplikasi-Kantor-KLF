@@ -148,7 +148,7 @@
   </div>
   <div class="app-content">
     <div class="app-content-header mt-4">
-      <h1 class="app-content-headerText">Task Calendar</h1>
+      <h1 class="app-content-headerText"><?= $bulanSkrg ?> - <?= $tahunIni ?></h1>
       
     </div>
 
@@ -160,7 +160,7 @@
     
 
 
-      <a class="btn btn-success mb-2" href="<?= base_url('taskCalendar'); ?>"><i class="fas fa-calendar"></i> Calendar View</a>
+      <a class="btn btn-success mb-2" href="<?= base_url('taskCalendar'); ?>"><i class="fas fa-calendar"></i> Task Calendar</a>
     </div>
 
     <div class="products-area-wrapper tableView">
@@ -185,13 +185,27 @@
           <?php $tgl=1 ?>
         <?php for ($i = 0; $i < 5; $i++) { ?>
             <tr>
+              <?php if($i==0):?>
+
+                <?php for ($j = 0; $j < $awalHari-1; $j++) { ?>
+                <td><?= $jumlahHariBulanLalu-$awalHari+$j+2 ?></td>
+                <?php } ?>
+
+                <?php for ($j = $awalHari-1; $j < 7; $j++) { ?>
                 <td><?= $tgl++ ?></td>
-                <td><?= $tgl++ ?></td>
-                <td><?= $tgl++ ?></td>
-                <td><?= $tgl++ ?></td>
-                <td><?= $tgl++ ?></td>
-                <td><?= $tgl++ ?></td>
-                <td><?= $tgl++ ?></td>
+                <?php } ?>
+
+                <?php else: ?>
+
+            <?php for ($j = 0; $j < 7; $j++) { ?>
+              <?php if($tgl>$jumlahHari):?>
+                <?php $tgl=1 ?>
+                <?php endif; ?>
+                  <td><?= $tgl++ ?></td>
+
+                <?php } ?>
+
+                <?php endif; ?>
             </tr>
         <?php } ?>
         </tbody>
