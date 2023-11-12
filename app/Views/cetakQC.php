@@ -30,6 +30,9 @@
       padding: 10px;
       text-align: center;
     }
+    .page-break {
+              page-break-after: always;
+            }
   </style>
 
   
@@ -42,7 +45,7 @@
 
 <?php foreach ($array as $row): ?>
 
-      <table>
+      <table class="page-break">
         <tr style="background-color:#c0c0c0;">
       <th colspan="7">Kode Order : <?= $row ?></th>
       </tr>

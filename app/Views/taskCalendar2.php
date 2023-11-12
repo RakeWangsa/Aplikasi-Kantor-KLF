@@ -23,7 +23,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background-color: #555555;
+            background-color: rgba(85, 85, 85, 0.5);
             color: #ffffff;
         }
 
@@ -34,11 +34,13 @@
         }
 
         th {
-            background-color: #767676;
+          background-color: rgba(85, 85, 85, 0.9);
         }
 
         td {
             height: 80px;
+            text-align:left;
+            vertical-align: top;
         }
 
         .today {
@@ -155,8 +157,8 @@
     <div class="app-content-actions">
       <div>
       <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#pilihBulan"><i class="fas fa-calendar-week"></i> Pilih Bulan</button>
-      <a <?php if($bulan==12): ?> href="<?= base_url('taskCalendar/calendarView/1/'.$tahun+1); ?>" <?php else: ?> href="<?= base_url('taskCalendar/calendarView/'.$bulan+1 .'/'.$tahun); ?>" <?php endif; ?> class="btn btn-success mb-2"><i class="fas fa-arrow-down"></i></a>
       <a <?php if($bulan==1): ?> href="<?= base_url('taskCalendar/calendarView/12/'.$tahun-1); ?>" <?php else: ?> href="<?= base_url('taskCalendar/calendarView/'.$bulan-1 .'/'.$tahun); ?>" <?php endif; ?> class="btn btn-danger mb-2"><i class="fas fa-arrow-up"></i></a>
+      <a <?php if($bulan==12): ?> href="<?= base_url('taskCalendar/calendarView/1/'.$tahun+1); ?>" <?php else: ?> href="<?= base_url('taskCalendar/calendarView/'.$bulan+1 .'/'.$tahun); ?>" <?php endif; ?> class="btn btn-success mb-2"><i class="fas fa-arrow-down"></i></a>
       </div>
     
 <!-- Modal -->
@@ -245,20 +247,36 @@
               <?php if($i==0):?>
 
                 <?php for ($j = 0; $j < $awalHari-1; $j++) { ?>
-                <td style="color:#767676"><?= $jumlahHariBulanLalu-$awalHari+$j+2 ?></td>
+                <td style="color:#767676">
+                    <?php $tanggalSel=$jumlahHariBulanLalu-$awalHari+$j+2 .'-'.$bulan-1 .'-'.$tahun ?>
+                    <?= $jumlahHariBulanLalu-$awalHari+$j+2 ?><br>
+                    <?= $tanggalSel ?>
+                  </td>
                 <?php } ?>
 
                 <?php for ($j = $awalHari-1; $j < 7; $j++) { ?>
-                <td><?= $tgl++ ?></td>
+                <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(0, 255, 0, 0.7); " <?php endif; ?>>
+                  <?php $tanggalSel=$tgl.'-'.$bulan.'-'.$tahun ?>
+                    <?= $tgl++ ?><br>
+                    <?= $tanggalSel ?>  
+                </td>
                 <?php } ?>
 
 
                 <?php elseif($i==4) : ?>
                   <?php for ($j = 0; $j < 7; $j++) { ?>
                   <?php if($tgl>$jumlahHari):?>
-                    <td style="color:#767676"><?= $tglDepan++ ?></td>
+                    <td style="color:#767676">
+                      <?php $tanggalSel=$tglDepan.'-'.$bulan+1 .'-'.$tahun ?>
+                      <?= $tglDepan++ ?><br>
+                      <?= $tanggalSel ?>  
+                    </td>
                     <?php else: ?>
-                  <td><?= $tgl++ ?></td>
+                  <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(0, 255, 0, 0.7); " <?php endif; ?>>
+                    <?php $tanggalSel=$tgl.'-'.$bulan.'-'.$tahun ?>
+                    <?= $tgl++ ?><br>
+                    <?= $tanggalSel ?>  
+                  </td>
                   <?php endif; ?>
                   <?php } ?>
 
@@ -266,9 +284,17 @@
                     <tr>
                     <?php for ($j = 0; $j < 7; $j++) { ?>
                   <?php if($tgl>$jumlahHari):?>
-                    <td style="color:#767676"><?= $tglDepan++ ?></td>
+                    <td style="color:#767676">
+                      <?php $tanggalSel=$tglDepan.'-'.$bulan+1 .'-'.$tahun ?>
+                        <?= $tglDepan++ ?><br>
+                        <?= $tanggalSel ?>  
+                    </td>
                     <?php else: ?>
-                  <td><?= $tgl++ ?></td>
+                  <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(0, 255, 0, 0.7); " <?php endif; ?>>
+                    <?php $tanggalSel=$tgl.'-'.$bulan.'-'.$tahun ?>
+                    <?= $tgl++ ?><br>
+                    <?= $tanggalSel ?>  
+                  </td>
                   <?php endif; ?>
                   <?php } ?>
                     </tr>
@@ -278,7 +304,11 @@
 
             <?php for ($j = 0; $j < 7; $j++) { ?>
 
-                  <td><?= $tgl++ ?></td>
+                  <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(0, 255, 0, 0.7); " <?php endif; ?>>
+                    <?php $tanggalSel=$tgl.'-'.$bulan.'-'.$tahun ?>
+                    <?= $tgl++ ?><br>
+                    <?= $tanggalSel ?>
+                  </td>
 
                 <?php } ?>
 
