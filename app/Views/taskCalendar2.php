@@ -148,13 +148,15 @@
   </div>
   <div class="app-content">
     <div class="app-content-header mt-4">
-      <h1 class="app-content-headerText"><?= $namaBulan ?> - <?= $tahunIni ?></h1>
+      <h1 class="app-content-headerText"><?= $namaBulan ?> - <?= $tahun ?></h1>
       
     </div>
 
     <div class="app-content-actions">
       <div>
       <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#pilihBulan"><i class="fas fa-calendar-week"></i> Pilih Bulan</button>
+      <a <?php if($bulan==12): ?> href="<?= base_url('taskCalendar/calendarView/1/'.$tahun+1); ?>" <?php else: ?> href="<?= base_url('taskCalendar/calendarView/'.$bulan+1 .'/'.$tahun); ?>" <?php endif; ?> class="btn btn-success mb-2"><i class="fas fa-arrow-down"></i></a>
+      <a <?php if($bulan==1): ?> href="<?= base_url('taskCalendar/calendarView/12/'.$tahun-1); ?>" <?php else: ?> href="<?= base_url('taskCalendar/calendarView/'.$bulan-1 .'/'.$tahun); ?>" <?php endif; ?> class="btn btn-danger mb-2"><i class="fas fa-arrow-up"></i></a>
       </div>
     
 <!-- Modal -->
@@ -191,11 +193,11 @@
                         <label for="tahun" class="form-label" style="float:left">Tahun:</label>
                         <select class="form-control" id="tahun" name="tahun">
                             <?php
-                            for ($tahun = $tahunIni - 1; $tahun <= $tahunIni + 1; $tahun++) {
-                              if($tahun==$tahunIni){
-                                echo "<option value=\"$tahun\" selected>$tahun</option>";
+                            for ($thn = $tahun - 1; $thn <= $tahun + 1; $thn++) {
+                              if($thn==$tahun){
+                                echo "<option value=\"$thn\" selected>$thn</option>";
                               }else{
-                                echo "<option value=\"$tahun\">$tahun</option>";
+                                echo "<option value=\"$thn\">$thn</option>";
                               }
                             }
                             ?>
@@ -259,6 +261,19 @@
                   <td><?= $tgl++ ?></td>
                   <?php endif; ?>
                   <?php } ?>
+
+                  <?php if($tgl<=$jumlahHari):?>
+                    <tr>
+                    <?php for ($j = 0; $j < 7; $j++) { ?>
+                  <?php if($tgl>$jumlahHari):?>
+                    <td style="color:#767676"><?= $tglDepan++ ?></td>
+                    <?php else: ?>
+                  <td><?= $tgl++ ?></td>
+                  <?php endif; ?>
+                  <?php } ?>
+                    </tr>
+                    <?php endif; ?>
+
                 <?php else: ?>
 
             <?php for ($j = 0; $j < 7; $j++) { ?>
