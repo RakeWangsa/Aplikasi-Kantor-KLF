@@ -34,6 +34,15 @@ class TaskCalendar extends BaseController
         $jumlahTask = count($OrderData);
         $TaskCalendarModel = new TaskCalendarModel();
         $TaskCalendarData = $TaskCalendarModel->findAll();
+        foreach ($TaskCalendarData as &$task) {
+            if (strpos($task['parent'], "KLF") !== false) {
+                $order = $OrderModel->where('kode_order', $task['parent'])->first();
+                $task['nama'] = $order ? $order['kode_order'] : '';
+            }else{
+                $calendar = $TaskCalendarModel->where('id', $task['parent'])->first();
+                $task['nama'] = $calendar ? $calendar['task'] : '';
+            }
+        }
 
         $jumlahHari = cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun);
         if($bulan==1){
@@ -53,7 +62,7 @@ class TaskCalendar extends BaseController
         return view('taskCalendar2', [
             'OrderData' => $OrderData, 
             'jumlahTask' => $jumlahTask, 
-            'TaskCalendarData' => $TaskCalendarData,
+            'taskCalendarData' => $TaskCalendarData,
             'awalHari' => $awalHari,
             'jumlahHari' => $jumlahHari,
             'tanggalSkrg' => $tanggalSkrg,

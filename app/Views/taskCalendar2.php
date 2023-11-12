@@ -305,9 +305,19 @@
             <?php for ($j = 0; $j < 7; $j++) { ?>
 
                   <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(0, 255, 0, 0.7); " <?php endif; ?>>
-                    <?php $tanggalSel=$tgl.'-'.$bulan.'-'.$tahun ?>
+                    <?php $tanggalSel=$tahun.'-'.$bulan.'-'.$tgl ?>
                     <?= $tgl++ ?><br>
-                    <?= $tanggalSel ?>
+                    <?php foreach($taskCalendarData as $task): ?>
+                      <?php if($task['deadline']==$tanggalSel): ?>
+                        <?php if ($task['status'] == "Selesai"): ?>
+                              <span style="color: #00ff00;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                          <?php elseif ($task['status'] == "On Progress"): ?>
+                              <span style="color: #0099ff;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                          <?php elseif ($task['status'] == "Belum Dikerjakan"): ?>
+                              <span style="color: #ff0000;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                          <?php endif; ?>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
                   </td>
 
                 <?php } ?>
