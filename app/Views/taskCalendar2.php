@@ -154,13 +154,60 @@
 
     <div class="app-content-actions">
       <div>
-      <button onclick="expandAllLists()" class="btn btn-primary mb-2"><i class="fas fa-arrow-down"></i> Expand</button>
-      <button onclick="collapseAllLists()" class="btn btn-danger mb-2"><i class="fas fa-arrow-up"></i> Hide</button>
+      <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#pilihBulan"><i class="fas fa-calendar-week"></i> Pilih Bulan</button>
       </div>
     
+<!-- Modal -->
+<div class="modal fade" id="pilihBulan" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Pilih Bulan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formPilihBulan" action="<?= base_url('taskCalendar/calendarView/pilih'); ?>" method="post">
+                    <div class="mb-3">
+                        <label for="bulan" class="form-label" style="float:left">Bulan:</label>
+                        <select class="form-control" id="bulan" name="bulan">
+                            <option value="1">Januari</option>
+                            <option value="2">Februari</option>
+                            <option value="3">Maret</option>
+                            <option value="4">April</option>
+                            <option value="5">Mei</option>
+                            <option value="6">Juni</option>
+                            <option value="7">Juli</option>
+                            <option value="8">Agustus</option>
+                            <option value="9">September</option>
+                            <option value="10">Oktober</option>
+                            <option value="11">November</option>
+                            <option value="12">Desember</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="tahun" class="form-label" style="float:left">Tahun:</label>
+                        <select class="form-control" id="tahun" name="tahun">
+                            <?php
+                            for ($tahun = $tahunIni - 1; $tahun <= $tahunIni + 1; $tahun++) {
+                                echo "<option value=\"$tahun\">$tahun</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="submitForm()">Pilih</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-      <a class="btn btn-success mb-2" href="<?= base_url('taskCalendar'); ?>"><i class="fas fa-calendar"></i> Task Calendar</a>
+
+      <a class="btn btn-success mb-2" href="<?= base_url('taskCalendar'); ?>"><i class="fas fa-calendar-check"></i> Task Calendar</a>
     </div>
 
     <div class="products-area-wrapper tableView">
@@ -183,24 +230,32 @@
         </thead>
         <tbody id="calendar-body">
           <?php $tgl=1 ?>
+          <?php $tglDepan=1 ?>
         <?php for ($i = 0; $i < 5; $i++) { ?>
             <tr>
               <?php if($i==0):?>
 
                 <?php for ($j = 0; $j < $awalHari-1; $j++) { ?>
-                <td><?= $jumlahHariBulanLalu-$awalHari+$j+2 ?></td>
+                <td style="color:#767676"><?= $jumlahHariBulanLalu-$awalHari+$j+2 ?></td>
                 <?php } ?>
 
                 <?php for ($j = $awalHari-1; $j < 7; $j++) { ?>
                 <td><?= $tgl++ ?></td>
                 <?php } ?>
 
+
+                <?php elseif($i==4) : ?>
+                  <?php for ($j = 0; $j < 7; $j++) { ?>
+                  <?php if($tgl>$jumlahHari):?>
+                    <td style="color:#767676"><?= $tglDepan++ ?></td>
+                    <?php else: ?>
+                  <td><?= $tgl++ ?></td>
+                  <?php endif; ?>
+                  <?php } ?>
                 <?php else: ?>
 
             <?php for ($j = 0; $j < 7; $j++) { ?>
-              <?php if($tgl>$jumlahHari):?>
-                <?php $tgl=1 ?>
-                <?php endif; ?>
+
                   <td><?= $tgl++ ?></td>
 
                 <?php } ?>

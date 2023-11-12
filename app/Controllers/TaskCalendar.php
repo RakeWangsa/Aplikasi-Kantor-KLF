@@ -20,21 +20,23 @@ class TaskCalendar extends BaseController
         return view('taskCalendar', ['OrderData' => $OrderData, 'jumlahTask' => $jumlahTask, 'TaskCalendarData' => $TaskCalendarData]);
     }
 
-    public function calendarView()
+    public function calendarView($bulan,$tahun)
     {
         $OrderModel = new OrderModel();
         $OrderData = $OrderModel->findAll();
         $jumlahTask = count($OrderData);
         $TaskCalendarModel = new TaskCalendarModel();
         $TaskCalendarData = $TaskCalendarModel->findAll();
-        $bulanIni = date('n'); // Mengambil angka bulan saat ini (1-12)
-        $tahunIni = date('Y'); // Mengambil tahun saat ini
+        $bulanIni = $bulan;
+        $tahunIni = $tahun;
+        // $bulanIni = date('n');
+        // $tahunIni = date('Y');
         $jumlahHari = cal_days_in_month(CAL_GREGORIAN, $bulanIni, $tahunIni);
         $jumlahHariBulanLalu = cal_days_in_month(CAL_GREGORIAN, $bulanIni-1, $tahunIni);
         $awalHari = date('N', strtotime("$tahunIni-$bulanIni-01"));
         $akhirHari = date('l', strtotime("$tahunIni-$bulanIni-$jumlahHari"));
         $tanggalSkrg = date('d');
-        $bulanSkrg = date('F'); // Mengambil angka bulan saat ini (1-12)
+        $bulanSkrg = date('F'); 
 
         // dd($jumlahHari,$awalHari,$akhirHari,$jumlahHariBulanLalu,$tanggalSkrg);
         return view('taskCalendar2', [

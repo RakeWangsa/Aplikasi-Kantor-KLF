@@ -152,7 +152,9 @@
     
 <div>
       <a class="btn btn-primary mb-2" href="<?= base_url('taskCalendar/cetakQC'); ?>"><i class="fas fa-print"></i> Cetak QC</a>
-      <a class="btn btn-success mb-2" href="<?= base_url('taskCalendar/calendarView'); ?>"><i class="fas fa-calendar"></i> Calendar View</a>
+      <?php $bulanIni= date('n')?>
+      <?php $tahunIni= date('Y')?>
+      <a class="btn btn-success mb-2" href="<?= base_url('taskCalendar/calendarView/'.$bulanIni.'/'.$tahunIni); ?>"><i class="fas fa-calendar-alt"></i> Calendar View</a>
       </div>
       
     </div>
