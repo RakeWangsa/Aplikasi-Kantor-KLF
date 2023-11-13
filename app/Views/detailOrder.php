@@ -269,7 +269,7 @@
 <div class="product-cell"><span>Rp. <?= number_format($row['harga'], 0, ",", "."); ?></span></div>
 <div class="product-cell"><span><?= $row['quantity']; ?></span></div>
 <div class="product-cell"><span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span></div>
-<div class="product-cell"><span>Rp. <?= number_format($row['total_biaya'], 0, ",", "."); ?></div>
+<div class="product-cell"><span>Rp. <?= number_format($row['total_biaya'], 0, ",", "."); ?></span></div>
 
 </div></a>
     

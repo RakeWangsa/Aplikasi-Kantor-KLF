@@ -669,4 +669,28 @@ public function invoice($kodeOrder)
         return view('label', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData]);
 
     }
+    public function printLabel($kodeOrder)
+    {
+
+        $decodedKodeOrder = base64_decode($kodeOrder);
+
+        $model = new OrderModel();
+        $data = $model->where('kode_order', $decodedKodeOrder)->first();
+
+        $produkModel = new OrderProdukModel();
+        $produkData = $produkModel->where('kode_order', $decodedKodeOrder)->findAll();
+
+        $i=1;
+        $input = array();
+        foreach($produkData as $produk){
+            $input[$i] = $this->request->getPost('input'.$i);
+            $i++;
+        }
+        dd($input);
+        
+
+
+        return view('label', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData]);
+
+    }
 }

@@ -109,11 +109,12 @@
     </div>
   </div>
   <div class="app-content">
+
   <div class="app-content-header my-4">
   <h1 class="app-content-headerText">Cetak Label (<?= $kodeOrder; ?> - <?= $data['nama']; ?>)</h1>
   <div class="d-flex">
     
-    <a class="btn btn-primary" href="<?= base_url('order/detailOrder/inputProduk/' . $encodedKodeOrder); ?>"><i class="fas fa-print"></i> Cetak Label</a>
+  <button class="btn btn-primary" type="button" id="printButton"><i class="fas fa-print"></i> Cetak Label</button>
   </div>
 </div>
 
@@ -143,19 +144,21 @@
 <div class="product-cell">Quantity</div>
 <div class="product-cell">Total Harga</div>
 <div class="product-cell">Biaya Produksi</div>
+<div class="product-cell">Cetak</div>
 
 </div>
 
-
+<form action="<?= base_url('order/cetakLabel/'.$encodedKodeOrder. '/print'); ?>" method="post" id="cetakLabelForm">
 <div id="productList">
+<?= $i=1 ?>
 <?php foreach ($produkData as $row): ?>
   <?php
         $encodedKodeOrder = base64_encode($row['id_order_produk']);
       ?>
         <?php 
-        $modalId = str_replace('/', '_', $row['id_order_produk']); 
+        $inputId = str_replace('/', '_', $row['id_order_produk']); 
         ?>
-        <a href="<?= base_url('order/detailOrder/detailProduk/' . $encodedKodeOrder); ?>" style="text-decoration: none;">
+
 
 <div class="products-row">
 <div class="product-cell">
@@ -167,9 +170,25 @@
 <div class="product-cell"><span>Rp. <?= number_format($row['harga'], 0, ",", "."); ?></span></div>
 <div class="product-cell"><span><?= $row['quantity']; ?></span></div>
 <div class="product-cell"><span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span></div>
-<div class="product-cell"><span>Rp. <?= number_format($row['total_biaya'], 0, ",", "."); ?></div>
+<div class="product-cell"><span>Rp. <?= number_format($row['total_biaya'], 0, ",", "."); ?></span></div>
+<div class="product-cell">
+<span style="display: flex;">
 
-</div></a>
+            <div class="input-group-prepend">
+              <button class="btn btn-outline-secondary" type="button" onclick="decrement('<?= $inputId ?>')">-</button>
+            </div>
+            <input type="number" class="form-control" id="<?= $inputId ?>" name="input<?= $i++ ?>" style="max-width: 50px;" readonly>
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" onclick="increment('<?= $inputId ?>')">+</button>
+            </div>
+
+        </span>
+</div>
+
+
+
+
+</div>
     
     <?php endforeach; ?>
 
@@ -181,7 +200,7 @@
 
 
 
-
+</form>
 
 
 
@@ -196,13 +215,31 @@
   </div>
 </div>
 
+
+
 <script>
-    $(document).ready(function() {
-        $('#discountBox').on('click', function() {
-            $('#discountModal').modal('show');
-        });
+  // Fungsi untuk menambah nilai
+  function increment(inputId) {
+    var input = document.getElementById(inputId);
+    var value = parseInt(input.value, 10);
+    input.value = isNaN(value) ? 1 : value + 1;
+  }
+
+  // Fungsi untuk mengurangi nilai
+  function decrement(inputId) {
+    var input = document.getElementById(inputId);
+    var value = parseInt(input.value, 10);
+    input.value = isNaN(value) || value <= 0 ? 0 : value - 1;
+  }
+</script>
+
+<script>
+    document.getElementById('printButton').addEventListener('click', function() {
+        document.getElementById('cetakLabelForm').submit();
     });
 </script>
+
+
 
 
 
