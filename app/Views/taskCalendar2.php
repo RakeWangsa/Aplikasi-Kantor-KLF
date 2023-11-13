@@ -259,28 +259,28 @@
                 <?php } ?>
 
                 <?php for ($j = $awalHari-1; $j < 7; $j++) { ?>
-                <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(0, 255, 0, 0.7); " <?php endif; ?>>
+                <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(128, 128, 128, 0.7);" <?php endif; ?>>
                   <?php $tanggalSel=$tahun.'-'.$bulan.'-'.$tgl ?>
                     <?= $tgl++ ?><br>
                     <?php foreach($OrderData as $order): ?>
                       <?php if($order['deadline']==$tanggalSel): ?>
                         <?php if ($order['status_task'] == "Selesai"): ?>
-                              <span style="color: #00ff00;"><?= $order['kode_order'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 255, 0, 0.5);">DL Order <?= $order['kode_order'] ?></span><br>
                           <?php elseif ($order['status_task'] == "On Progress"): ?>
-                              <span style="color: #0099ff;"><?= $order['kode_order'] ?> </span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 153, 255, 0.5);">DL Order <?= $order['kode_order'] ?> </span><br>
                           <?php elseif ($order['status_task'] == "Belum Dikerjakan"): ?>
-                              <span style="color: #ff0000;"><?= $order['kode_order'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(255, 0, 0, 0.5);">DL Order <?= $order['kode_order'] ?></span><br>
                           <?php endif; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
                     <?php foreach($taskCalendarData as $task): ?>
                       <?php if($task['deadline']==$tanggalSel): ?>
                         <?php if ($task['status'] == "Selesai"): ?>
-                              <span style="color: #00ff00;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 255, 0, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php elseif ($task['status'] == "On Progress"): ?>
-                              <span style="color: #0099ff;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 153, 255, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php elseif ($task['status'] == "Belum Dikerjakan"): ?>
-                              <span style="color: #ff0000;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(255, 0, 0, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php endif; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
@@ -297,28 +297,28 @@
 
                     </td>
                     <?php else: ?>
-                  <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(0, 255, 0, 0.7); " <?php endif; ?>>
+                  <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(128, 128, 128, 0.7);" <?php endif; ?>>
                     <?php $tanggalSel=$tahun.'-'.$bulan.'-'.$tgl ?>
                     <?= $tgl++ ?><br>
                     <?php foreach($OrderData as $order): ?>
                       <?php if($order['deadline']==$tanggalSel): ?>
                         <?php if ($order['status_task'] == "Selesai"): ?>
-                              <span style="color: #00ff00;"><?= $order['kode_order'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 255, 0, 0.5);">DL Order <?= $order['kode_order'] ?></span><br>
                           <?php elseif ($order['status_task'] == "On Progress"): ?>
-                              <span style="color: #0099ff;"><?= $order['kode_order'] ?> </span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 153, 255, 0.5);">DL Order <?= $order['kode_order'] ?> </span><br>
                           <?php elseif ($order['status_task'] == "Belum Dikerjakan"): ?>
-                              <span style="color: #ff0000;"><?= $order['kode_order'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(255, 0, 0, 0.5);">DL Order <?= $order['kode_order'] ?></span><br>
                           <?php endif; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
                     <?php foreach($taskCalendarData as $task): ?>
                       <?php if($task['deadline']==$tanggalSel): ?>
                         <?php if ($task['status'] == "Selesai"): ?>
-                              <span style="color: #00ff00;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 255, 0, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php elseif ($task['status'] == "On Progress"): ?>
-                              <span style="color: #0099ff;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 153, 255, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php elseif ($task['status'] == "Belum Dikerjakan"): ?>
-                              <span style="color: #ff0000;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(255, 0, 0, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php endif; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
@@ -336,28 +336,28 @@
 
                     </td>
                     <?php else: ?>
-                  <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(0, 255, 0, 0.7); " <?php endif; ?>>
+                  <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(128, 128, 128, 0.7);" <?php endif; ?>>
                     <?php $tanggalSel=$tahun.'-'.$bulan.'-'.$tgl ?>
                     <?= $tgl++ ?><br>
                     <?php foreach($OrderData as $order): ?>
                       <?php if($order['deadline']==$tanggalSel): ?>
                         <?php if ($order['status_task'] == "Selesai"): ?>
-                              <span style="color: #00ff00;"><?= $order['kode_order'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 255, 0, 0.5);">DL Order <?= $order['kode_order'] ?></span><br>
                           <?php elseif ($order['status_task'] == "On Progress"): ?>
-                              <span style="color: #0099ff;"><?= $order['kode_order'] ?> </span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 153, 255, 0.5);">DL Order <?= $order['kode_order'] ?> </span><br>
                           <?php elseif ($order['status_task'] == "Belum Dikerjakan"): ?>
-                              <span style="color: #ff0000;"><?= $order['kode_order'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(255, 0, 0, 0.5);">DL Order <?= $order['kode_order'] ?></span><br>
                           <?php endif; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
                     <?php foreach($taskCalendarData as $task): ?>
                       <?php if($task['deadline']==$tanggalSel): ?>
                         <?php if ($task['status'] == "Selesai"): ?>
-                              <span style="color: #00ff00;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 255, 0, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php elseif ($task['status'] == "On Progress"): ?>
-                              <span style="color: #0099ff;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 153, 255, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php elseif ($task['status'] == "Belum Dikerjakan"): ?>
-                              <span style="color: #ff0000;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(255, 0, 0, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php endif; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
@@ -371,28 +371,28 @@
 
             <?php for ($j = 0; $j < 7; $j++) { ?>
 
-                  <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(0, 255, 0, 0.7); " <?php endif; ?>>
+                  <td <?php if ($bulan == $bulanSkrg && $tahun == $tahunSkrg && $tgl == $tanggalSkrg): ?> style="background-color: rgba(128, 128, 128, 0.7);" <?php endif; ?>>
                     <?php $tanggalSel=$tahun.'-'.$bulan.'-'.$tgl ?>
                     <?= $tgl++ ?><br>
                     <?php foreach($OrderData as $order): ?>
                       <?php if($order['deadline']==$tanggalSel): ?>
                         <?php if ($order['status_task'] == "Selesai"): ?>
-                              <span style="color: #00ff00;"><?= $order['kode_order'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 255, 0, 0.5);">DL Order <?= $order['kode_order'] ?></span><br>
                           <?php elseif ($order['status_task'] == "On Progress"): ?>
-                              <span style="color: #0099ff;"><?= $order['kode_order'] ?> </span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 153, 255, 0.5);">DL Order <?= $order['kode_order'] ?> </span><br>
                           <?php elseif ($order['status_task'] == "Belum Dikerjakan"): ?>
-                              <span style="color: #ff0000;"><?= $order['kode_order'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(255, 0, 0, 0.5);">DL Order <?= $order['kode_order'] ?></span><br>
                           <?php endif; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>
                     <?php foreach($taskCalendarData as $task): ?>
                       <?php if($task['deadline']==$tanggalSel): ?>
                         <?php if ($task['status'] == "Selesai"): ?>
-                              <span style="color: #00ff00;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 255, 0, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php elseif ($task['status'] == "On Progress"): ?>
-                              <span style="color: #0099ff;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(0, 153, 255, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php elseif ($task['status'] == "Belum Dikerjakan"): ?>
-                              <span style="color: #ff0000;"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
+                              <span style="padding: 5px;display: block;background-color: rgba(255, 0, 0, 0.5);"><?= $task['nama'] ?> - <?= $task['task'] ?></span><br>
                           <?php endif; ?>
                       <?php endif; ?>
                     <?php endforeach; ?>

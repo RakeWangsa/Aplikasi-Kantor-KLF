@@ -29,6 +29,7 @@ class TaskCalendar extends BaseController
 
     public function calendarView($bulan,$tahun)
     {
+        date_default_timezone_set('Asia/Jakarta');
         $OrderModel = new OrderModel();
         $OrderData = $OrderModel->findAll();
         $TaskCalendarModel = new TaskCalendarModel();

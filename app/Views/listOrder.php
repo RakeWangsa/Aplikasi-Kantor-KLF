@@ -183,7 +183,7 @@
       ?>
       <a style="text-decoration: none;" href="<?= base_url('order/detailOrder/' . $encodedKodeOrder); ?>">Detail Order</a><br>
       <a style="text-decoration: none;" href="<?= base_url('order/invoice/' . $encodedKodeOrder); ?>">Invoice Order</a><br>  
-      <a style="text-decoration: none;" href="<?= base_url('order/invoice'); ?>">Cetak Label</a><br> 
+      <a style="text-decoration: none;" href="<?= base_url('order/cetakLabel/' . $encodedKodeOrder); ?>">Cetak Label</a><br> 
       <a style="text-decoration: none;" href="<?= base_url('order/payment/' . $encodedKodeOrder); ?>">Payment</a>  <br> 
       <a style="text-decoration: none;" href="<?= base_url('order/editOrder/' . $encodedKodeOrder); ?>">Edit</a><br> 
       <a style="text-decoration: none;" href="" data-bs-toggle="modal" data-bs-target="#status<?= $modalId; ?>">Status</a>

@@ -646,4 +646,27 @@ public function invoice($kodeOrder)
         ];
         $OrderModel->update($decodedKodeOrder, $data);
     }
+
+    public function cetakLabel($kodeOrder)
+    {
+
+        $decodedKodeOrder = base64_decode($kodeOrder);
+
+        $model = new OrderModel();
+        $data = $model->where('kode_order', $decodedKodeOrder)->first();
+
+        $produkModel = new OrderProdukModel();
+        $produkData = $produkModel->where('kode_order', $decodedKodeOrder)->findAll();
+
+        $gambarModel = new GambarProdukModel();
+        foreach ($produkData as &$produk) {
+            $gambar = $gambarModel->where('id_order_produk', $produk['id_order_produk'])->first();
+            $produk['gambar'] = $gambar ? $gambar['gambar'] : '';
+        }
+        
+
+
+        return view('label', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData]);
+
+    }
 }
