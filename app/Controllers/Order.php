@@ -683,14 +683,13 @@ public function invoice($kodeOrder)
         $i=1;
         $input = array();
         foreach($produkData as $produk){
-            $input[$i] = $this->request->getPost('input'.$i);
+            $array[$i] = $this->request->getPost('input'.$i);
             $i++;
         }
-        dd($input);
         
 
 
-        return view('label', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData]);
+        return view('cetakLabel', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData,'array' => $array]);
 
     }
 }

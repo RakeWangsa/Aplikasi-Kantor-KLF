@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - Cetak QC</title>
+  <title>KLF - Cetak Label</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -13,7 +13,7 @@
 </head>
 <body style="background-color: white;">
 
-<!-- partial:index.partial.html -->
+
 
     <style>
     table {
@@ -43,59 +43,44 @@
 
 
 
-<?php foreach ($array as $row): ?>
+<?php $kolom=1 ?>
+<?php foreach($array as $row): ?>
 
+<?php if($row!=NULL): ?>
+  <?php for($i=1;$i<=$row;$i++): ?>
+
+    <?php if($kolom==1): ?>
       <table class="page-break">
-        <tr style="background-color:#c0c0c0;">
-      <th colspan="7">Kode Order : <?= $row ?></th>
-      </tr>
-      <tr style="background-color:#e0e0e0;">
-        <td>No</td>
-        <td>Gambar</td>
-        <td>Detail</td>
-        <td>Quantity</td>
-      </tr>
-      <?php $i=1; ?>
-      <?php foreach ($OrderProdukData as $produk): ?>
-        <?php if ($produk['kode_order']==$row): ?>
+        <tr>
+          <td><?= $row ?></td>
+          <?php $kolom++; ?>
+    <?php elseif($kolom==2): ?>
+          <td><?= $row ?></td>
+        </tr>
+        <?php $kolom++; ?>
+    <?php elseif($kolom==3): ?>
       <tr>
-        <td><?= $i ?></td>
-        <td style="width:300px">
-        <?php foreach ($gambarData as $gambar): ?>
+      <td><?= $row ?></td>
+      <?php $kolom++; ?>
+    <?php elseif($kolom==4): ?>
+      <td><?= $row ?></td>
+        </tr>
+        <?php $kolom=1; ?>
+        </table>
+    <?php endif; ?>
 
-          <?php $jumlah_gambar = 0; ?>
-          <?php foreach ($gambarData as $hitung): ?>
-            <?php if ($hitung['id_order_produk']==$gambar['id_order_produk']): ?>
-              <?php $jumlah_gambar++; ?>
-              <?php endif; ?>
-            <?php endforeach; ?>
 
-          <?php 
-    
-    $ukuran = 200 / $jumlah_gambar;
-  ?>
-          <?php if ($gambar['id_order_produk']==$produk['id_order_produk']): ?>
-          <img src="<?= base_url('uploads/' . $gambar['gambar']); ?>" style="width:<?= $ukuran ?>px;height:auto">
-          <?php endif; ?>
-          <?php endforeach; ?>
-        </td>
-        <td><?= $produk['nama'] ?><br>
-        <?php foreach ($OrderProdukDetailData as $detail): ?>
-          <?php if ($detail['id_order_produk']==$produk['id_order_produk']): ?>
-          <?= $detail['detail'] ?> : <?= $detail['nilai'] ?><br>
-          <?php endif; ?>
-          <?php endforeach; ?>
-          </td>
-        <td><?= $produk['quantity'] ?></td>
-      </tr>
-      <?php $i++; ?>
-      <?php endif; ?>
-      <?php endforeach; ?>
+  <?php endfor; ?>
+<?php endif; ?>
 
-      
-  </table>
 
-  <?php endforeach; ?>
+<?php endforeach; ?>
+<?php if($kolom==2): ?>
+  <td></td>
+</tr>
+</table>
+  <?php endif; ?>
+
 
       
 
@@ -103,9 +88,9 @@
  
 <!-- partial -->
 <script>
-        // Menggunakan window.onload untuk memastikan bahwa fungsi dijalankan saat halaman sudah dimuat sepenuhnya
+
         window.onload = function() {
-            // Mencetak halaman otomatis
+
             window.print();
         }
     </script>

@@ -143,15 +143,17 @@
       
     </div>
 
-    <form class="text-light" action="<?= base_url('taskCalendar/cetakQC/download'); ?>" method="post">
+
 
     <div class="app-content-actions">
       <!-- <input class="search-bar" placeholder="Search..." id="searchInput" type="text"> -->
       <div></div>
-      <button type="submit" class="btn btn-secondary downloadButton"><i class="fas fa-download"></i> Download</button>
+      <button type="button" id="printButton" class="btn btn-secondary downloadButton"><i class="fas fa-download"></i> Download</button>
     </div>
 
     <div class="products-area-wrapper tableView">
+
+    <form class="text-light" action="<?= base_url('taskCalendar/cetakQC/download'); ?>" method="post" id="cetakQCform">
       <div class="products-header">
       <div class="product-cell" style="padding-right:200px">To Do (<?= $jumlahTask; ?> Tasks)</div>
         <div class="product-cell">Deadline</div>
@@ -304,16 +306,22 @@
 
 
 
-      
+</form>
 
     </div>
 
-    </form>
+
 
 
 
   </div>
 </div>
+
+<script>
+    document.getElementById('printButton').addEventListener('click', function() {
+        document.getElementById('cetakQCform').submit();
+    });
+</script>
 
 <script>
     // Get all the buttons triggering the collapse
