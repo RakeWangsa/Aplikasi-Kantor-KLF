@@ -677,19 +677,32 @@ public function invoice($kodeOrder)
         $model = new OrderModel();
         $data = $model->where('kode_order', $decodedKodeOrder)->first();
 
+        $gambarModel = new GambarProdukModel();
+        $gambarData = $gambarModel->findAll();
+
         $produkModel = new OrderProdukModel();
         $produkData = $produkModel->where('kode_order', $decodedKodeOrder)->findAll();
 
         $i=1;
-        $input = array();
-        foreach($produkData as $produk){
-            $array[$i] = $this->request->getPost('input'.$i);
+        foreach($produkData as &$produk){
+            $kode = $this->request->getPost('kode'.$i);
+            $jumlah = $this->request->getPost('input'.$i);
+
+            if($produk['id_order_produk']==$kode){
+                $order = $model->where('kode_order', $produk['kode_order'])->first();
+                $produk['jumlah_cetak'] = $jumlah ? $jumlah : '';
+                $produk['customer'] = $order ? $order['nama'] : '';
+                $produk['no_telfon'] = $order ? $order['no_telfon'] : '';
+                $produk['alamat'] = $order ? $order['alamat'] : '';
+            }else{
+                $produk['jumlah_cetak'] = '';
+            }
             $i++;
         }
         
 
 
-        return view('cetakLabel', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData,'array' => $array]);
+        return view('cetakLabel', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData, 'gambarData' => $gambarData]);
 
     }
 }

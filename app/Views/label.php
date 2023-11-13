@@ -177,11 +177,11 @@
             <div class="input-group-prepend">
               <button class="btn btn-outline-secondary" type="button" onclick="decrement('<?= $inputId ?>')">-</button>
             </div>
-            <input type="number" class="form-control" id="<?= $inputId ?>" name="input<?= $i++ ?>" style="max-width: 50px;" readonly>
+            <input type="number" class="form-control" id="<?= $inputId ?>" name="input<?= $i ?>" style="max-width: 50px;" readonly>
             <div class="input-group-append">
               <button class="btn btn-outline-secondary" type="button" onclick="increment('<?= $inputId ?>')">+</button>
             </div>
-
+            <input type="text" class="form-control" name="kode<?= $i ?>" style="display:none;" value="<?= $row['id_order_produk']; ?>" readonly>
         </span>
 </div>
 
@@ -189,7 +189,7 @@
 
 
 </div>
-    
+    <?php $i++; ?>
     <?php endforeach; ?>
 
 

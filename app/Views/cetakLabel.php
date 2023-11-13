@@ -44,26 +44,107 @@
 
 
 <?php $kolom=1 ?>
-<?php foreach($array as $row): ?>
+<?php foreach($produkData as $row): ?>
 
-<?php if($row!=NULL): ?>
-  <?php for($i=1;$i<=$row;$i++): ?>
+<?php if($row['jumlah_cetak']!=''): ?>
+  <?php for($i=1;$i<=$row['jumlah_cetak'];$i++): ?>
 
     <?php if($kolom==1): ?>
       <table class="page-break">
         <tr>
-          <td><?= $row ?></td>
+          <td><?= $row['customer'] ?><hr><?= $row['no_telfon']?><hr><?= $row['alamat'] ?><hr>
+
+          <?php foreach ($gambarData as $gambar): ?>
+
+<?php $jumlah_gambar = 0; ?>
+<?php foreach ($gambarData as $hitung): ?>
+  <?php if ($hitung['id_order_produk']==$gambar['id_order_produk']): ?>
+    <?php $jumlah_gambar++; ?>
+    <?php endif; ?>
+  <?php endforeach; ?>
+
+<?php 
+
+$ukuran = 200 / $jumlah_gambar;
+?>
+<?php if ($gambar['id_order_produk']==$row['id_order_produk']): ?>
+<img src="<?= base_url('uploads/' . $gambar['gambar']); ?>" style="width:<?= $ukuran ?>px;height:auto">
+<?php endif; ?>
+<?php endforeach; ?>
+
+<hr><?= $row['nama'] ?><hr>Quantity : <?= $row['quantity'] ?>
+        </td>
           <?php $kolom++; ?>
     <?php elseif($kolom==2): ?>
-          <td><?= $row ?></td>
+          <td><?= $row['customer'] ?><hr><?= $row['no_telfon']?><hr><?= $row['alamat'] ?><hr>
+          
+          <?php foreach ($gambarData as $gambar): ?>
+
+<?php $jumlah_gambar = 0; ?>
+<?php foreach ($gambarData as $hitung): ?>
+  <?php if ($hitung['id_order_produk']==$gambar['id_order_produk']): ?>
+    <?php $jumlah_gambar++; ?>
+    <?php endif; ?>
+  <?php endforeach; ?>
+
+<?php 
+
+$ukuran = 200 / $jumlah_gambar;
+?>
+<?php if ($gambar['id_order_produk']==$row['id_order_produk']): ?>
+<img src="<?= base_url('uploads/' . $gambar['gambar']); ?>" style="width:<?= $ukuran ?>px;height:auto">
+<?php endif; ?>
+<?php endforeach; ?>
+          
+          <hr><?= $row['nama'] ?><hr>Quantity : <?= $row['quantity'] ?></td>
         </tr>
         <?php $kolom++; ?>
     <?php elseif($kolom==3): ?>
       <tr>
-      <td><?= $row ?></td>
+      <td><?= $row['customer'] ?><hr><?= $row['no_telfon']?><hr><?= $row['alamat'] ?><hr>
+      
+      <?php foreach ($gambarData as $gambar): ?>
+
+<?php $jumlah_gambar = 0; ?>
+<?php foreach ($gambarData as $hitung): ?>
+  <?php if ($hitung['id_order_produk']==$gambar['id_order_produk']): ?>
+    <?php $jumlah_gambar++; ?>
+    <?php endif; ?>
+  <?php endforeach; ?>
+
+<?php 
+
+$ukuran = 200 / $jumlah_gambar;
+?>
+<?php if ($gambar['id_order_produk']==$row['id_order_produk']): ?>
+<img src="<?= base_url('uploads/' . $gambar['gambar']); ?>" style="width:<?= $ukuran ?>px;height:auto">
+<?php endif; ?>
+<?php endforeach; ?>
+      
+      <hr><?= $row['nama'] ?><hr>Quantity : <?= $row['quantity'] ?></td>
       <?php $kolom++; ?>
     <?php elseif($kolom==4): ?>
-      <td><?= $row ?></td>
+      <td><?= $row['customer'] ?><hr><?= $row['no_telfon']?><hr><?= $row['alamat'] ?><hr>
+      
+      <?php foreach ($gambarData as $gambar): ?>
+
+<?php $jumlah_gambar = 0; ?>
+<?php foreach ($gambarData as $hitung): ?>
+  <?php if ($hitung['id_order_produk']==$gambar['id_order_produk']): ?>
+    <?php $jumlah_gambar++; ?>
+    <?php endif; ?>
+  <?php endforeach; ?>
+
+<?php 
+
+$ukuran = 200 / $jumlah_gambar;
+?>
+<?php if ($gambar['id_order_produk']==$row['id_order_produk']): ?>
+<img src="<?= base_url('uploads/' . $gambar['gambar']); ?>" style="width:<?= $ukuran ?>px;height:auto">
+<?php endif; ?>
+<?php endforeach; ?>
+      
+      <hr><?= $row['nama'] ?><hr>Quantity : <?= $row['quantity'] ?></td>
         </tr>
         <?php $kolom=1; ?>
         </table>
