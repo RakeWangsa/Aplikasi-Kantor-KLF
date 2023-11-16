@@ -163,7 +163,10 @@
       <div id="productList">
       <ul class="list-group">
       <?php foreach ($SpkData as $row): ?>
-
+        <?php
+        $encodedKode = base64_encode($row['kode_spk']);
+      ?>
+<a style="text-decoration:none;" href="<?= base_url('supplier/info/spk/'.$encodedKode); ?>">
     <div class="products-row">
 
       <div class="product-cell">
@@ -176,6 +179,7 @@
 
 
       </div> 
+      </a>
   <?php endforeach; ?> 
 </ul>
 </div>
@@ -213,6 +217,15 @@
           <div class="mb-3">
             <label for="tanggal" class="form-label">Tanggal :</label>
             <input type="date" class="form-control" name="tanggal" id="tanggal">
+          </div>
+          <div class="mb-3">
+              <label for="kode_spk">Kode Spk :</label>
+              <select class="form-select" id="kode_spk" name="kode_spk" style="max-width:1000px" required>
+                <option value="" disabled selected>Pilih Kode SPK!</option>
+                  <?php foreach ($SpkData as $kode): ?>
+                      <option value="<?= $kode['kode_spk'] ?>"><?= $kode['kode_spk'] ?></option>
+                  <?php endforeach; ?>
+              </select>
           </div>
           <div class="mb-3">
             <label for="jumlahPayment" class="form-label">Jumlah Payment :</label>
