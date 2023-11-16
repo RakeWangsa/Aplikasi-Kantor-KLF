@@ -141,22 +141,22 @@
 
 
 
-    <div class="headerspk">
+    <div class="headerspk text-light">
       <div class="left-column">
-          <p class="text-light">Pengrajin : <?= $SupplierData['nama'] ?></p>
-          <p class="text-light">Kode : <?= $kodeSpk ?></p>
+          <p><strong>Pengrajin :</strong> <?= $SupplierData['nama'] ?></p>
+          <p><strong>Kode :</strong> <?= $kodeSpk ?></p>
       </div>
 
       <div class="right-column">
-          <p class="text-light">Total : Rp. <?= number_format($totalHarga, 0, ",", "."); ?></p>
-          <p class="text-light">DP : </p>
-          <p class="text-light">Kekurangan : </p>
+          <p><strong>Total :</strong> Rp. <?= number_format($totalHarga, 0, ",", "."); ?></p>
+          <p><strong>DP :</strong> Rp. <?= number_format($DP, 0, ",", "."); ?></p>
+          <p><strong>Kekurangan :</strong> Rp. <?= number_format($kekurangan, 0, ",", "."); ?></p>
       </div>
     </div>
 
     <div class="products-header">
 
-<div class="product-cell">No</div>
+<div class="product-cell" style="margin-right:-100px">No</div>
 <div class="product-cell">Gambar</div>
 <div class="product-cell">Keterangan</div>
 <div class="product-cell">Harga</div>
@@ -172,10 +172,10 @@
 
 
 <div class="products-row">
-<div class="product-cell"><span><?= $no++ ?></span></div>
+<div class="product-cell" style="margin-right:-100px"><span><?= $no++ ?></span></div>
 <div class="product-cell">
     <span>
-      <!-- <img src="" style="width: 150px; height: auto;"> -->
+      <img src="<?= base_url('uploads/'.$row['gambar']); ?>" style="width: 150px; height: auto;">
     </span>
   </div>
   <div class="product-cell">
@@ -199,12 +199,14 @@
 </div>
   
 
-      
+      <div class="mt-4">
+<?php foreach ($PaymentSupplierData as $row): ?>
 
+<p class="text-light"><strong>DP - <?= date('d F Y', strtotime($row['tanggal'])); ?> :</strong> Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></p>
 
-
-
-
+    
+  <?php endforeach; ?>
+  </div>
 
 
 

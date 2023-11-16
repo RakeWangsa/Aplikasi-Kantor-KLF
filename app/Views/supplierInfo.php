@@ -140,7 +140,7 @@
         <div class="row">
         <div class="col-md-6 product-details border p-4">
         <div class="d-flex align-items-center justify-content-between">
-        <h4 class="mb-0">List SPK</h4>
+        <h4 class="mb-2">List SPK</h4>
         <div class="d-flex align-items-center">
 
         <a type="button" class="btn btn-success btn-sm rounded-circle mr-2" href="<?= base_url('supplier/info/addSpk/'.$encodedId); ?>" onclick="return confirm('Anda yakin ingin menambah SPK?');">
@@ -193,7 +193,7 @@
 
     <div class="col-md-6 product-details border p-4">
     <div class="d-flex align-items-center justify-content-between">
-        <h4 class="mb-0">Payment</h4>
+        <h4 class="mb-2">Payment</h4>
         
         <div class="d-flex align-items-center">
         <h6 class="mb-0" style="margin-right:10px">Tagihan : Rp. <?= number_format($totalTagihan, 0, ",", "."); ?></h6>
@@ -309,7 +309,7 @@
 
     <div class="row">
         <div class="col-md-12 product-details border p-4">
-        <h4 class="mb-0">Riwayat Pesanan</h4>
+        <h4 class="mb-2">Riwayat Pesanan</h4>
         <div class="products-header mt-2">
 
 <div class="product-cell">Produk</div>
@@ -317,6 +317,7 @@
 <div class="product-cell">Quantity</div>
   <div class="product-cell">Total Harga</div>
   <div class="product-cell">Status</div>
+  <div class="product-cell">Kode SPK</div>
 </div>
 
 
@@ -345,6 +346,9 @@
 </div>
 <div class="product-cell">
   <span><?= $row['status']; ?></span>
+</div>
+<div class="product-cell">
+  <span><?= $row['kode_spk']; ?></span>
 </div>
 
 </div>

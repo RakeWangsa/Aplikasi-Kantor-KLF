@@ -63,6 +63,7 @@ public function addKategori()
         $TaskCalendarModel = new TaskCalendarModel();
         $OrderProdukModel = new OrderProdukModel();
         $OrderModel = new OrderModel();
+        $SpkProdukModel = new SpkProdukModel();
 
         $PaymentSupplierModel = new PaymentSupplierModel();
         $PaymentSupplierData = $PaymentSupplierModel->where('id_supplier', $decodedId)->findAll();
@@ -80,11 +81,13 @@ public function addKategori()
             $order = $OrderModel->where('kode_order', $produk['kode_order'])->first();
             $task = $TaskCalendarModel->where('parent', $produk['kode_order'])->where('task', $produk['nama'])->first();
             $gambar = $GambarProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
+            $spk = $SpkProdukModel->where('id_order_produk_supplier', $supplier['id'])->first();
+
             $supplier['nama_produk'] = $produk ? $produk['nama'] : '';
             $supplier['customer'] = $order ? $order['nama'] : '';
             $supplier['status'] = $task ? $task['status'] : '';
             $supplier['gambar'] = $gambar ? $gambar['gambar'] : '';
-            // $supplier['kode_order'] = $produk ? $produk['kode_order'] : '';
+            $supplier['kode_spk'] = $spk ? $spk['kode_spk'] : '-';
         }
 
 
@@ -105,6 +108,7 @@ public function addKategori()
         $model = new PaymentSupplierModel();
         $tanggal = $this->request->getPost('tanggal');
         $jumlahPayment = $this->request->getPost('jumlahPayment');
+        $kodeSpk = $this->request->getPost('kode_spk');
         $gambarFiles = $this->request->getFiles();
 
         
@@ -129,9 +133,10 @@ public function addKategori()
 
         $data = [
             'id_supplier' => $decodedId,
+            'kode_spk' => $kodeSpk, 
             'tanggal' => $tanggal,
             'jumlah_payment' => $jumlahPayment,
-            'bukti_payment' => $namaFile,   
+            'bukti_payment' => $namaFile,
         ];
         $model->insert($data);
         return redirect()->to(base_url('supplier/info/'.$id))->with('success', 'Payment berhasil ditambahkan.');
@@ -159,6 +164,7 @@ public function addKategori()
     $OrderProdukModel = new OrderProdukModel();
     $OrderModel = new OrderModel();
     $OrderProdukDetailModel = new OrderProdukDetailModel();
+    $GambarProdukModel = new GambarProdukModel();
 
     $totalHarga=0;
     foreach ($orderProdukSupplierDataArray as &$data) {
@@ -166,9 +172,13 @@ public function addKategori()
         $task = $TaskCalendarModel->where('id', $produk['id_task'])->first();
         $order = $OrderModel->where('kode_order', $produk['kode_order'])->first();
         $detail = $OrderProdukDetailModel->where('id_order_produk', $produk['id_order_produk'])->findAll();
+        $gambar = $GambarProdukModel->where('id_order_produk', $produk['id_order_produk'])->first();
+        $data['gambar'] = $gambar ? $gambar['gambar'] : '';
         $data['customer'] = $order ? $order['nama'] : '';
         $data['deadline'] = $task ? $task['deadline'] : '';
         $data['detail'] = $detail;
+
+
         $totalHarga += $data['total_harga'];
     }
     $SpkModel = new SpkModel();
@@ -176,9 +186,15 @@ public function addKategori()
     $SupplierModel = new SupplierModel();
     $SupplierData = $SupplierModel->where('id', $SpkData['id_supplier'])->first();
 
-    
 
-    return view('spk', ['orderProdukSupplierDataArray' => $orderProdukSupplierDataArray, 'kodeSpk' => $decodedKode, 'SupplierData' => $SupplierData, 'totalHarga' => $totalHarga]);
+    $PaymentSupplierModel = new PaymentSupplierModel();
+    $PaymentSupplierData = $PaymentSupplierModel->where('kode_spk', $decodedKode)->findAll();
+    $DP=0;
+    foreach($PaymentSupplierData as $payment){
+        $DP+=$payment['jumlah_payment'];
+    }
+    $kekurangan=$totalHarga-$DP;
+    return view('spk', ['orderProdukSupplierDataArray' => $orderProdukSupplierDataArray, 'kodeSpk' => $decodedKode, 'SupplierData' => $SupplierData, 'totalHarga' => $totalHarga, 'DP' => $DP, 'kekurangan' => $kekurangan, 'PaymentSupplierData' => $PaymentSupplierData]);
 }
 
 

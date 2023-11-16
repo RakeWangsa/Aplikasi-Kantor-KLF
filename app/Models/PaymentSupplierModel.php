@@ -13,7 +13,7 @@ class PaymentSupplierModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id','id_supplier','tanggal','jumlah_payment','bukti_payment'];
+    protected $allowedFields    = ['id','id_supplier','kode_spk','tanggal','jumlah_payment','bukti_payment'];
 
     // Dates
     protected $useTimestamps = false;
