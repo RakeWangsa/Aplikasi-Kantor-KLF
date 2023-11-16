@@ -9,6 +9,8 @@ use App\Models\SupplierModel;
 use App\Models\PaymentSupplierModel;
 use App\Models\TaskCalendarModel;
 use App\Models\GambarProdukModel;
+use App\Models\OrderModel;
+use App\Models\SpkModel;
 
 class Supplier extends BaseController
 {
@@ -52,9 +54,13 @@ public function addKategori()
         $SupplierModel = new SupplierModel();
         $SupplierData = $SupplierModel->find($decodedId);
 
+        $SpkModel = new SpkModel();
+        $SpkData = $SpkModel->where('id_supplier', $decodedId)->findAll();
+
         $GambarProdukModel = new GambarProdukModel();
         $TaskCalendarModel = new TaskCalendarModel();
         $OrderProdukModel = new OrderProdukModel();
+        $OrderModel = new OrderModel();
 
         $PaymentSupplierModel = new PaymentSupplierModel();
         $PaymentSupplierData = $PaymentSupplierModel->where('id_supplier', $decodedId)->findAll();
@@ -69,10 +75,11 @@ public function addKategori()
     
         foreach ($OrderProdukSupplierData as &$supplier) {
             $produk = $OrderProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
+            $order = $OrderModel->where('kode_order', $produk['kode_order'])->first();
             $task = $TaskCalendarModel->where('parent', $produk['kode_order'])->where('task', $produk['nama'])->first();
             $gambar = $GambarProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
             $supplier['nama_produk'] = $produk ? $produk['nama'] : '';
-            $supplier['kode_order'] = $produk ? $produk['kode_order'] : '';
+            $supplier['customer'] = $order ? $order['nama'] : '';
             $supplier['status'] = $task ? $task['status'] : '';
             $supplier['gambar'] = $gambar ? $gambar['gambar'] : '';
             // $supplier['kode_order'] = $produk ? $produk['kode_order'] : '';
@@ -85,7 +92,8 @@ public function addKategori()
             'SupplierData' => $SupplierData,
             'PaymentSupplierData' => $PaymentSupplierData,
             'encodedId' => $id,
-            'totalTagihan' => $totalTagihan
+            'totalTagihan' => $totalTagihan,
+            'SpkData' => $SpkData,
         ]);
     }
     
@@ -124,6 +132,50 @@ public function addKategori()
             'bukti_payment' => $namaFile,   
         ];
         $model->insert($data);
+        return redirect()->to(base_url('supplier/info/'.$id))->with('success', 'Payment berhasil ditambahkan.');
+    }
+
+    public function addSpk($id)
+    {
+        $decodedId = base64_decode($id);
+        $SupplierModel = new SupplierModel();
+        $SupplierData = $SupplierModel->find($decodedId);
+        $tahun = date('y');
+        $bulan = date('m');
+        $bulanRomawi = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
+
+        if (preg_match('/\((.*?)\)/', $SupplierData['kategori'], $matches)) {
+            $kategori = $matches[1];
+        }
+        $awalanKode = "$kategori/{$SupplierData['nama']}/$tahun/{$bulanRomawi[$bulan]}";
+
+// tes
+$SpkModel = new SpkModel();
+$cek = $SpkModel->select('kode_spk')->like('kode_spk', $awalanKode, 'after')->findAll();
+
+if ($cek) {
+
+    $jumlah=count($cek);
+
+$spkKe = $jumlah + 1;
+
+if($spkKe<10){
+    $spkKe = "0".$spkKe;
+}
+
+} else {
+$spkKe = "01";
+}
+$kodeSpk = "$kategori/{$SupplierData['nama']}/$tahun/{$bulanRomawi[$bulan]}/$spkKe";
+        
+
+        $data = [
+            'kode_spk' => $kodeSpk,
+            'id_supplier' => $decodedId,
+            'status' => "Belum Lunas",
+        ];
+
+        $SpkModel->insert($data);
         return redirect()->to(base_url('supplier/info/'.$id))->with('success', 'Payment berhasil ditambahkan.');
     }
 

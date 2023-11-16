@@ -132,38 +132,7 @@
       
     </div>
 
-    <!-- <div class="app-content-actions">
-      <div>
 
-      </div>
-    
-
-
-      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fas fa-plus"></i> Tambah Kategori</button>
-
-
-    Modal
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Kategori</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <form action="<?= base_url('supplier/addKategori'); ?>" method="post">
-          <div class="modal-body">
-          <label for="kategori" class="form-label">Kategori:</label>
-            <input type="text" class="form-control" id="kategori" name="kategori">
-          </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    </div> -->
 
     <div class="products-area-wrapper tableView">
 
@@ -171,14 +140,18 @@
         <div class="row">
         <div class="col-md-6 product-details border p-4">
         <div class="d-flex align-items-center justify-content-between">
-        <h4 class="mb-0">Rincian Pesanan</h4>
+        <h4 class="mb-0">List SPK</h4>
+        <div class="d-flex align-items-center">
 
+        <a type="button" class="btn btn-success btn-sm rounded-circle mr-2" href="<?= base_url('supplier/info/addSpk/'.$encodedId); ?>" onclick="return confirm('Anda yakin ingin menambah SPK?');">
+            <i class="fas fa-plus"></i>
+        </a>
+        
+    </div>
         </div>
       <div class="products-header mt-2">
 
-      <div class="product-cell">Produk</div>
-      <div class="product-cell">Quantity</div>
-        <div class="product-cell">Total Harga</div>
+      <div class="product-cell">Kode SPK</div>
         <div class="product-cell">Status</div>
       </div>
 
@@ -189,36 +162,20 @@
 
       <div id="productList">
       <ul class="list-group">
-      <?php foreach ($OrderProdukSupplierData as $row): ?>
-        <?php if ($row['status']!='Selesai'): ?>
-    <?php $id = $row['id']; ?>
-<!-- <li class=""> -->
-<!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
+      <?php foreach ($SpkData as $row): ?>
+
     <div class="products-row">
 
       <div class="product-cell">
-        <span><?= $row['nama_produk']; ?></span>
+        <span><?= $row['kode_spk']; ?></span>
       </div>
-      <div class="product-cell">
-        <span><?= $row['jumlah_barang']; ?></span>
-      </div>
-      <div class="product-cell">
-        <span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span>
-      </div>
+
       <div class="product-cell">
         <span><?= $row['status']; ?></span>
       </div>
-      <!-- <div class="product-cell status-cell">
-        <span>
-          <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button>
-      </span>
-      </div> -->
-    </div>
-<!-- </a> -->
-    <!-- </li> -->
 
 
-    <?php endif; ?> 
+      </div> 
   <?php endforeach; ?> 
 </ul>
 </div>
@@ -280,6 +237,7 @@
       <div class="products-header mt-2">
 
       <div class="product-cell">Tanggal</div>
+      <div class="product-cell">Kode SPK</div>
       <div class="product-cell">Jumlah Pembayaran</div>
       <div class="product-cell">Bukti Pembayaran</div>
       </div>
@@ -293,12 +251,14 @@
       <ul class="list-group">
       <?php foreach ($PaymentSupplierData as $row): ?>
     <?php $id = $row['id']; ?>
-<!-- <li class=""> -->
-<!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
+
     <div class="products-row">
 
       <div class="product-cell">
         <span><?= date('d-m-Y', strtotime($row['tanggal'])); ?></span>
+      </div>
+      <div class="product-cell">
+        <span>kode</span>
       </div>
       <div class="product-cell">
         <span>Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></span>
@@ -307,8 +267,7 @@
         <span><img src="<?= base_url('uploads/'.$row['bukti_payment']); ?>" style="width: 50px; height: auto;" data-toggle="modal" data-target="#modal<?= $row['id'] ?>"></span>
       </div>
     </div>
-<!-- </a> -->
-    <!-- </li> -->
+
 
             <!-- Modal -->
             <div class="modal fade" id="modal<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<?= $row['id'] ?>" aria-hidden="true">
@@ -355,14 +314,12 @@
 <div id="productList">
 <ul class="list-group">
 <?php foreach ($OrderProdukSupplierData as $row): ?>
-  <?php if ($row['status']=='Selesai'): ?>
 
-<!-- <li class=""> -->
-<!-- <a href="#" class="" data-toggle="modal" data-target="#exampleModal"> -->
+
 <div class="products-row">
 
 <div class="product-cell">
-  <span><?= $row['nama_produk']; ?><br><?= $row['kode_order']; ?></span>
+  <span><?= $row['nama_produk']; ?> - <?= $row['customer']; ?></span>
 </div>
 <div class="product-cell">
         <span><img src="<?= base_url('uploads/'.$row['gambar']); ?>" style="width: 150px; height: auto;" data-toggle="modal" data-target="#gambar<?= $row['id'] ?>"></span>
@@ -376,14 +333,9 @@
 <div class="product-cell">
   <span><?= $row['status']; ?></span>
 </div>
-<!-- <div class="product-cell status-cell">
-  <span>
-    <button type="button" class="btn btn-success rounded-circle" data-toggle="modal" data-target="#add<?php echo $id; ?>"><i class="fas fa-plus"></i></button>
-</span>
-</div> -->
+
 </div>
-<!-- </a> -->
-<!-- </li> -->
+
 
             <!-- Modal -->
             <div class="modal fade" id="gambar<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<?= $row['id'] ?>" aria-hidden="true">
@@ -396,7 +348,6 @@
         </div>
       </div>
 
-<?php endif; ?> 
 <?php endforeach; ?> 
 </ul>
 </div>
