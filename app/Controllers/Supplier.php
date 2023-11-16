@@ -10,6 +10,7 @@ use App\Models\PaymentSupplierModel;
 use App\Models\TaskCalendarModel;
 use App\Models\GambarProdukModel;
 use App\Models\OrderModel;
+use App\Models\OrderProdukDetailModel;
 use App\Models\SpkModel;
 use App\Models\SpkProdukModel;
 
@@ -157,15 +158,16 @@ public function addKategori()
     $TaskCalendarModel = new TaskCalendarModel();
     $OrderProdukModel = new OrderProdukModel();
     $OrderModel = new OrderModel();
+    $OrderProdukDetailModel = new OrderProdukDetailModel();
 
     foreach ($orderProdukSupplierDataArray as &$data) {
         $produk = $OrderProdukModel->where('id_order_produk', $data['id_order_produk'])->first();
         $task = $TaskCalendarModel->where('id', $produk['id_task'])->first();
         $order = $OrderModel->where('kode_order', $produk['kode_order'])->first();
-
+        $detail = $OrderProdukDetailModel->where('id_order_produk', $produk['id_order_produk'])->findAll();
         $data['customer'] = $order ? $order['nama'] : '';
         $data['deadline'] = $task ? $task['deadline'] : '';
-
+        $data['detail'] = $detail;
     }
 
 

@@ -113,7 +113,7 @@
   <h1 class="app-content-headerText">SPK (<?= $kodeSpk ?>)</h1>
   <div class="d-flex">
     
-    <a class="btn btn-primary" href=""><i class="fas fa-plus"></i> Tambah Produk</a>
+    <a class="btn btn-secondary" href=""><i class="fas fa-print"></i> Cetak SPK</a>
   </div>
 </div>
 
@@ -135,6 +135,7 @@
 
     <div class="products-header">
 
+<div class="product-cell">No</div>
 <div class="product-cell">Gambar</div>
 <div class="product-cell">Keterangan</div>
 <div class="product-cell">Harga</div>
@@ -144,19 +145,25 @@
 
 </div>
 
-
+<?php $no=1 ?>
 <div id="productList">
 <?php foreach ($orderProdukSupplierDataArray as $row): ?>
 
 
 <div class="products-row">
+<div class="product-cell"><span><?= $no++ ?></span></div>
 <div class="product-cell">
     <span>
       <!-- <img src="" style="width: 150px; height: auto;"> -->
     </span>
   </div>
   <div class="product-cell">
-    <span><?= $row['customer'] ?></span>
+    <span>
+      <?= $row['customer'] ?>
+      <?php foreach ($row['detail'] as $detail): ?>
+                        <?= $detail['detail']; ?> : <?= $detail['nilai']; ?><br>
+                    <?php endforeach; ?>
+  </span>
   </div>
 <div class="product-cell"><span>Rp. <?= number_format($row['harga'], 0, ",", "."); ?></span></div>
 <div class="product-cell"><span><?= $row['jumlah_barang'] ?></span></div>

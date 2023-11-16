@@ -353,6 +353,12 @@ if ($semuaKodeInvoice) {
     ];
     $TaskModel->insert($dataTask);
 
+    $lastTask = $TaskModel->orderBy('id', 'DESC')->first();
+    $data = [
+        'id_task' => $lastTask['id'],
+    ];
+    $model->update($id_order_produk, $data);
+
 
     return redirect()->to(base_url('order/detailOrder/'.$kodeOrder))->with('success', 'Produk berhasil ditambahkan.');
     }
