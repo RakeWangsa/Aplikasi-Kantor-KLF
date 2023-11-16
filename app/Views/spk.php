@@ -110,7 +110,7 @@
   </div>
   <div class="app-content">
   <div class="app-content-header my-4">
-  <h1 class="app-content-headerText">SPK ()</h1>
+  <h1 class="app-content-headerText">SPK (<?= $kodeSpk ?>)</h1>
   <div class="d-flex">
     
     <a class="btn btn-primary" href=""><i class="fas fa-plus"></i> Tambah Produk</a>
@@ -146,28 +146,24 @@
 
 
 <div id="productList">
-<?php foreach ($produkData as $row): ?>
-  <?php
-        $encodedKodeOrder = base64_encode($row['id_order_produk']);
-      ?>
-        <?php 
-        $modalId = str_replace('/', '_', $row['id_order_produk']); 
-        ?>
-        <a href="<?= base_url('order/detailOrder/detailProduk/' . $encodedKodeOrder); ?>" style="text-decoration: none;">
+<?php foreach ($orderProdukSupplierDataArray as $row): ?>
+
 
 <div class="products-row">
 <div class="product-cell">
-    <span><img src="<?= base_url('uploads/' . $row['gambar']); ?>" style="width: 150px; height: auto;"></span>
+    <span>
+      <!-- <img src="" style="width: 150px; height: auto;"> -->
+    </span>
   </div>
   <div class="product-cell">
-    <span><?= $row['nama']; ?></span>
+    <span><?= $row['customer'] ?></span>
   </div>
 <div class="product-cell"><span>Rp. <?= number_format($row['harga'], 0, ",", "."); ?></span></div>
-<div class="product-cell"><span><?= $row['quantity']; ?></span></div>
+<div class="product-cell"><span><?= $row['jumlah_barang'] ?></span></div>
 <div class="product-cell"><span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span></div>
-<div class="product-cell"><span>Rp. <?= number_format($row['total_biaya'], 0, ",", "."); ?></span></div>
+<div class="product-cell"><span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span></div>
 
-</div></a>
+</div>
     
     <?php endforeach; ?>
 

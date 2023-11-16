@@ -11,6 +11,7 @@ use App\Models\TaskCalendarModel;
 use App\Models\GambarProdukModel;
 use App\Models\OrderModel;
 use App\Models\SpkModel;
+use App\Models\SpkProdukModel;
 
 class Supplier extends BaseController
 {
@@ -135,54 +136,42 @@ public function addKategori()
         return redirect()->to(base_url('supplier/info/'.$id))->with('success', 'Payment berhasil ditambahkan.');
     }
 
-    public function spk($id)
-    {
+    public function spk($kode)
+{
+    $decodedKode = base64_decode($kode);
 
-        $decodedId = base64_decode($id);
+    $SpkProdukModel = new SpkProdukModel();
+    $SpkProdukData = $SpkProdukModel->where('kode_spk', $decodedKode)->findAll();
 
-        $OrderProdukSupplierModel = new OrderProdukSupplierModel();
-        $OrderProdukSupplierData = $OrderProdukSupplierModel->where('id_supplier', $decodedId)->findAll();
-    
-        $SupplierModel = new SupplierModel();
-        $SupplierData = $SupplierModel->find($decodedId);
+    $OrderProdukSupplierModel = new OrderProdukSupplierModel();
 
-        $SpkModel = new SpkModel();
-        $SpkData = $SpkModel->where('id_supplier', $decodedId)->findAll();
+    $orderProdukSupplierDataArray = [];
 
-        $GambarProdukModel = new GambarProdukModel();
-        $TaskCalendarModel = new TaskCalendarModel();
-        $OrderProdukModel = new OrderProdukModel();
-        $OrderModel = new OrderModel();
+    foreach ($SpkProdukData as $spkData) {
+        $idOrderProdukSupplier = $spkData['id_order_produk_supplier'];
+        $orderProdukSupplierData = $OrderProdukSupplierModel->where('id', $idOrderProdukSupplier)->findAll();
+        // Tambahkan data ke dalam array
+        $orderProdukSupplierDataArray = array_merge($orderProdukSupplierDataArray, $orderProdukSupplierData);
+    }
 
-        $PaymentSupplierModel = new PaymentSupplierModel();
-        $PaymentSupplierData = $PaymentSupplierModel->where('id_supplier', $decodedId)->findAll();
-    
-        $totalTagihan=0;
-        foreach($OrderProdukSupplierData as $supplier){
-            $totalTagihan+=$supplier['total_harga'];
-        }
-        foreach($PaymentSupplierData as $supplier){
-            $totalTagihan-=$supplier['jumlah_payment'];
-        }
-    
-        foreach ($OrderProdukSupplierData as &$supplier) {
-            $produk = $OrderProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
-            $order = $OrderModel->where('kode_order', $produk['kode_order'])->first();
-            $task = $TaskCalendarModel->where('parent', $produk['kode_order'])->where('task', $produk['nama'])->first();
-            $gambar = $GambarProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
-            $supplier['nama_produk'] = $produk ? $produk['nama'] : '';
-            $supplier['customer'] = $order ? $order['nama'] : '';
-            $supplier['status'] = $task ? $task['status'] : '';
-            $supplier['gambar'] = $gambar ? $gambar['gambar'] : '';
-            // $supplier['kode_order'] = $produk ? $produk['kode_order'] : '';
-        }
+    $TaskCalendarModel = new TaskCalendarModel();
+    $OrderProdukModel = new OrderProdukModel();
+    $OrderModel = new OrderModel();
 
-        
+    foreach ($orderProdukSupplierDataArray as &$data) {
+        $produk = $OrderProdukModel->where('id_order_produk', $data['id_order_produk'])->first();
+        $task = $TaskCalendarModel->where('id', $produk['id_task'])->first();
+        $order = $OrderModel->where('kode_order', $produk['kode_order'])->first();
 
-
-        return view('spk', ['OrderProdukSupplierData' => $OrderProdukSupplierData]);
+        $data['customer'] = $order ? $order['nama'] : '';
+        $data['deadline'] = $task ? $task['deadline'] : '';
 
     }
+
+
+    return view('spk', ['orderProdukSupplierDataArray' => $orderProdukSupplierDataArray, 'kodeSpk' => $decodedKode]);
+}
+
 
     public function addSpk($id)
     {
