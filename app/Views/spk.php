@@ -110,7 +110,7 @@
   </div>
   <div class="app-content">
   <div class="app-content-header my-4">
-  <h1 class="app-content-headerText">SPK (<?= $kodeSpk ?>)</h1>
+  <h1 class="app-content-headerText">SPK </h1>
   <div class="d-flex">
     
     <a class="btn btn-secondary" href=""><i class="fas fa-print"></i> Cetak SPK</a>
@@ -121,7 +121,19 @@
 
 
   
+<style>
+  .headerspk {
+    display: flex;
+    justify-content: space-between;
+}
 
+.left-column, .right-column {
+    width: 48%; /* Atur lebar masing-masing kolom sesuai kebutuhan */
+}
+.right-column {
+    margin-left: 50%; /* Atur margin kiri sesuai kebutuhan untuk menggeser ke kanan */
+}
+</style>
 
 
     <div class="products-area-wrapper tableView">
@@ -129,9 +141,18 @@
 
 
 
+    <div class="headerspk">
+      <div class="left-column">
+          <p class="text-light">Pengrajin : <?= $SupplierData['nama'] ?></p>
+          <p class="text-light">Kode : <?= $kodeSpk ?></p>
+      </div>
 
-
-
+      <div class="right-column">
+          <p class="text-light">Total : Rp. <?= number_format($totalHarga, 0, ",", "."); ?></p>
+          <p class="text-light">DP : </p>
+          <p class="text-light">Kekurangan : </p>
+      </div>
+    </div>
 
     <div class="products-header">
 

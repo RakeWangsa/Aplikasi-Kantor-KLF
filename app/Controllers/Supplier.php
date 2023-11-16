@@ -160,6 +160,7 @@ public function addKategori()
     $OrderModel = new OrderModel();
     $OrderProdukDetailModel = new OrderProdukDetailModel();
 
+    $totalHarga=0;
     foreach ($orderProdukSupplierDataArray as &$data) {
         $produk = $OrderProdukModel->where('id_order_produk', $data['id_order_produk'])->first();
         $task = $TaskCalendarModel->where('id', $produk['id_task'])->first();
@@ -168,10 +169,16 @@ public function addKategori()
         $data['customer'] = $order ? $order['nama'] : '';
         $data['deadline'] = $task ? $task['deadline'] : '';
         $data['detail'] = $detail;
+        $totalHarga += $data['total_harga'];
     }
+    $SpkModel = new SpkModel();
+    $SpkData = $SpkModel->where('kode_spk', $decodedKode)->first();
+    $SupplierModel = new SupplierModel();
+    $SupplierData = $SupplierModel->where('id', $SpkData['id_supplier'])->first();
 
+    
 
-    return view('spk', ['orderProdukSupplierDataArray' => $orderProdukSupplierDataArray, 'kodeSpk' => $decodedKode]);
+    return view('spk', ['orderProdukSupplierDataArray' => $orderProdukSupplierDataArray, 'kodeSpk' => $decodedKode, 'SupplierData' => $SupplierData, 'totalHarga' => $totalHarga]);
 }
 
 
