@@ -174,7 +174,7 @@
       </div>
 
       <div class="product-cell">
-        <span><?= $row['status']; ?></span>
+        <span <?php if($row['status']=="Lunas"): ?> style="color:green" <?php endif; ?>><?= $row['status']; ?></span>
       </div>
 
 

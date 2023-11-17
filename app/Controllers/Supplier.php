@@ -130,7 +130,6 @@ public function addKategori()
         }
     }
 
-
         $data = [
             'id_supplier' => $decodedId,
             'kode_spk' => $kodeSpk, 
@@ -139,6 +138,47 @@ public function addKategori()
             'bukti_payment' => $namaFile,
         ];
         $model->insert($data);
+
+
+
+        $SpkProdukModel = new SpkProdukModel();
+        $SpkProdukData = $SpkProdukModel->where('kode_spk', $kodeSpk)->findAll();
+        $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+    
+        $orderProdukSupplierDataArray = [];
+    
+        foreach ($SpkProdukData as $spkData) {
+            $idOrderProdukSupplier = $spkData['id_order_produk_supplier'];
+            $orderProdukSupplierData = $OrderProdukSupplierModel->where('id', $idOrderProdukSupplier)->findAll();
+            // Tambahkan data ke dalam array
+            $orderProdukSupplierDataArray = array_merge($orderProdukSupplierDataArray, $orderProdukSupplierData);
+        }
+        
+    
+        $totalHarga=0;
+        foreach ($orderProdukSupplierDataArray as &$data) {
+            $totalHarga += $data['total_harga'];
+        }
+
+    
+    
+        $PaymentSupplierModel = new PaymentSupplierModel();
+        $PaymentSupplierData = $PaymentSupplierModel->where('kode_spk', $kodeSpk)->findAll();
+        $DP=0;
+        foreach($PaymentSupplierData as $payment){
+            $DP+=$payment['jumlah_payment'];
+        }
+        $kekurangan=$totalHarga-$DP;
+
+        $SpkModel = new SpkModel();
+        if($kekurangan<=0){
+            $data = [
+                'status' => 'Lunas',
+            ];
+            $SpkModel->update($kodeSpk, $data);
+        }
+
+
         return redirect()->to(base_url('supplier/info/'.$id))->with('success', 'Payment berhasil ditambahkan.');
     }
 
