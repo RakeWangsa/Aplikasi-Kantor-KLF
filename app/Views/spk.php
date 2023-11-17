@@ -113,7 +113,7 @@
   <h1 class="app-content-headerText">SPK</h1>
   <div class="d-flex">
     
-    <a class="btn btn-secondary" href=""><i class="fas fa-print"></i> Cetak SPK</a>
+    <a class="btn btn-secondary" href="<?= base_url('supplier/info/spk/cetak/'.$encodedKode); ?>"><i class="fas fa-print"></i> Cetak SPK</a>
   </div>
 </div>
 
@@ -180,10 +180,11 @@
   </div>
   <div class="product-cell">
     <span>
-      <?= $row['customer'] ?>
+      <?= $row['customer'] ?><br>
       <?php foreach ($row['detail'] as $detail): ?>
                         <?= $detail['detail']; ?> : <?= $detail['nilai']; ?><br>
                     <?php endforeach; ?>
+                    Catatan Khusus : <?= $row['catatan_khusus'] ?>    
   </span>
   </div>
 <div class="product-cell"><span>Rp. <?= number_format($row['harga'], 0, ",", "."); ?></span></div>

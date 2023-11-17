@@ -264,14 +264,16 @@
       <ul class="list-group">
       <?php foreach ($PaymentSupplierData as $row): ?>
     <?php $id = $row['id']; ?>
-
+    <?php
+        $encodedKode = base64_encode($row['kode_spk']);
+      ?>
     <div class="products-row">
 
       <div class="product-cell">
         <span><?= date('d-m-Y', strtotime($row['tanggal'])); ?></span>
       </div>
       <div class="product-cell">
-        <span><?= $row['kode_spk'] ?></span>
+        <a href="<?= base_url('supplier/info/spk/'.$encodedKode); ?>" class="text-light" style="text-decoration:none;"><span><?= $row['kode_spk'] ?></span></a>
       </div>
       <div class="product-cell">
         <span>Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></span>
@@ -339,7 +341,10 @@
 <ul class="list-group">
 <?php foreach ($OrderProdukSupplierData as $row): ?>
 
-
+  <?php
+        $encodedKode = base64_encode($row['kode_spk']);
+      ?>
+      
 <div class="products-row">
 
 <div class="product-cell">
@@ -358,7 +363,11 @@
   <span><?= $row['status']; ?></span>
 </div>
 <div class="product-cell">
+<?php if($row['kode_spk']!="-"): ?>
+<a href="<?= base_url('supplier/info/spk/'.$encodedKode); ?>" class="text-light"  style="text-decoration:none;"><span><?= $row['kode_spk']; ?></span></a>
+<?php else: ?>
   <span><?= $row['kode_spk']; ?></span>
+<?php endif; ?>
 </div>
 
 </div>
