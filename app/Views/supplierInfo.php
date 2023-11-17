@@ -271,7 +271,7 @@
         <span><?= date('d-m-Y', strtotime($row['tanggal'])); ?></span>
       </div>
       <div class="product-cell">
-        <span>kode</span>
+        <span><?= $row['kode_spk'] ?></span>
       </div>
       <div class="product-cell">
         <span>Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></span>
@@ -309,7 +309,17 @@
 
     <div class="row">
         <div class="col-md-12 product-details border p-4">
+        <div class="d-flex align-items-center justify-content-between">
         <h4 class="mb-2">Riwayat Pesanan</h4>
+        <div class="d-flex align-items-center">
+
+        <a type="button" class="btn btn-primary mr-2 mb-2" href="<?= base_url('supplier/info/inputSpk/'.$encodedId); ?>">
+            <i class="fas fa-file-signature"></i> Input SPK
+        </a>
+        
+    </div>
+        </div>
+        
         <div class="products-header mt-2">
 
 <div class="product-cell">Produk</div>

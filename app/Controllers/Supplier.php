@@ -242,4 +242,59 @@ $kodeSpk = "$kategori/{$SupplierData['nama']}/$tahun/{$bulanRomawi[$bulan]}/$spk
         return redirect()->to(base_url('supplier/info/'.$id))->with('success', 'Payment berhasil ditambahkan.');
     }
 
+
+    public function inputSpk($id)
+    {
+        $decodedId = base64_decode($id);
+        $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+        $OrderProdukSupplierData = $OrderProdukSupplierModel->where('id_supplier', $decodedId)->findAll();
+
+        // $SupplierModel = new SupplierModel();
+        // $SupplierData = $SupplierModel->find($decodedId);
+
+        $SpkModel = new SpkModel();
+        $SpkData = $SpkModel->where('id_supplier', $decodedId)->findAll();
+
+        $GambarProdukModel = new GambarProdukModel();
+        $TaskCalendarModel = new TaskCalendarModel();
+        $OrderProdukModel = new OrderProdukModel();
+        $OrderModel = new OrderModel();
+        $SpkProdukModel = new SpkProdukModel();
+
+        $PaymentSupplierModel = new PaymentSupplierModel();
+        $PaymentSupplierData = $PaymentSupplierModel->where('id_supplier', $decodedId)->findAll();
+    
+        $totalTagihan=0;
+        foreach($OrderProdukSupplierData as $supplier){
+            $totalTagihan+=$supplier['total_harga'];
+        }
+        foreach($PaymentSupplierData as $supplier){
+            $totalTagihan-=$supplier['jumlah_payment'];
+        }
+    
+        foreach ($OrderProdukSupplierData as &$supplier) {
+            $produk = $OrderProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
+            $order = $OrderModel->where('kode_order', $produk['kode_order'])->first();
+            $task = $TaskCalendarModel->where('parent', $produk['kode_order'])->where('task', $produk['nama'])->first();
+            $gambar = $GambarProdukModel->where('id_order_produk', $supplier['id_order_produk'])->first();
+            $spk = $SpkProdukModel->where('id_order_produk_supplier', $supplier['id'])->first();
+
+            $supplier['nama_produk'] = $produk ? $produk['nama'] : '';
+            $supplier['customer'] = $order ? $order['nama'] : '';
+            $supplier['status'] = $task ? $task['status'] : '';
+            $supplier['gambar'] = $gambar ? $gambar['gambar'] : '';
+            $supplier['kode_spk'] = $spk ? $spk['kode_spk'] : '-';
+        }
+
+
+
+        return view('inputSpk', [
+            'OrderProdukSupplierData' => $OrderProdukSupplierData, 
+            // 'SupplierData' => $SupplierData,
+            // 'PaymentSupplierData' => $PaymentSupplierData,
+            // 'encodedId' => $id,
+            'SpkData' => $SpkData,
+        ]);
+    }
+
 }

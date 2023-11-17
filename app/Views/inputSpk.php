@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - SPK</title>
+  <title>KLF - Input SPK</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 </head>
 <body>
+
+
+
 
 <!-- partial:index.partial.html -->
 <div class="app-container">
@@ -109,108 +112,122 @@
     </div>
   </div>
   <div class="app-content">
-  <div class="app-content-header my-4">
-  <h1 class="app-content-headerText">SPK</h1>
-  <div class="d-flex">
+    <div class="app-content-header my-4">
+      <h1 class="app-content-headerText">Input SPK</h1>
+      <div class="d-flex">
     
-    <a class="btn btn-secondary" href=""><i class="fas fa-print"></i> Cetak SPK</a>
+    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#submitModal"><i class="fas fa-upload"></i> Submit</button>
+  </div>
+    </div>
+
+
+    <!-- Modal -->
+<div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Input SPK</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+      <div class="mb-3">
+              <label for="kode_spk">Kode Spk :</label>
+              <select class="form-select" id="kode_spk" name="kode_spk" style="max-width:1000px" required>
+                <option value="" disabled selected>Pilih Kode SPK!</option>
+                  <?php foreach ($SpkData as $kode): ?>
+                      <option value="<?= $kode['kode_spk'] ?>"><?= $kode['kode_spk'] ?></option>
+                  <?php endforeach; ?>
+              </select>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
   </div>
 </div>
-
-
-
-
-  
-<style>
-  .headerspk {
-    display: flex;
-    justify-content: space-between;
-}
-
-.left-column, .right-column {
-    width: 48%; /* Atur lebar masing-masing kolom sesuai kebutuhan */
-}
-.right-column {
-    margin-left: 50%; /* Atur margin kiri sesuai kebutuhan untuk menggeser ke kanan */
-}
-</style>
 
 
     <div class="products-area-wrapper tableView">
+    <form action="<?= base_url('supplier/info/inputSpk/submit'); ?>" method="post" id="inputForm">
 
 
 
 
-    <div class="headerspk text-light">
-      <div class="left-column">
-          <p><strong>Pengrajin :</strong> <?= $SupplierData['nama'] ?></p>
-          <p><strong>Kode :</strong> <?= $kodeSpk ?></p>
-      </div>
 
-      <div class="right-column">
-          <p><strong>Total :</strong> Rp. <?= number_format($totalHarga, 0, ",", "."); ?></p>
-          <p><strong>DP :</strong> Rp. <?= number_format($DP, 0, ",", "."); ?></p>
-          <p><strong>Kekurangan :</strong> Rp. <?= number_format($kekurangan, 0, ",", "."); ?></p>
-      </div>
-    </div>
 
-    <div class="products-header">
+        
+        <div class="products-header mt-2">
 
-<div class="product-cell" style="margin-right:-100px">No</div>
+<div class="product-cell">Produk</div>
 <div class="product-cell">Gambar</div>
-<div class="product-cell">Keterangan</div>
-<div class="product-cell">Harga</div>
 <div class="product-cell">Quantity</div>
-<div class="product-cell">Total</div>
-<div class="product-cell">Deadline</div>
-
+  <div class="product-cell">Total Harga</div>
+  <div class="product-cell">Status</div>
+  <div class="product-cell">Kode SPK</div>
+  <div class="product-cell">Input</div>
 </div>
 
-<?php $no=1 ?>
-<div id="productList">
-<?php foreach ($orderProdukSupplierDataArray as $row): ?>
 
+
+
+
+
+<div id="productList">
+<ul class="list-group">
+<?php $i=1 ?>
+<?php foreach ($OrderProdukSupplierData as $row): ?>
 
 <div class="products-row">
-<div class="product-cell" style="margin-right:-100px"><span><?= $no++ ?></span></div>
+
 <div class="product-cell">
-    <span>
-      <img src="<?= base_url('uploads/'.$row['gambar']); ?>" style="width: 150px; height: auto;">
-    </span>
-  </div>
-  <div class="product-cell">
-    <span>
-      <?= $row['customer'] ?>
-      <?php foreach ($row['detail'] as $detail): ?>
-                        <?= $detail['detail']; ?> : <?= $detail['nilai']; ?><br>
-                    <?php endforeach; ?>
-  </span>
-  </div>
-<div class="product-cell"><span>Rp. <?= number_format($row['harga'], 0, ",", "."); ?></span></div>
-<div class="product-cell"><span><?= $row['jumlah_barang'] ?></span></div>
-<div class="product-cell"><span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span></div>
-<div class="product-cell"><span><?= date('d-m-Y', strtotime($row['deadline'])); ?></span></div>
+  <span><?= $row['nama_produk']; ?> - <?= $row['customer']; ?></span>
+</div>
+<div class="product-cell">
+        <span><img src="<?= base_url('uploads/'.$row['gambar']); ?>" style="width: 150px; height: auto;" data-toggle="modal" data-target="#gambar<?= $row['id'] ?>"></span>
+      </div>
+<div class="product-cell">
+  <span><?= $row['jumlah_barang']; ?></span>
+</div>
+<div class="product-cell">
+  <span>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></span>
+</div>
+<div class="product-cell">
+  <span><?= $row['status']; ?></span>
+</div>
+<div class="product-cell">
+  <span><?= $row['kode_spk']; ?></span>
+</div>
+<div class="product-cell">
+  <span>    <input type="checkbox" id="radioButton<?= $row['id']; ?>" name="radio<?= $i++; ?>" value="<?= $row['id']; ?>" <?php if($row['kode_spk']!="-"): ?> disabled <?php endif; ?>></span>
+</div>
 
 </div>
-    
-    <?php endforeach; ?>
 
 
+            <!-- Modal -->
+            <div class="modal fade" id="gambar<?= $row['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="modalLabel<?= $row['id'] ?>" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <img src="<?= base_url('uploads/' . $row['gambar']); ?>" style="width: 100%; height: auto;" alt="...">
+            </div>
+          </div>
+        </div>
+      </div>
+
+<?php endforeach; ?> 
+</ul>
 </div>
-  
-
-      <div class="mt-4">
-<?php foreach ($PaymentSupplierData as $row): ?>
-
-<p class="text-light"><strong>DP - <?= date('d F Y', strtotime($row['tanggal'])); ?> :</strong> Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></p>
-
-    
-  <?php endforeach; ?>
-  </div>
 
 
 
 
+
+      
+  </form>
     </div>
 
 
@@ -223,8 +240,18 @@
 
 
 
+<script>
+    document.getElementById('submitButton').addEventListener('click', function() {
+        document.getElementById('inputForm').submit();
+    });
+</script>
 
   <script  src="<?= base_url('assets2/script.js'); ?>"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
