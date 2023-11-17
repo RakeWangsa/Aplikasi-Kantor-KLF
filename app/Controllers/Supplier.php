@@ -376,6 +376,7 @@ $kodeSpk = "$kategori/{$SupplierData['nama']}/$tahun/{$bulanRomawi[$bulan]}/$spk
             $DP+=$payment['jumlah_payment'];
         }
         $kekurangan=$totalHarga-$DP;
-        return view('cetakSpk', ['orderProdukSupplierDataArray' => $orderProdukSupplierDataArray, 'kodeSpk' => $decodedKode, 'encodedKode' => $kode, 'SupplierData' => $SupplierData, 'totalHarga' => $totalHarga, 'DP' => $DP, 'kekurangan' => $kekurangan, 'PaymentSupplierData' => $PaymentSupplierData]);
+        $hariIni = date('d/m/Y');
+        return view('cetakSpk', ['orderProdukSupplierDataArray' => $orderProdukSupplierDataArray, 'hariIni' => $hariIni, 'kodeSpk' => $decodedKode, 'encodedKode' => $kode, 'SupplierData' => $SupplierData, 'totalHarga' => $totalHarga, 'DP' => $DP, 'kekurangan' => $kekurangan, 'PaymentSupplierData' => $PaymentSupplierData]);
     }
 }

@@ -30,38 +30,81 @@
       padding: 10px;
       text-align: center;
     }
-    .headerspk {
-    display: flex;
-    justify-content: space-between;
-}
 
-.left-column, .right-column {
-    width: 48%; /* Atur lebar masing-masing kolom sesuai kebutuhan */
-}
-.right-column {
-    margin-left: 50%; /* Atur margin kiri sesuai kebutuhan untuk menggeser ke kanan */
-}
+
   </style>
 
   
 
 
 
-  
+<table>
+  <tr>
+    <td colspan=2 style="background-color:yellow"><strong>SPK PENGRAJIN KARYA LOGAM FURNITURE</strong></td>
+  </tr>
+  <tr>
+
 <div class="headerspk">
+
       <div class="left-column">
+      <td style="text-align:left">
           <p><strong>Pengrajin :</strong> <?= $SupplierData['nama'] ?></p>
-          <p><strong>Tanggal Cetak :</strong> <?= $SupplierData['nama'] ?></p>
+          <p><strong>Tanggal Cetak :</strong> <?= $hariIni ?></p>
           <p><strong>Kode :</strong> <?= $kodeSpk ?></p>
+          </td>
       </div>
 
+  
       <div class="right-column">
+      <td style="text-align:left">
           <p><strong>Total :</strong> Rp. <?= number_format($totalHarga, 0, ",", "."); ?></p>
           <p><strong>DP :</strong> Rp. <?= number_format($DP, 0, ",", "."); ?></p>
           <p><strong>Kekurangan :</strong> Rp. <?= number_format($kekurangan, 0, ",", "."); ?></p>
+          </td>
       </div>
+
     </div>
-      
+
+    </tr>
+    </table>
+    <table>
+
+
+    <tr>
+      <td>No</td>
+      <td>Gambar</td>
+      <td>Keterangan</td>
+      <td>Harga</td>
+      <td>Quantity</td>
+      <td>Total</td>
+      <td>Deadline</td>
+    </tr>
+    <?php $no=1 ?>
+    <?php foreach ($orderProdukSupplierDataArray as $row): ?>
+    <tr>
+      <td><?= $no++; ?></td>
+      <td><img src="<?= base_url('uploads/'.$row['gambar']); ?>" style="width: 150px; height: auto;"></td>
+      <td><?= $row['customer'] ?><br>
+      <?php foreach ($row['detail'] as $detail): ?>
+                        <?= $detail['detail']; ?> : <?= $detail['nilai']; ?><br>
+                    <?php endforeach; ?>
+                    Catatan Khusus : <?= $row['catatan_khusus'] ?>    </td>
+
+      <td>Rp. <?= number_format($row['harga'], 0, ",", "."); ?></td>
+      <td><?= $row['jumlah_barang'] ?></td>
+      <td>Rp. <?= number_format($row['total_harga'], 0, ",", "."); ?></td>
+      <td><?= date('d-m-Y', strtotime($row['deadline'])); ?></td>
+    </tr>
+    <?php endforeach; ?>
+
+    <?php foreach ($PaymentSupplierData as $row): ?>
+    <tr>
+      <td colspan=5>DP - <?= date('d F Y', strtotime($row['tanggal'])); ?></td>
+      <td colspan=2>Rp. <?= number_format($row['jumlah_payment'], 0, ",", "."); ?></td>
+    </tr>
+    <?php endforeach; ?>
+
+    </table>
 
 
  
