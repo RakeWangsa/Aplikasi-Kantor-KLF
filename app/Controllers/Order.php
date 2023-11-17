@@ -79,26 +79,17 @@ class Order extends BaseController
     $semuaKodeOrder = $model->select('kode_order')->like('kode_order', $awalanKode, 'after')->findAll();
 
 if ($semuaKodeOrder) {
-    // Membuat array asosiatif yang menghubungkan kode_order dengan nilai numerik
-    $dataNumerik = [];
-    foreach ($semuaKodeOrder as $data) {
-        $kode_order = $data['kode_order'];
-        $dataNumerik[$kode_order] = intval(substr($kode_order, strrpos($kode_order, '/') + 1));
-    }
 
-    // Mengurutkan array asosiatif berdasarkan nilai numerik dalam urutan menurun
-    arsort($dataNumerik);
+    $jumlah=count($semuaKodeOrder);
 
-    // Mengambil kode_order pertama (teratas) setelah pengurutan
-    $orderTerakhir = key($dataNumerik);
+$nomorOrder = $jumlah + 1;
 
-    // Mengekstrak nomor order terakhir
-    $nomorOrderTerakhir = intval(substr($orderTerakhir, strrpos($orderTerakhir, '/') + 1));
-    
-    // Menambahkan 1 untuk mendapatkan nomor order berikutnya
-    $nomorOrder = $nomorOrderTerakhir + 1;
+if($nomorOrder<10){
+    $nomorOrder = "0".$nomorOrder;
+}
+
 } else {
-    $nomorOrder = 1;
+    $nomorOrder = "01";
 }
 $kodeOrder = "KLF/$tahun/$bulanRomawi[$bulan]/$nomorOrder";
 
@@ -108,26 +99,15 @@ $kodeOrder = "KLF/$tahun/$bulanRomawi[$bulan]/$nomorOrder";
     $semuaKodeInvoice = $model->select('kode_invoice')->like('kode_invoice', $awalanKodeInvoice, 'after')->findAll();
 
 if ($semuaKodeInvoice) {
-    // Membuat array asosiatif yang menghubungkan kode_order dengan nilai numerik
-    $dataNumerik = [];
-    foreach ($semuaKodeInvoice as $data) {
-        $kode_invoice = $data['kode_invoice'];
-        $dataNumerik[$kode_invoice] = intval(substr($kode_invoice, strrpos($kode_invoice, '/') + 1));
-    }
+    $jumlah=count($semuaKodeInvoice);
 
-    // Mengurutkan array asosiatif berdasarkan nilai numerik dalam urutan menurun
-    arsort($dataNumerik);
+$nomorInvoice = $jumlah + 1;
 
-    // Mengambil kode_order pertama (teratas) setelah pengurutan
-    $invoiceTerakhir = key($dataNumerik);
-
-    // Mengekstrak nomor order terakhir
-    $nomorInvoiceTerakhir = intval(substr($invoiceTerakhir, strrpos($invoiceTerakhir, '/') + 1));
-    
-    // Menambahkan 1 untuk mendapatkan nomor order berikutnya
-    $nomorInvoice = $nomorInvoiceTerakhir + 1;
+if($nomorInvoice<10){
+    $nomorInvoice = "0".$nomorInvoice;
+}
 } else {
-    $nomorInvoice = 1;
+    $nomorInvoice = "01";
 }
 
     // Membuat format kode order
