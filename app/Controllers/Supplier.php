@@ -290,11 +290,35 @@ $kodeSpk = "$kategori/{$SupplierData['nama']}/$tahun/{$bulanRomawi[$bulan]}/$spk
 
         return view('inputSpk', [
             'OrderProdukSupplierData' => $OrderProdukSupplierData, 
+            'encodedId' => $id,
             // 'SupplierData' => $SupplierData,
             // 'PaymentSupplierData' => $PaymentSupplierData,
             // 'encodedId' => $id,
             'SpkData' => $SpkData,
         ]);
+    }
+
+
+    public function submitSpk($id)
+    {
+        $decodedId = base64_decode($id);
+        $SpkProdukModel = new SpkProdukModel();
+        $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+        $OrderProdukSupplierData = $OrderProdukSupplierModel->where('id_supplier', $decodedId)->findAll();
+        $kodeSpk = $this->request->getPost('kode_spk');
+        $jumlah=count($OrderProdukSupplierData);
+        for ($i = 1; $i <= $jumlah; $i++) {
+            $radio = $this->request->getPost('radio'.$i);
+            if ($radio != NULL) {
+                $data = [
+                    'kode_spk' => $kodeSpk,
+                    'id_order_produk_supplier' => $radio,
+                ];
+            }
+        }
+        $SpkProdukModel->insert($data);
+        
+        return redirect()->to(base_url('supplier/info/'.$id))->with('success', 'Payment berhasil ditambahkan.');
     }
 
 }

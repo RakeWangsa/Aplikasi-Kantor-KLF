@@ -68,5 +68,6 @@ $routes->post('supplier/addPayment/(:segment)', 'Supplier::addPayment/$1');
 $routes->get('supplier/info/spk/(:segment)', 'Supplier::spk/$1');
 $routes->get('supplier/info/addSpk/(:segment)', 'Supplier::addSpk/$1');
 $routes->get('supplier/info/inputSpk/(:segment)', 'Supplier::inputSpk/$1');
+$routes->post('supplier/info/inputSpk/submit/(:segment)', 'Supplier::submitSpk/$1');
 
 $routes->get('katalogProduk', 'KatalogProduk::index');

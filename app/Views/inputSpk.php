@@ -121,8 +121,15 @@
     </div>
 
 
+
+
+    <div class="products-area-wrapper tableView">
+    <form action="<?= base_url('supplier/info/inputSpk/submit/'.$encodedId); ?>" method="post" id="inputForm">
+
+
+
     <!-- Modal -->
-<div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="submitModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -148,13 +155,6 @@
     </div>
   </div>
 </div>
-
-
-    <div class="products-area-wrapper tableView">
-    <form action="<?= base_url('supplier/info/inputSpk/submit'); ?>" method="post" id="inputForm">
-
-
-
 
 
 
