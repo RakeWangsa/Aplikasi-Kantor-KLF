@@ -551,19 +551,7 @@ public function invoice($kodeOrder)
         return redirect()->to(base_url('order/invoice/' . $kodeOrder))->with('success', 'Order berhasil ditambahkan.');
     }
 
-    public function editOrder($kodeOrder)
-    {
 
-        $decodedKodeOrder = base64_decode($kodeOrder);
-
-        $model = new OrderModel();
-        $data = $model->where('kode_order', $decodedKodeOrder)->first();
-        
-
-
-        return view('editOrder', ['data' => $data]);
-
-    }
     
     public function inputDiscount($kodeOrder)
     {
@@ -689,6 +677,20 @@ public function invoice($kodeOrder)
 
 
         return view('cetakLabel', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData, 'gambarData' => $gambarData]);
+
+    }
+
+    public function editOrder($kodeOrder)
+    {
+
+        $decodedKodeOrder = base64_decode($kodeOrder);
+
+        $model = new OrderModel();
+        $data = $model->where('kode_order', $decodedKodeOrder)->first();
+        
+
+
+        return view('editOrder', ['data' => $data]);
 
     }
 }

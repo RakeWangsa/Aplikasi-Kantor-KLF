@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - Input Order</title>
+  <title>KLF - Edit Order</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -119,106 +119,49 @@
 
     <form class="text-light" action="<?= base_url('order/inputOrder/simpanData'); ?>" method="post" enctype="multipart/form-data">
     <div class="form-group mb-2">
-                <label for="nama">Kode Order:</label>
-                <input type="text" class="form-control" id="kode_order" name="kode_order" style="max-width:1000px" value="<?= $data['kode_order']; ?>" disabled>
-            </div>
-            <div class="form-group mb-2">
-                <label for="nama">Kode Invoice:</label>
-                <input type="text" class="form-control" id="kode_invoice" name="kode_invoice" style="max-width:1000px" value="<?= $data['kode_invoice']; ?>" disabled>
+                <label for="kodeOrder">Kode Order:</label>
+                <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" value="<?= $data['kode_order'] ?>" disabled>
             </div>
             <div class="form-group mb-2">
                 <label for="nama">Nama:</label>
-                <input type="text" class="form-control" id="nama" name="nama" style="max-width:1000px" value="<?= $data['nama']; ?>">
+                <input type="text" class="form-control" id="nama" name="nama" style="max-width:1000px" placeholder="Masukkan nama" value="<?= $data['nama'] ?>">
             </div>
             <div class="form-group mb-2">
                 <label for="noTelfon">No Telfon:</label>
-                <input type="text" class="form-control" id="noTelfon" name="noTelfon" style="max-width:1000px" value="<?= $data['no_telfon']; ?>">
+                <input type="text" class="form-control" id="noTelfon" name="noTelfon" style="max-width:1000px" placeholder="Masukkan no telfon" value="<?= $data['no_telfon'] ?>">
             </div>
             <div class="form-group mb-2">
-    <label for="alamat">Alamat:</label>
-    <textarea class="form-control" id="alamat" name="alamat" rows="3" style="max-width:1000px"><?= $data['alamat']; ?></textarea>
-</div>
+                <label for="email">Email:</label>
+                <input type="text" class="form-control" id="email" name="email" style="max-width:1000px" placeholder="Masukkan email" value="<?= $data['email'] ?>">
+            </div>
+            <div class="form-group mb-2">
+                <label for="alamat">Alamat:</label>
+                <textarea class="form-control" id="alamat" name="alamat" rows="3" style="max-width:1000px" placeholder="Masukkan alamat"><?= $data['alamat'] ?></textarea>
+            </div>
+            <div class="form-group mb-2">
+                <label for="detailProduk">Tanggal Order:</label>
+                <input type="date" class="form-control" id="tanggalOrder" name="tanggalOrder" style="max-width:1000px" value="<?= $data['tanggalOrder'] ?>">
+            </div>
+            <div class="form-group mb-4">
+                <label for="detailProduk">Deadline Order:</label>
+                <input type="date" class="form-control" id="deadlineOrder" name="deadlineOrder" style="max-width:1000px" value="<?= $data['deadline'] ?>">
+            </div>
+
 
             <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Gambar):</label>
-                <input type="file" class="form-control-file" accept="image/*" id="detailProdukGambar" name="gambar[]" multiple>
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Kategori):</label>
-                <select class="form-control" id="detailProdukKategori" name="detailProdukKategori" style="max-width:1000px">
-                    <option value="kategori1">Kategori 1</option>
-                    <option value="kategori2">Kategori 2</option>
-                    <option value="kategori3">Kategori 3</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Harga):</label>
-                <input type="text" class="form-control" id="detailProdukHarga" name="detailProdukHarga" style="max-width:1000px" value="<?= $data['harga_produk']; ?>">
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Deadline):</label>
-                <input type="date" class="form-control" id="detailProdukDeadline" name="detailProdukDeadline" style="max-width:1000px" value="<?= $data['deadline']; ?>">
-            </div>
-            <div class="form-group mb-2">
-                <label for="detailProduk">Detail Produk (Catatan Khusus):</label>
-                <textarea class="form-control" id="detailProdukCatatan" name="detailProdukCatatan" rows="3" style="max-width:1000px"><?= $data['catatan_khusus']; ?></textarea>
-            </div>
-            <!-- <div class="form-group mb-2">
-                <label for="kodeOrder">Kode Order:</label>
-                <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" placeholder="Masukkan kode order">
-            </div>
-            <div class="form-group mb-2">
-                <label for="invoiceCode">Invoice Code:</label>
-                <input type="text" class="form-control" id="invoiceCode" name="Invoice Code" style="max-width:1000px" placeholder="Masukkan invoice code">
-            </div> -->
-            <div class="form-group mb-2">
-    <label for="ongkosKirim">Ongkos Kirim:</label>
-    <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-secondary <?= ($data['ongkir'] == 'Termasuk') ? 'active' : ''; ?>">
-            <input type="radio" name="ongkir" id="ongkirTermasuk" autocomplete="off" <?= ($data['ongkir'] == 'termasuk') ? 'checked' : ''; ?>> Termasuk
-        </label>
-        <label class="btn btn-secondary <?= ($data['ongkir'] == 'Tidak Termasuk') ? 'active' : ''; ?>">
-            <input type="radio" name="ongkir" id="ongkirTidakTermasuk" autocomplete="off" <?= ($data['ongkir'] == 'tidak termasuk') ? 'checked' : ''; ?>> Tidak Termasuk
-        </label>
-    </div>
-</div>
+                <label for="ongkosKirim">Ongkos Kirim:</label>
+                <div class="btn-group" data-toggle="buttons">
+                <label class="btn btn-secondary">
+    <input type="radio" name="ongkosKirim" value="termasuk" id="ongkosKirimTermasuk" autocomplete="off" <?php if($data['ongkir']=="termasuk"): ?> checked <?php endif; ?>> Termasuk
+</label>
+<label class="btn btn-secondary">
+    <input type="radio" name="ongkosKirim" value="tidak termasuk" id="ongkosKirimTidakTermasuk" autocomplete="off" <?php if($data['ongkir']=="tidak termasuk"): ?> checked <?php endif; ?>> Tidak Termasuk
+</label>
 
-            <div class="form-group mb-2">
-                <label for="discount">Discount:</label>
-                <input type="text" class="form-control" id="discount" name="discount" style="max-width:1000px" value="<?= $data['discount']; ?>">
+                </div>
             </div>
-            <div class="form-group mb-2">
-                <label for="grandTotal">Grand Total:</label>
-                <input type="text" class="form-control" id="grandTotal" name="grandTotal" style="max-width:1000px" value="<?= $data['grand_total']; ?>">
-            </div>
-            <div class="form-group mb-2">
-    <label for="kategoriSupplier">Kategori Supplier:</label>
-    <select class="form-control" id="kategoriSupplier" name="kategoriSupplier" style="max-width:1000px">
-        <option value="Kayu (SUPK)" <?= ($data['kategori_supplier'] == 'Kayu (SUPK)') ? 'selected' : ''; ?>>Kayu (SUPK)</option>
-        <option value="Besi (SUPB)" <?= ($data['kategori_supplier'] == 'Besi (SUPB)') ? 'selected' : ''; ?>>Besi (SUPB)</option>
-        <option value="Rotan (SUPR)" <?= ($data['kategori_supplier'] == 'Rotan (SUPR)') ? 'selected' : ''; ?>>Rotan (SUPR)</option>
-        <option value="Finishing (SUPF)" <?= ($data['kategori_supplier'] == 'Finishing (SUPF)') ? 'selected' : ''; ?>>Finishing (SUPF)</option>
-        <option value="Marmer (SUPM)" <?= ($data['kategori_supplier'] == 'Marmer (SUPM)') ? 'selected' : ''; ?>>Marmer (SUPM)</option>
-        <option value="Jok (SUPJ)" <?= ($data['kategori_supplier'] == 'Jok (SUPJ)') ? 'selected' : ''; ?>>Jok (SUPJ)</option>
-    </select>
-</div>
-            <div class="form-group mb-2">
-                <label for="namaSupplier">Nama Supplier:</label>
-                <select class="form-control" id="namaSupplier" name="namaSupplier" style="max-width:1000px">
-                    <option value="Prabowo">Prabowo</option>
-                    <option value="Ganjar">Ganjar</option>
-                    <option value="Anies">Anies</option>
-                </select>
-            </div>
-            <div class="form-group mb-2">
-                <label for="jumlahBarang">Jumlah Barang:</label>
-                <input type="text" class="form-control" id="jumlahBarang" name="jumlahBarang" style="max-width:1000px" value="<?= $data['jumlah_barang']; ?>">
-            </div>
-            <div class="form-group mb-2">
-                <label for="supplierHarga">Harga (Supplier):</label>
-                <input type="text" class="form-control" id="supplierHarga" name="supplierHarga" style="max-width:1000px" value="<?= $data['harga_supplier']; ?>">
-            </div>
-            <button type="submit" class="btn btn-primary mt-4">Kirim</button>
+
+            <button type="submit" class="btn btn-primary mt-4">Submit</button>
         </form>
 
       
