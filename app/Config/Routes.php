@@ -38,6 +38,7 @@ $routes->get('order/payment/inputPayment/(:segment)', 'Order::inputPayment/$1');
 $routes->post('order/payment/inputPayment/submit/(:segment)', 'Order::submitPayment/$1');
 $routes->get('order/invoice/cetak/(:segment)', 'Order::cetakInvoice/$1');
 $routes->get('order/editOrder/(:segment)', 'Order::editOrder/$1');
+$routes->post('order/editOrder/submit/(:segment)', 'Order::editOrderSubmit/$1');
 $routes->get('order/cetakLabel/(:segment)', 'Order::cetakLabel/$1');
 $routes->post('order/cetakLabel/(:segment)/print', 'Order::printLabel/$1');
  

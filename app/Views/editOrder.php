@@ -115,9 +115,11 @@
 
     <div class="products-area-wrapper tableView">
 
+        <?php
+        $encodedKodeOrder = base64_encode($data['kode_order']);
+      ?>
 
-
-    <form class="text-light" action="<?= base_url('order/inputOrder/simpanData'); ?>" method="post" enctype="multipart/form-data">
+    <form class="text-light" action="<?= base_url('order/editOrder/submit/'.$encodedKodeOrder); ?>" method="post" enctype="multipart/form-data">
     <div class="form-group mb-2">
                 <label for="kodeOrder">Kode Order:</label>
                 <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" value="<?= $data['kode_order'] ?>" disabled>
