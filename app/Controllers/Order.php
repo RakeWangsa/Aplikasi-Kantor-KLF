@@ -694,67 +694,19 @@ public function invoice($kodeOrder)
 
     }
 
-    public function editOrderSubmit()
+    public function editOrderSubmit($kodeOrder)
     {
-        $nama = $this->request->getPost('nama');
-        if (is_array($nama)) {
-            $nama = $nama[0]; 
-        }
-        $namaDepan = strtok($nama, " ");
+    $decodedKodeOrder = base64_decode($kodeOrder);
+    $nama = $this->request->getPost('nama');
     $no_telfon = $this->request->getPost('noTelfon');
     $email = $this->request->getPost('email');
     $alamat = $this->request->getPost('alamat');
     $tanggalOrder = $this->request->getPost('tanggalOrder');
     $deadlineOrder = $this->request->getPost('deadlineOrder');
     $ongkosKirim = $this->request->getPost('ongkosKirim');
-
-    $tahun = date('y');
-    $bulan = date('m');
-    $bulanRomawi = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"];
-    $awalanKode = "KLF/$tahun/" . $bulanRomawi[$bulan];
     $model = new OrderModel();
-    $semuaKodeOrder = $model->select('kode_order')->like('kode_order', $awalanKode, 'after')->findAll();
-
-if ($semuaKodeOrder) {
-
-    $jumlah=count($semuaKodeOrder);
-
-$nomorOrder = $jumlah + 1;
-
-if($nomorOrder<10){
-    $nomorOrder = "0".$nomorOrder;
-}
-
-} else {
-    $nomorOrder = "01";
-}
-$kodeOrder = "KLF/$tahun/$bulanRomawi[$bulan]/$nomorOrder";
-
-
-
-    $awalanKodeInvoice = "$namaDepan/$tahun/". $bulanRomawi[$bulan];
-    $semuaKodeInvoice = $model->select('kode_invoice')->like('kode_invoice', $awalanKodeInvoice, 'after')->findAll();
-
-if ($semuaKodeInvoice) {
-    $jumlah=count($semuaKodeInvoice);
-
-$nomorInvoice = $jumlah + 1;
-
-if($nomorInvoice<10){
-    $nomorInvoice = "0".$nomorInvoice;
-}
-} else {
-    $nomorInvoice = "01";
-}
-
-    // Membuat format kode order
-    
-    $kodeInvoice = "$namaDepan/$tahun/$bulanRomawi[$bulan]/$nomorInvoice";
-
 
     $data = [
-        'kode_order' => $kodeOrder,
-        'kode_invoice' => $kodeInvoice,
         'nama' => $nama,
         'no_telfon' => $no_telfon,
         'email' => $email,
@@ -762,14 +714,10 @@ if($nomorInvoice<10){
         'tanggalOrder' => $tanggalOrder,
         'deadline' => $deadlineOrder,
         'ongkir' => $ongkosKirim,
-        'status' => 'Hold',
-        'status_task' => 'Belum Dikerjakan'
-        
     ];
 
    
-
-    $model->insert($data);
+    $model->update($decodedKodeOrder, $data);
 
     return redirect()->to(base_url('order/listOrder'))->with('success', 'Order berhasil ditambahkan.');
     }
