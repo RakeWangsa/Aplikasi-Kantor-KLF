@@ -149,8 +149,8 @@
             <?php if ($detail['kategori'] === $kategori['kategori']): ?>
               <div class="form-group mb-2">
                 <label for="detail<?= $i; ?>"><?= $detail['detail'] ?> :</label>
-                <input type="text" class="form-control" style="display: none;" name="detail<?= $kategori['kategori']; ?><?= $i; ?>" value="<?= $detail['detail'] ?> ">
-                <input type="text" class="form-control" name="nilai<?= $kategori['kategori']; ?><?= $i; ?>" id="nilai<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>">
+                <input type="text" class="form-control" style="display: none;" name="detail<?= $kategori['kategori']; ?><?= $i; ?>" value="<?= $detail['detail'] ?>">
+                <input type="text" class="form-control" name="nilai<?= $kategori['kategori']; ?><?= $i; ?>" id="nilai<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>" value="<?= $detail['nilai'] ?>">
               </div>
                 <?php $i++; ?>
             <?php endif; ?>
@@ -215,7 +215,16 @@
             selectedDetailInputs.style.display = 'block';
         }
     });
+
+    // Set initial category value
+    var initialCategory = "<?php echo $OrderProdukData['kategori']; ?>";
+    
+    // Trigger the change event manually after setting the initial category
+    document.getElementById('kategori').value = initialCategory;
+    var event = new Event('change');
+    document.getElementById('kategori').dispatchEvent(event);
 </script>
+
 
 <script>
     var supplierCount = 1;

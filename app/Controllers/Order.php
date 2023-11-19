@@ -741,4 +741,173 @@ public function invoice($kodeOrder)
 
         return view('editOrderProduk', ['encodedKode' => $kode , 'OrderProdukData' => $OrderProdukData, 'TaskCalendarData' => $TaskCalendarData, 'kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kategoriProdukData' => $kategoriProdukData, 'kategoriProdukDetailData' => $kategoriProdukDetailData]);
     }
+
+
+    public function editProdukSubmit($kodeOrder)
+    {
+        $decodedKodeOrder = base64_decode($kodeOrder);
+        $model = new OrderProdukModel();
+        $semuaProduk = $model->select('id_order_produk')->like('id_order_produk', $decodedKodeOrder, 'after')->findAll();
+        $jumlahProduk = count($semuaProduk);
+        $id_produk = $jumlahProduk+1;
+        $id_order_produk = $decodedKodeOrder .'/'. $id_produk;
+
+
+        $namaProduk = $this->request->getPost('namaProduk');
+        $gambarFiles = $this->request->getFiles();
+    $kategori = $this->request->getPost('kategori');
+    $harga = $this->request->getPost('harga');
+    $quantity = $this->request->getPost('quantity');
+
+    $deadline = $this->request->getPost('deadline');
+    $catatan_khusus = $this->request->getPost('catatan_khusus');
+    $jumlahDetail = $this->request->getPost('jumlahDetail');
+    $jumlahSupplier = $this->request->getPost('jumlahSupplier');
+
+    $gambarProdukModel = new GambarProdukModel();
+    $gambarFiles['gambar'] = array_reverse($gambarFiles['gambar']);
+
+    foreach ($gambarFiles['gambar'] as $gambar) {
+        // Pastikan ada file yang diunggah
+        if ($gambar->isValid() && !$gambar->hasMoved()) {
+            // Pastikan nama file unik
+            // $namaFile = base64_encode($gambar->getRandomName());
+
+            $uuid = uniqid(); // Generate a unique ID
+            $ekstensiAsli = pathinfo($gambar->getName(), PATHINFO_EXTENSION); // Dapatkan ekstensi asli dari nama file
+
+            $namaFile = $uuid . '.' . $ekstensiAsli; // Gabungkan ID unik dan ekstensi asli untuk nama file
+
+
+            // Pindahkan file ke direktori penyimpanan
+            $gambar->move(ROOTPATH . 'public/uploads', $namaFile);
+
+            $dataGambar = [
+                'id_order_produk' => $id_order_produk,
+                'gambar' => $namaFile,
+            ];
+            $gambarProdukModel->insert($dataGambar);
+        }
+    }
+
+    $total_harga=$harga*$quantity;
+
+
+
+    $data = [
+        'id_order_produk' => $id_order_produk,
+        'kode_order' => $decodedKodeOrder,
+        'nama' => $namaProduk,
+        'harga' => $harga,
+        'quantity' => $quantity,
+        'total_harga' => $total_harga,
+        'kategori' => $kategori,
+        'catatan_khusus' => $catatan_khusus,
+        
+    ];
+    $model->insert($data);
+
+
+
+    $OrderProdukDetailModel = new OrderProdukDetailModel();
+    for ($i = 1; $i <= $jumlahDetail; $i++) {
+        $detail = $this->request->getPost('detail'.$kategori.$i);
+        $nilai = $this->request->getPost('nilai'.$kategori.$i);
+    
+        // Memeriksa apakah $detail tidak kosong
+        if ($detail !== null && $detail !== '') {
+            $detailData = [
+                'id_order_produk' => $id_order_produk,
+                'detail' => $detail,
+                'nilai' => $nilai 
+            ];
+            $OrderProdukDetailModel->insert($detailData);
+        }
+    }
+    
+
+
+    $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+    $SupplierModel = new SupplierModel();
+
+    $totalBiaya = 0;
+    for ($i = 1; $i <= $jumlahSupplier; $i++) {
+        $kategori_supplier = $this->request->getPost('kategori'.$i);
+        $nama_supplier = $this->request->getPost('nama_supplier'.$i);
+        $jumlah_barang = $this->request->getPost('jumlah_barang'.$i);
+        $harga_supplier = $this->request->getPost('harga'.$i);
+
+        $supplier = $SupplierModel->where('kategori', $kategori_supplier)->where('nama', $nama_supplier)->first();
+
+        $total_harga_supplier=$harga_supplier*$jumlah_barang;
+        $totalBiaya += $total_harga_supplier;
+        $data = [
+            'id_order_produk' => $id_order_produk,
+            'id_supplier' => $supplier['id'],
+            'kategori' => $kategori_supplier,
+            'nama' => $nama_supplier,
+            'jumlah_barang' => $jumlah_barang,
+            'harga' => $harga_supplier,
+            'total_harga' => $total_harga_supplier
+        ];
+
+        $OrderProdukSupplierModel->insert($data);
+
+    }
+
+
+    $data = [
+        'total_biaya' => $totalBiaya,
+    ];
+    $model->update($id_order_produk, $data);
+
+
+
+
+    $OrderModel = new OrderModel();
+    $dpMasuk = $OrderModel->select('dp_masuk')->find($decodedKodeOrder);
+    // $totalNilaiOrder=$nilaiOrder['nilaiOrder']+$total_harga;
+
+    $totalData = $model->like('id_order_produk', $decodedKodeOrder, 'after')->findAll();
+    $totalHargaOrder = 0; // Menginisialisasi total harga
+    $totalBiayaOrder = 0; // Menginisialisasi total biaya
+
+    foreach ($totalData as $data) {
+        $totalHargaOrder += $data['total_harga']; // Menambahkan biaya ke totalHargaOrder
+        $totalBiayaOrder += $data['total_biaya']; // Menambahkan biaya ke totalBiayaOrder
+    }
+
+    $grossProfit=$totalHargaOrder-$totalBiayaOrder;
+    $grandTotal=$totalHargaOrder-$dpMasuk['dp_masuk'];
+
+    $OrderData = [
+        'nilaiOrder' => $totalHargaOrder,
+        'total_biaya_order' => $totalBiayaOrder,
+        'gross_profit' => $grossProfit,
+        'grand_total' => $grandTotal,
+    ];
+    $OrderModel->update($decodedKodeOrder, $OrderData);
+
+    
+    $TaskModel = new TaskCalendarModel();
+    $gambarModel = new GambarProdukModel();
+    $gambarTask = $gambarModel->where('id_order_produk', $id_order_produk)->first();
+    $dataTask = [
+        'parent' => $decodedKodeOrder,
+        'task' => $namaProduk,
+        'deadline' => $deadline,
+        'gambar' => $gambarTask['gambar'],
+        'status' => 'Belum Dikerjakan'
+    ];
+    $TaskModel->insert($dataTask);
+
+    $lastTask = $TaskModel->orderBy('id', 'DESC')->first();
+    $data = [
+        'id_task' => $lastTask['id'],
+    ];
+    $model->update($id_order_produk, $data);
+
+
+    return redirect()->to(base_url('order/detailOrder/'.$kodeOrder))->with('success', 'Produk berhasil ditambahkan.');
+    }
 }
