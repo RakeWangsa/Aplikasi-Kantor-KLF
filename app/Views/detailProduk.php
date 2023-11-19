@@ -108,9 +108,18 @@
                   </a>
     </div>
   </div>
+
+  <?php
+        $encodedKode = base64_encode($OrderProdukData['id_order_produk']);
+      ?>
+
   <div class="app-content">
     <div class="app-content-header my-4">
       <h1 class="app-content-headerText">Detail Produk</h1>
+      <div class="d-flex">
+    
+    <a class="btn btn-primary" href="<?= base_url('order/detailOrder/editProduk/'.$encodedKode); ?>"><i class="fas fa-pencil-alt"></i> Edit Produk</a>
+  </div>
     </div>
 
     <div class="products-area-wrapper tableView">

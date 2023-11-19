@@ -26,6 +26,7 @@ $routes->post('order/inputOrder/simpanData', 'Order::simpanData');
 $routes->get('order/detailOrder/(:segment)', 'Order::detailOrder/$1');
 $routes->get('order/detailOrder/inputProduk/(:segment)', 'Order::inputProduk/$1');
 $routes->post('order/detailOrder/inputProduk/(:segment)/submit', 'Order::submitProduk/$1');
+$routes->get('order/detailOrder/editProduk/(:segment)', 'Order::editProduk/$1');
 $routes->get('order/detailOrder/detailProduk/(:segment)', 'Order::detailProduk/$1');
 $routes->post('order/detailOrder/inputDiscount/(:segment)', 'Order::inputDiscount/$1');
 $routes->get('order/detailOrder/biaya/(:segment)', 'Order::biaya/$1');

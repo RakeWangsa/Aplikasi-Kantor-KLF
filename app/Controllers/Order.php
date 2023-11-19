@@ -721,4 +721,19 @@ public function invoice($kodeOrder)
 
     return redirect()->to(base_url('order/listOrder'))->with('success', 'Order berhasil ditambahkan.');
     }
+
+    public function editProduk($kode)
+    {
+        $decodedKode = base64_decode($kode);
+        $kategoriModel = new KategoriSupplierModel();
+        $kategoriData = $kategoriModel->findAll();
+        $supplierModel = new SupplierModel();
+        $supplierData = $supplierModel->findAll();
+        $kategoriProdukModel = new KategoriProdukModel();
+        $kategoriProdukData = $kategoriProdukModel->findAll();
+        $kategoriProdukDetailModel = new KategoriProdukDetailModel();
+        $kategoriProdukDetailData = $kategoriProdukDetailModel->findAll();
+
+        return view('editOrderProduk', ['kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kategoriProdukData' => $kategoriProdukData, 'kategoriProdukDetailData' => $kategoriProdukDetailData]);
+    }
 }
