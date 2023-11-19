@@ -725,6 +725,11 @@ public function invoice($kodeOrder)
     public function editProduk($kode)
     {
         $decodedKode = base64_decode($kode);
+        $OrderProdukModel = new OrderProdukModel();
+        $OrderProdukData = $OrderProdukModel->find($decodedKode);
+        $TaskCalendarModel = new TaskCalendarModel();
+        $TaskCalendarData = $TaskCalendarModel->where('id',$OrderProdukData['id_task'])->first();
+        // dd($TaskCalendarData);
         $kategoriModel = new KategoriSupplierModel();
         $kategoriData = $kategoriModel->findAll();
         $supplierModel = new SupplierModel();
@@ -734,6 +739,6 @@ public function invoice($kodeOrder)
         $kategoriProdukDetailModel = new KategoriProdukDetailModel();
         $kategoriProdukDetailData = $kategoriProdukDetailModel->findAll();
 
-        return view('editOrderProduk', ['kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kategoriProdukData' => $kategoriProdukData, 'kategoriProdukDetailData' => $kategoriProdukDetailData]);
+        return view('editOrderProduk', ['encodedKode' => $kode , 'OrderProdukData' => $OrderProdukData, 'TaskCalendarData' => $TaskCalendarData, 'kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kategoriProdukData' => $kategoriProdukData, 'kategoriProdukDetailData' => $kategoriProdukDetailData]);
     }
 }

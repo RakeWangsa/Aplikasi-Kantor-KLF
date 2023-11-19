@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - Input Order Produk</title>
+  <title>KLF - Edit Order Produk</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -110,21 +110,21 @@
   </div>
   <div class="app-content">
     <div class="app-content-header my-4">
-      <h1 class="app-content-headerText">Input Order Produk</h1>
+      <h1 class="app-content-headerText">Edit Order Produk</h1>
     </div>
 
     <div class="products-area-wrapper tableView">
 
 
 
-    <form class="text-light" action="<?= base_url('order/detailOrder/inputProduk/' . $encodedKodeOrder. '/submit'); ?>" id="myForm" method="post" enctype="multipart/form-data">
+    <form class="text-light" action="<?= base_url('order/detailOrder/editProduk/' . $encodedKode . '/submit'); ?>" id="myForm" method="post" enctype="multipart/form-data">
             <div class="form-group mb-2">
                 <label for="kodeOrder">Kode Order :</label>
-                <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" value="<?= $kodeOrder; ?>" disabled>
+                <input type="text" class="form-control" id="kodeOrder" name="kodeOrder" style="max-width:1000px" value="<?= $OrderProdukData['kode_order']; ?>" disabled>
             </div>
             <div class="form-group mb-2">
                 <label for="namaProduk">Nama Produk :</label>
-                <input type="text" class="form-control" id="namaProduk" name="namaProduk" style="max-width:1000px" placeholder="Masukkan nama produk">
+                <input type="text" class="form-control" id="namaProduk" name="namaProduk" style="max-width:1000px" placeholder="Masukkan nama produk" value="<?= $OrderProdukData['nama']; ?>">
             </div>
             <div class="form-group mb-2">
                 <label for="gambar">Gambar :</label>
@@ -136,7 +136,7 @@
     <select class="form-select" id="kategori" name="kategori" style="max-width:1000px" required>
       <option value="" disabled selected>Pilih Kategori!</option>
         <?php foreach ($kategoriProdukData as $kategori): ?>
-            <option value="<?= $kategori['kategori'] ?>"><?= $kategori['kategori'] ?></option>
+            <option value="<?= $kategori['kategori'] ?>" <?php if($kategori['kategori']==$OrderProdukData['kategori']): ?> selected <?php endif; ?>><?= $kategori['kategori'] ?></option>
         <?php endforeach; ?>
     </select>
 </div>
@@ -163,19 +163,19 @@
 
             <div class="form-group mb-2">
                 <label for="harga">Harga :</label>
-                <input type="text" class="form-control" id="harga" name="harga" style="max-width:1000px" placeholder="Masukkan harga">
+                <input type="text" class="form-control" id="harga" name="harga" style="max-width:1000px" placeholder="Masukkan harga" value="<?= $OrderProdukData['harga']; ?>">
             </div>
             <div class="form-group mb-2">
                 <label for="quantity">Quantity :</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" style="max-width:1000px" placeholder="Masukkan harga">
+                <input type="number" class="form-control" id="quantity" name="quantity" style="max-width:1000px" placeholder="Masukkan harga" value="<?= $OrderProdukData['quantity']; ?>">
             </div>
             <div class="form-group mb-4">
                 <label for="deadline">Deadline :</label>
-                <input type="date" class="form-control" id="deadline" name="deadline" style="max-width:1000px">
+                <input type="date" class="form-control" id="deadline" name="deadline" style="max-width:1000px" value="<?= $TaskCalendarData['deadline']; ?>">
             </div>
             <div class="form-group mb-4">
                 <label for="catatan_khusus">Catatan Khusus :</label>
-                <input type="text" class="form-control" id="catatan_khusus" name="catatan_khusus" style="max-width:1000px" placeholder="Masukkan catatan">
+                <input type="text" class="form-control" id="catatan_khusus" name="catatan_khusus" style="max-width:1000px" placeholder="Masukkan catatan" value="<?= $OrderProdukData['catatan_khusus']; ?>">
             </div>
             <div class="form-group mb-4">
               <input type="text" class="form-control" style="display: none;" id="jumlahSupplier" name="jumlahSupplier" style="max-width:1000px" readonly>
