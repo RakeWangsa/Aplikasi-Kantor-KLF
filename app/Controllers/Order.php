@@ -736,7 +736,7 @@ public function invoice($kodeOrder)
         $kategoriProdukDetailModel = new KategoriProdukDetailModel();
         $kategoriProdukDetailData = $kategoriProdukDetailModel->findAll();
         $OrderProdukDetailModel = new OrderProdukDetailModel();
-        // $OrderProdukDetailData = $OrderProdukDetailModel->where('id_order_produk',$OrderProdukData['id_order_produk'])->findAll();
+
 
         $TaskCalendarModel = new TaskCalendarModel();
         $task = $TaskCalendarModel->where('id', $OrderProdukData['id_task'])->first();
@@ -750,8 +750,22 @@ public function invoice($kodeOrder)
                 }
             }
         } 
+        $OrderProdukSupplierModel = new OrderProdukSupplierModel();
+        $OrderProdukSupplierData = $OrderProdukSupplierModel->where('id_order_produk',$OrderProdukData['id_order_produk'])->findAll();
+        $jumlahSupplier=count($OrderProdukSupplierData);
 
-        return view('editOrderProduk', ['encodedKode' => $kode , 'OrderProdukData' => $OrderProdukData, 'kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kategoriProdukData' => $kategoriProdukData, 'kategoriProdukDetailData' => $kategoriProdukDetailData, 'OrderProdukDetailData' => $OrderProdukDetailData]);
+
+        return view('editOrderProduk', [
+            'encodedKode' => $kode , 
+            'OrderProdukData' => $OrderProdukData, 
+            'kategoriData' => $kategoriData, 
+            'supplierData' => $supplierData, 
+            'kategoriProdukData' => $kategoriProdukData, 
+            'kategoriProdukDetailData' => $kategoriProdukDetailData, 
+            'OrderProdukDetailData' => $OrderProdukDetailData,
+            'OrderProdukSupplierData' => $OrderProdukSupplierData,
+            'jumlahSupplier' => $jumlahSupplier,   
+        ]);
     }
 
 

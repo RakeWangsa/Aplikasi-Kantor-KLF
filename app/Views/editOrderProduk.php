@@ -225,12 +225,37 @@
     document.getElementById('kategori').dispatchEvent(event);
 </script>
 
+<script>
+    // Panggil cekSupplier() saat dokumen dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        cekSupplier();
+    });
+</script>
 
 <script>
+
+function cekSupplier() {
+        var jumlahSupplier = "<?php echo $jumlahSupplier; ?>";
+
+        // Check if jumlahSupplier is a valid number
+        if (!isNaN(jumlahSupplier)) {
+            // Parse the value as an integer
+            jumlahSupplier = parseInt(jumlahSupplier);
+
+            // Call tambahSupplier() function based on the value of jumlahSupplier
+            for (var i = 0; i < jumlahSupplier; i++) {
+              tambahSupplier(); // Call your actual function here
+            }
+        }
+    }
+
+
     var supplierCount = 1;
     var kategoriData = <?php echo json_encode($kategoriData); ?>; 
     var namaData = <?php echo json_encode($supplierData); ?>; 
 
+    var OrderProdukSupplierData = <?php echo json_encode($OrderProdukSupplierData); ?>;
+    
     function tambahSupplier() {
       var form = document.getElementById('myForm');
 
@@ -252,11 +277,12 @@
       var kategoriInput = document.createElement('select');
       kategoriInput.className = 'form-control';
       kategoriInput.name = 'kategori'+supplierCount;
+
       kategoriInput.style.maxWidth = '1000px';
 
       var placeholderOption = document.createElement('option');
-      placeholderOption.value = ''; // Nilai placeholder kosong
-      placeholderOption.text = 'Pilih Kategori'; // Pesan placeholder
+      placeholderOption.value = '';
+      placeholderOption.text = 'Pilih Kategori!';
       placeholderOption.disabled = true; // Membuat placeholder tidak dapat dipilih
       placeholderOption.selected = true; // Opsi ini akan muncul sebagai default atau terpilih pertama kali
 
@@ -266,6 +292,9 @@
           var option = document.createElement('option');
           option.value = kategori.kategori; 
           option.text = kategori.kategori; 
+          if (kategori.kategori === OrderProdukSupplierData[supplierCount - 1].kategori) {
+              option.selected = true;
+          }
           kategoriInput.appendChild(option);
       });
 
@@ -294,6 +323,7 @@
               var option = document.createElement('option');
               option.value = supplier.nama; 
               option.text = supplier.nama; 
+              
               namaSupplierInput.appendChild(option);
           });
       });
@@ -309,6 +339,7 @@
         jumlahBarangInput.type = 'text';
         jumlahBarangInput.className = 'form-control';
         jumlahBarangInput.name = 'jumlah_barang'+supplierCount;
+        jumlahBarangInput.value = OrderProdukSupplierData[supplierCount-1].jumlah_barang;
         jumlahBarangInput.style.maxWidth = '1000px';
         jumlahBarangInput.placeholder = 'Jumlah Barang';
 
@@ -324,6 +355,7 @@
         hargaInput.type = 'text';
         hargaInput.className = 'form-control';
         hargaInput.name = 'harga'+supplierCount;
+        hargaInput.value = OrderProdukSupplierData[supplierCount-1].harga;
         hargaInput.style.maxWidth = '1000px';
         hargaInput.placeholder = 'Harga';
 
