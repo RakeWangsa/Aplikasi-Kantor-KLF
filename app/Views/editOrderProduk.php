@@ -150,7 +150,7 @@
               <div class="form-group mb-2">
                 <label for="detail<?= $i; ?>"><?= $detail['detail'] ?> :</label>
                 <input type="text" class="form-control" style="display: none;" name="detail<?= $kategori['kategori']; ?><?= $i; ?>" value="<?= $detail['detail'] ?>">
-                <input type="text" class="form-control" name="nilai<?= $kategori['kategori']; ?><?= $i; ?>" id="nilai<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>" value="<?= $detail['nilai'] ?>">
+                <input type="text" class="form-control" name="nilai<?= $kategori['kategori']; ?><?= $i; ?>" id="nilai<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>" >
               </div>
                 <?php $i++; ?>
             <?php endif; ?>
@@ -171,7 +171,7 @@
             </div>
             <div class="form-group mb-4">
                 <label for="deadline">Deadline :</label>
-                <input type="date" class="form-control" id="deadline" name="deadline" style="max-width:1000px" value="<?= $TaskCalendarData['deadline']; ?>">
+                <input type="date" class="form-control" id="deadline" name="deadline" style="max-width:1000px" value="<?= $OrderProdukData['deadline']; ?>">
             </div>
             <div class="form-group mb-4">
                 <label for="catatan_khusus">Catatan Khusus :</label>

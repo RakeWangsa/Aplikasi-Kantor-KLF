@@ -727,9 +727,6 @@ public function invoice($kodeOrder)
         $decodedKode = base64_decode($kode);
         $OrderProdukModel = new OrderProdukModel();
         $OrderProdukData = $OrderProdukModel->find($decodedKode);
-        $TaskCalendarModel = new TaskCalendarModel();
-        $TaskCalendarData = $TaskCalendarModel->where('id',$OrderProdukData['id_task'])->first();
-        // dd($TaskCalendarData);
         $kategoriModel = new KategoriSupplierModel();
         $kategoriData = $kategoriModel->findAll();
         $supplierModel = new SupplierModel();
@@ -738,8 +735,23 @@ public function invoice($kodeOrder)
         $kategoriProdukData = $kategoriProdukModel->findAll();
         $kategoriProdukDetailModel = new KategoriProdukDetailModel();
         $kategoriProdukDetailData = $kategoriProdukDetailModel->findAll();
+        $OrderProdukDetailModel = new OrderProdukDetailModel();
+        // $OrderProdukDetailData = $OrderProdukDetailModel->where('id_order_produk',$OrderProdukData['id_order_produk'])->findAll();
 
-        return view('editOrderProduk', ['encodedKode' => $kode , 'OrderProdukData' => $OrderProdukData, 'TaskCalendarData' => $TaskCalendarData, 'kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kategoriProdukData' => $kategoriProdukData, 'kategoriProdukDetailData' => $kategoriProdukDetailData]);
+        $TaskCalendarModel = new TaskCalendarModel();
+        $task = $TaskCalendarModel->where('id', $OrderProdukData['id_task'])->first();
+        $OrderProdukData['deadline'] = $task ? $task['deadline'] : '';
+
+        foreach ($kategoriProdukDetailData as &$data) {
+            $OrderProdukDetailData = $OrderProdukDetailModel->where('id_order_produk',$OrderProdukData['id_order_produk'])->findAll();
+            foreach($OrderProdukDetailData as $detail){
+                if($data['detail']==$detail['detail']){
+                    $data['nilai'] = $detail ? $detail['nilai'] : '';
+                }
+            }
+        }
+
+        return view('editOrderProduk', ['encodedKode' => $kode , 'OrderProdukData' => $OrderProdukData, 'kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kategoriProdukData' => $kategoriProdukData, 'kategoriProdukDetailData' => $kategoriProdukDetailData, 'OrderProdukDetailData' => $OrderProdukDetailData]);
     }
 
 
