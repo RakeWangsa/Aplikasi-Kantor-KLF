@@ -180,6 +180,7 @@
             <div class="form-group mb-4">
               <input type="text" class="form-control" style="display: none;" id="jumlahSupplier" name="jumlahSupplier" style="max-width:1000px" readonly>
               <input type="button" class="btn btn-secondary" value="Tambah Supplier" onclick="tambahSupplier()">
+              <input type="button" class="btn btn-danger" value="Kurangi Supplier" onclick="hapusSupplier()">
             </div>
             
             <button type="submit" class="btn btn-primary mt-4">Submit</button>
@@ -261,6 +262,7 @@ function cekSupplier() {
 
       var supplierDiv = document.createElement('div');
       supplierDiv.className = 'form-group';
+      supplierDiv.id = 'supplierDiv'+supplierCount;
 
       var additionalText = document.createElement('h5');
       additionalText.innerHTML = 'Supplier ' + supplierCount;
@@ -269,6 +271,7 @@ function cekSupplier() {
 
       var kategoriDiv = document.createElement('div');
       kategoriDiv.className = 'form-group';
+      kategoriDiv.id = 'kategoriDiv'+supplierCount;
 
       var kategoriLabel = document.createElement('label');
       kategoriLabel.htmlFor = 'kategori';
@@ -302,6 +305,7 @@ function cekSupplier() {
 
       var namaSupplierDiv = document.createElement('div');
       namaSupplierDiv.className = 'form-group';
+      namaSupplierDiv.id = 'namaSupplierDiv'+supplierCount;
 
       var namaSupplierLabel = document.createElement('label');
       namaSupplierLabel.htmlFor = 'nama_supplier';
@@ -341,6 +345,7 @@ function cekSupplier() {
 
       var jumlahBarangDiv = document.createElement('div');
       jumlahBarangDiv.className = 'form-group';
+      jumlahBarangDiv.id = 'jumlahBarangDiv'+supplierCount;
 
         var jumlahBarangLabel = document.createElement('label');
         jumlahBarangLabel.htmlFor = 'jumlah_barang';
@@ -359,6 +364,7 @@ function cekSupplier() {
         var hargaDiv = document.createElement('div');
         hargaDiv.className = 'form-group';
         hargaDiv.style.paddingBottom = '40px';
+        hargaDiv.id = 'hargaDiv'+supplierCount;
 
         var hargaLabel = document.createElement('label');
         hargaLabel.htmlFor = 'harga';
@@ -401,6 +407,33 @@ function cekSupplier() {
 
         var inputJumlah = document.getElementById('jumlahSupplier');
         inputJumlah.value = supplierCount-1;
+    }
+
+    function hapusSupplier() {
+        if (supplierCount > 1) {
+            supplierCount--;
+
+            // Hapus elemen terakhir
+            var form = document.getElementById('myForm');
+
+            var supplierDiv = document.getElementById('supplierDiv'+supplierCount);
+            var kategoriDiv = document.getElementById('kategoriDiv'+supplierCount);
+            var namaSupplierDiv = document.getElementById('namaSupplierDiv'+supplierCount);
+            var jumlahBarangDiv = document.getElementById('jumlahBarangDiv'+supplierCount);
+            var hargaDiv = document.getElementById('hargaDiv'+supplierCount);
+            form.removeChild(supplierDiv);
+            form.removeChild(kategoriDiv);
+        form.removeChild(namaSupplierDiv);
+        form.removeChild(jumlahBarangDiv);
+        form.removeChild(hargaDiv);
+
+            // Perbarui nilai button dan inputJumlah
+            var button = document.querySelector('input[type="button"]');
+            button.value = 'Tambah Supplier ke-' + supplierCount;
+
+            var inputJumlah = document.getElementById('jumlahSupplier');
+            inputJumlah.value = supplierCount - 1;
+        }
     }
 </script>
 
