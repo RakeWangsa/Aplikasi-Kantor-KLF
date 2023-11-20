@@ -749,7 +749,7 @@ public function invoice($kodeOrder)
                     $data['nilai'] = $detail ? $detail['nilai'] : '';
                 }
             }
-        }
+        } 
 
         return view('editOrderProduk', ['encodedKode' => $kode , 'OrderProdukData' => $OrderProdukData, 'kategoriData' => $kategoriData, 'supplierData' => $supplierData, 'kategoriProdukData' => $kategoriProdukData, 'kategoriProdukDetailData' => $kategoriProdukDetailData, 'OrderProdukDetailData' => $OrderProdukDetailData]);
     }

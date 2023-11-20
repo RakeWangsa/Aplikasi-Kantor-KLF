@@ -150,7 +150,7 @@
               <div class="form-group mb-2">
                 <label for="detail<?= $i; ?>"><?= $detail['detail'] ?> :</label>
                 <input type="text" class="form-control" style="display: none;" name="detail<?= $kategori['kategori']; ?><?= $i; ?>" value="<?= $detail['detail'] ?>">
-                <input type="text" class="form-control" name="nilai<?= $kategori['kategori']; ?><?= $i; ?>" id="nilai<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>" >
+                <input type="text" class="form-control" name="nilai<?= $kategori['kategori']; ?><?= $i; ?>" id="nilai<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>" <?php if(isset($detail['nilai'])): ?> value="<?= $detail['nilai'] ?>" <?php endif; ?>>
               </div>
                 <?php $i++; ?>
             <?php endif; ?>
