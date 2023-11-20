@@ -253,7 +253,7 @@ function cekSupplier() {
     var supplierCount = 1;
     var kategoriData = <?php echo json_encode($kategoriData); ?>; 
     var namaData = <?php echo json_encode($supplierData); ?>; 
-
+    var jumlahSupplier = "<?php echo $jumlahSupplier; ?>";
     var OrderProdukSupplierData = <?php echo json_encode($OrderProdukSupplierData); ?>;
     
     function tambahSupplier() {
@@ -292,8 +292,10 @@ function cekSupplier() {
           var option = document.createElement('option');
           option.value = kategori.kategori; 
           option.text = kategori.kategori; 
-          if (kategori.kategori === OrderProdukSupplierData[supplierCount - 1].kategori) {
-              option.selected = true;
+          if(supplierCount - 1 < jumlahSupplier){
+            if (kategori.kategori === OrderProdukSupplierData[supplierCount - 1].kategori) {
+                option.selected = true;
+            }
           }
           kategoriInput.appendChild(option);
       });
@@ -310,6 +312,16 @@ function cekSupplier() {
       namaSupplierInput.name = 'nama_supplier'+supplierCount;
       namaSupplierInput.style.maxWidth = '1000px';
 
+      if(supplierCount - 1 < jumlahSupplier){
+        var placeholderSupplier = document.createElement('option');
+        placeholderSupplier.value = OrderProdukSupplierData[supplierCount-1].nama;
+        placeholderSupplier.text = OrderProdukSupplierData[supplierCount-1].nama;
+        placeholderSupplier.selected = true; 
+        namaSupplierInput.appendChild(placeholderSupplier);
+      }
+
+
+
       kategoriInput.addEventListener('change', function() {
           var selectedKategori = this.value;
 
@@ -323,7 +335,6 @@ function cekSupplier() {
               var option = document.createElement('option');
               option.value = supplier.nama; 
               option.text = supplier.nama; 
-              
               namaSupplierInput.appendChild(option);
           });
       });
@@ -339,7 +350,9 @@ function cekSupplier() {
         jumlahBarangInput.type = 'text';
         jumlahBarangInput.className = 'form-control';
         jumlahBarangInput.name = 'jumlah_barang'+supplierCount;
-        jumlahBarangInput.value = OrderProdukSupplierData[supplierCount-1].jumlah_barang;
+        if(supplierCount - 1 < jumlahSupplier){
+          jumlahBarangInput.value = OrderProdukSupplierData[supplierCount-1].jumlah_barang;
+        }
         jumlahBarangInput.style.maxWidth = '1000px';
         jumlahBarangInput.placeholder = 'Jumlah Barang';
 
@@ -355,7 +368,9 @@ function cekSupplier() {
         hargaInput.type = 'text';
         hargaInput.className = 'form-control';
         hargaInput.name = 'harga'+supplierCount;
-        hargaInput.value = OrderProdukSupplierData[supplierCount-1].harga;
+        if(supplierCount - 1 < jumlahSupplier){
+          hargaInput.value = OrderProdukSupplierData[supplierCount-1].harga;
+        }
         hargaInput.style.maxWidth = '1000px';
         hargaInput.placeholder = 'Harga';
 
