@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 use App\Models\OrderModel;
+use App\Models\OrderProdukModel;
 
 class Dashboard extends BaseController
 {
@@ -20,12 +21,19 @@ class Dashboard extends BaseController
 
         $data = $model->findAll();
         $sisaSaldo = 0;
-        $totalTagihan = 0;
+
         foreach($data as $row){
             $sisaSaldo += $row['grand_total'];
-            $totalTagihan += $row['total_biaya_order'];
+            // $totalTagihan += $row['total_biaya_order'];
         }
-        
+        $OrderProdukModel = new OrderProdukModel();
+        $OrderProdukData = $OrderProdukModel->findAll();
+
+        $totalTagihan = 0;
+        foreach($OrderProdukData as $row){
+            $totalTagihan += $row['total_biaya'];
+        }
+
         $jumlahOrder = count($orderBulan);
         return view('dashboard', ['data' => $data, 'jumlahOrder' => $jumlahOrder, 'sisaSaldo' => $sisaSaldo, 'totalTagihan' => $totalTagihan]);
     }

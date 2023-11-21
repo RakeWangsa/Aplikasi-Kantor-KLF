@@ -124,11 +124,11 @@
             </div>
             <div class="form-group mb-2">
                 <label for="namaProduk">Nama Produk :</label>
-                <input type="text" class="form-control" id="namaProduk" name="namaProduk" style="max-width:1000px" placeholder="Masukkan nama produk">
+                <input type="text" class="form-control" id="namaProduk" name="namaProduk" style="max-width:1000px" placeholder="Masukkan nama produk" required>
             </div>
             <div class="form-group mb-2">
                 <label for="gambar">Gambar :</label>
-                <input type="file" class="form-control-file" accept="image/*" id="gambar" name="gambar[]" multiple>
+                <input type="file" class="form-control-file" accept="image/*" id="gambar" name="gambar[]" multiple required>
             </div>
 
             <div class="form-group mb-2">
@@ -150,7 +150,7 @@
               <div class="form-group mb-2">
                 <label for="detail<?= $i; ?>"><?= $detail['detail'] ?> :</label>
                 <input type="text" class="form-control" style="display: none;" name="detail<?= $kategori['kategori']; ?><?= $i; ?>" value="<?= $detail['detail'] ?>">
-                <input type="text" class="form-control" name="nilai<?= $kategori['kategori']; ?><?= $i; ?>" id="nilai<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>" value="<?= $detail['nilai'] ?>">
+                <input type="text" class="form-control" name="nilai<?= $kategori['kategori']; ?><?= $i; ?>" id="nilai<?= $i; ?>" style="max-width:1000px" placeholder="Masukkan <?= $detail['detail']; ?>">
               </div>
                 <?php $i++; ?>
             <?php endif; ?>
@@ -163,19 +163,19 @@
 
             <div class="form-group mb-2">
                 <label for="harga">Harga :</label>
-                <input type="text" class="form-control" id="harga" name="harga" style="max-width:1000px" placeholder="Masukkan harga">
+                <input type="text" class="form-control" id="harga" name="harga" style="max-width:1000px" placeholder="Masukkan harga" required>
             </div>
             <div class="form-group mb-2">
                 <label for="quantity">Quantity :</label>
-                <input type="number" class="form-control" id="quantity" name="quantity" style="max-width:1000px" placeholder="Masukkan harga">
+                <input type="number" class="form-control" id="quantity" name="quantity" style="max-width:1000px" placeholder="Masukkan harga" required>
             </div>
             <div class="form-group mb-4">
                 <label for="deadline">Deadline :</label>
-                <input type="date" class="form-control" id="deadline" name="deadline" style="max-width:1000px">
+                <input type="date" class="form-control" id="deadline" name="deadline" style="max-width:1000px" required>
             </div>
             <div class="form-group mb-4">
                 <label for="catatan_khusus">Catatan Khusus :</label>
-                <input type="text" class="form-control" id="catatan_khusus" name="catatan_khusus" style="max-width:1000px" placeholder="Masukkan catatan">
+                <input type="text" class="form-control" id="catatan_khusus" name="catatan_khusus" style="max-width:1000px" placeholder="Masukkan catatan" required>
             </div>
             <div class="form-group mb-4">
               <input type="text" class="form-control" style="display: none;" id="jumlahSupplier" name="jumlahSupplier" style="max-width:1000px" readonly>

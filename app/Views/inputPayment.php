@@ -131,15 +131,15 @@
   </div>
   <div class="form-group mb-2">
     <label for="tanggal">Tanggal:</label>
-    <input type="date" class="form-control" id="tanggal" name="tanggal" style="max-width:1000px">
+    <input type="date" class="form-control" id="tanggal" name="tanggal" style="max-width:1000px" required>
   </div>
   <div class="form-group mb-2">
     <label for="jumlahPayment">Jumlah Payment:</label>
-    <input type="number" class="form-control" id="jumlahPayment" name="jumlahPayment" style="max-width:1000px" placeholder="Masukkan jumlah payment">
+    <input type="number" class="form-control" id="jumlahPayment" name="jumlahPayment" style="max-width:1000px" placeholder="Masukkan jumlah payment" required>
   </div>
   <div class="form-group mb-2">
     <label for="buktiPayment">Bukti Payment (Upload Gambar):</label>
-    <input type="file" class="form-control-file" accept="image/*" id="buktiPayment" name="buktiPayment[]">
+    <input type="file" class="form-control-file" accept="image/*" id="buktiPayment" name="buktiPayment[]" required>
   </div>
   <button type="submit" class="btn btn-primary mt-4">Kirim</button>
 </form>

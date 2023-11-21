@@ -182,6 +182,9 @@ if($nomorInvoice<10){
         $semuaProduk = $model->select('id_order_produk')->like('id_order_produk', $decodedKodeOrder, 'after')->findAll();
         $jumlahProduk = count($semuaProduk);
         $id_produk = $jumlahProduk+1;
+        if($id_produk<10){
+            $id_produk='0'.$id_produk;
+        }
         $id_order_produk = $decodedKodeOrder .'/'. $id_produk;
 
 
@@ -312,6 +315,12 @@ if($nomorInvoice<10){
     $grossProfit=$totalHargaOrder-$totalBiayaOrder;
     $grandTotal=$totalHargaOrder-$dpMasuk['dp_masuk'];
 
+    $OrderBiayaModel = new OrderBiayaModel();
+    $OrderBiayaData = $OrderBiayaModel->where('kode_order',$decodedKodeOrder)->findAll();
+    foreach($OrderBiayaData as $biaya){
+        $totalBiayaOrder+=$biaya['biaya'];
+    }
+
     $OrderData = [
         'nilaiOrder' => $totalHargaOrder,
         'total_biaya_order' => $totalBiayaOrder,
@@ -339,7 +348,7 @@ if($nomorInvoice<10){
     ];
     $model->update($id_order_produk, $data);
 
-
+    $this->updateData($kodeOrder);
     return redirect()->to(base_url('order/detailOrder/'.$kodeOrder))->with('success', 'Produk berhasil ditambahkan.');
     }
 
@@ -900,14 +909,13 @@ public function invoice($kodeOrder)
             'nama' => $nama_supplier,
             'jumlah_barang' => $jumlah_barang,
             'harga' => $harga_supplier,
-            'total_harga' => $total_harga_supplier
+            'total_harga' => $total_harga_supplier,
         ];
 
         $OrderProdukSupplierModel->insert($data);
         $insertedIds[] = $OrderProdukSupplierModel->insertID();
 
     }
-
 
     $data = [
         'total_biaya' => $totalBiaya,
@@ -932,6 +940,13 @@ public function invoice($kodeOrder)
 
     $grossProfit=$totalHargaOrder-$totalBiayaOrder;
     $grandTotal=$totalHargaOrder-$dpMasuk['dp_masuk'];
+
+    
+    $OrderBiayaModel = new OrderBiayaModel();
+    $OrderBiayaData = $OrderBiayaModel->where('kode_order',$kodeOrder)->findAll();
+    foreach($OrderBiayaData as $biaya){
+        $totalBiayaOrder+=$biaya['biaya'];
+    }
 
     $OrderData = [
         'nilaiOrder' => $totalHargaOrder,
@@ -958,8 +973,8 @@ public function invoice($kodeOrder)
     //     'id_task' => $lastTask['id'],
     // ];
     // $model->update($decodedKode, $data);
-
-
+    $encodedKodeOrder = base64_encode($kodeOrder);
+    $this->updateData($encodedKodeOrder);
     return redirect()->to(base_url('order/detailOrder/detailProduk/'.$kode))->with('success', 'Produk berhasil diupdate.');
     }
 }
