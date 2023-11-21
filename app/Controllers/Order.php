@@ -773,6 +773,8 @@ public function invoice($kodeOrder)
     {
         $decodedKode = base64_decode($kode);
         $model = new OrderProdukModel();
+        $OrderProdukData = $model->where('id_order_produk', $decodedKode)->first();
+        $kodeOrder = $OrderProdukData['kode_order'];
         // $semuaProduk = $model->select('id_order_produk')->like('id_order_produk', $decodedKodeOrder, 'after')->findAll();
         // $jumlahProduk = count($semuaProduk);
         // $id_produk = $jumlahProduk+1;
@@ -861,7 +863,8 @@ public function invoice($kodeOrder)
                 'detail' => $detail,
                 'nilai' => $nilai 
             ];
-            $OrderProdukDetailModel->update($decodedKode, $detailData);
+            $id = $OrderProdukDetailModel->where('id_order_produk', $decodedKode)->where('detail',$detail)->first();
+            $OrderProdukDetailModel->update($id['id'], $detailData);
         }
     }
     
@@ -869,8 +872,17 @@ public function invoice($kodeOrder)
 
     $OrderProdukSupplierModel = new OrderProdukSupplierModel();
     $SupplierModel = new SupplierModel();
+    $OrderProdukSupplierData = $OrderProdukSupplierModel->where('id_order_produk', $decodedKode)->findAll();
+    // foreach($OrderProdukSupplierData as $data){
+    //     $idDihapus[] = $data['id'];
+    // }
+    $OrderProdukSupplierModel->where('id_order_produk', $decodedKode)->delete();
+    // foreach ($idDihapus as $id) {
+    //     echo $id;
+    // }
 
     $totalBiaya = 0;
+    $insertedIds = [];
     for ($i = 1; $i <= $jumlahSupplier; $i++) {
         $kategori_supplier = $this->request->getPost('kategori'.$i);
         $nama_supplier = $this->request->getPost('nama_supplier'.$i);
@@ -892,6 +904,7 @@ public function invoice($kodeOrder)
         ];
 
         $OrderProdukSupplierModel->insert($data);
+        $insertedIds[] = $OrderProdukSupplierModel->insertID();
 
     }
 
@@ -899,16 +912,16 @@ public function invoice($kodeOrder)
     $data = [
         'total_biaya' => $totalBiaya,
     ];
-    // $model->update($id_order_produk, $data);
+    $model->update($decodedKode, $data);
 
 
 
 
     $OrderModel = new OrderModel();
-    $dpMasuk = $OrderModel->select('dp_masuk')->find($decodedKodeOrder);
+    $dpMasuk = $OrderModel->select('dp_masuk')->find($kodeOrder);
     // $totalNilaiOrder=$nilaiOrder['nilaiOrder']+$total_harga;
 
-    $totalData = $model->like('id_order_produk', $decodedKodeOrder, 'after')->findAll();
+    $totalData = $model->like('id_order_produk', $kodeOrder, 'after')->findAll();
     $totalHargaOrder = 0; // Menginisialisasi total harga
     $totalBiayaOrder = 0; // Menginisialisasi total biaya
 
@@ -926,28 +939,27 @@ public function invoice($kodeOrder)
         'gross_profit' => $grossProfit,
         'grand_total' => $grandTotal,
     ];
-    // $OrderModel->update($decodedKodeOrder, $OrderData);
+    $OrderModel->update($kodeOrder, $OrderData);
 
     
     $TaskModel = new TaskCalendarModel();
     $gambarModel = new GambarProdukModel();
     $gambarTask = $gambarModel->where('id_order_produk', $decodedKode)->first();
     $dataTask = [
-        'parent' => $decodedKodeOrder,
+        'parent' => $kodeOrder,
         'task' => $namaProduk,
         'deadline' => $deadline,
         'gambar' => $gambarTask['gambar'],
-        'status' => 'Belum Dikerjakan'
     ];
-    // $TaskModel->insert($dataTask);
+    $TaskModel->update($OrderProdukData['id_task'], $dataTask);
 
-    $lastTask = $TaskModel->orderBy('id', 'DESC')->first();
-    $data = [
-        'id_task' => $lastTask['id'],
-    ];
-    // $model->update($id_order_produk, $data);
+    // $lastTask = $TaskModel->orderBy('id', 'DESC')->first();
+    // $data = [
+    //     'id_task' => $lastTask['id'],
+    // ];
+    // $model->update($decodedKode, $data);
 
 
-    return redirect()->to(base_url('order/detailOrder/detailProduk/'.$decodedKode))->with('success', 'Produk berhasil diupdate.');
+    return redirect()->to(base_url('order/detailOrder/detailProduk/'.$kode))->with('success', 'Produk berhasil diupdate.');
     }
 }
