@@ -48,7 +48,7 @@ class Order extends BaseController
         return $angkaA - $angkaB;
     });
 
-    return view('listOrder', ['data' => $data]);
+    return view('listOrder', ['title' => 'List Order', 'active' => 'List Order', 'data' => $data]);
 }
 
 

@@ -35,7 +35,7 @@ class Dashboard extends BaseController
         }
 
         $jumlahOrder = count($orderBulan);
-        return view('dashboard', ['data' => $data, 'jumlahOrder' => $jumlahOrder, 'sisaSaldo' => $sisaSaldo, 'totalTagihan' => $totalTagihan]);
+        return view('dashboard', ['title' => 'Dashboard', 'active' => 'Dashboard', 'data' => $data, 'jumlahOrder' => $jumlahOrder, 'sisaSaldo' => $sisaSaldo, 'totalTagihan' => $totalTagihan]);
     }
     
     // Fungsi untuk mengonversi angka ke angka Romawi

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
-  <title>KLF - Dashboard</title>
+  <title>KLF - <?= $title ?></title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <link rel="stylesheet" href="<?= base_url('assets2/style.css'); ?>">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
@@ -66,7 +66,7 @@
       
     </div>
     <ul class="sidebar-list">
-      <li class="sidebar-list-item active">
+    <li class="sidebar-list-item <?php if ($active == "Dashboard") { echo "active"; } ?>">
         <a href="<?= base_url('dashboard'); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dashboard">
     <rect x="3" y="3" width="6" height="6" />
@@ -78,7 +78,7 @@
           <span>Dashboard</span>
         </a>
       </li>
-      <li class="sidebar-list-item">
+      <li class="sidebar-list-item <?php if ($active == "List Order") { echo "active"; } ?>">
         <a href="<?= base_url('order/listOrder'); ?>">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list-order">
     <line x1="5" y1="6" x2="19" y2="6" />
