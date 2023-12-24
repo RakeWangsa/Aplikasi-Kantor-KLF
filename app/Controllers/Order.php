@@ -54,7 +54,7 @@ class Order extends BaseController
 
     public function inputOrder(): string
     {
-        return view('inputOrder');
+            return view('inputOrder', ['title' => 'Input Order', 'active' => 'List Order']);
     }
     
     public function simpanData()
@@ -157,7 +157,7 @@ if($nomorInvoice<10){
         
 
 
-        return view('detailOrder', ['data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData]);
+        return view('detailOrder', ['title' => 'Detail Order', 'active' => 'List Order','data' => $data, 'encodedKodeOrder' => $kodeOrder, 'kodeOrder' => $decodedKodeOrder, 'produkData' => $produkData]);
 
     }
     public function inputProduk($kodeOrder)
@@ -376,7 +376,10 @@ if($nomorInvoice<10){
 
 
 
-        return view('detailProduk', ['OrderProdukData' => $OrderProdukData, 
+        return view('detailProduk', [
+                                    'title' => 'Detail Produk',
+                                    'active' => 'List Order',
+                                    'OrderProdukData' => $OrderProdukData, 
                                     'SupplierData' => $OrderProdukSupplierData, 
                                     'GambarProdukData' => $GambarProdukData,
                                     'OrderProdukDetailData' => $OrderProdukDetailData,
@@ -699,7 +702,7 @@ public function invoice($kodeOrder)
         
 
 
-        return view('editOrder', ['data' => $data]);
+        return view('editOrder', ['title' => 'Edit Order', 'active' => 'List Order', 'data' => $data]);
 
     }
 
@@ -765,6 +768,8 @@ public function invoice($kodeOrder)
 
 
         return view('editOrderProduk', [
+            'title' => 'Edit Order Produk',
+            'active' => 'List Order',
             'encodedKode' => $kode , 
             'OrderProdukData' => $OrderProdukData, 
             'kategoriData' => $kategoriData, 
