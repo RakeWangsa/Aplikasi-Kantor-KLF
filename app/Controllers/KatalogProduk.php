@@ -8,6 +8,6 @@ class KatalogProduk extends BaseController
 {
         public function index()
     {
-        return view('katalogProduk');
+        return view('katalogProduk', ['title' => 'Katalog Produk', 'active' => 'Katalog Produk']);
     }   
 }
