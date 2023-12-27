@@ -1,8 +1,65 @@
 <?php include('header.php'); ?>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <div class="app-content">
     <div class="app-content-header">
       <h1 class="app-content-headerText">Katalog Produk</h1>
-      <button class="app-content-headerButton">Add Product</button>
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+Add Produk
+</button>
+
+      <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <form action="<?= base_url('katalogProduk/addProduk'); ?>" method="post">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Produk</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+          <div class="mb-3">
+            <label for="nama" class="form-label">Nama Produk</label>
+            <input type="text" class="form-control" id="nama" name="nama">
+          </div>
+          <div class="mb-3">
+            <label for="gambar" class="form-label">Gambar</label>
+            <input type="text" class="form-control" id="gambar" name="gambar">
+          </div>
+          <div class="mb-3">
+            <label for="jenis" class="form-label">Jenis</label>
+            <input type="text" class="form-control" id="jenis" name="jenis">
+          </div>
+          <div class="mb-3">
+            <label for="sku" class="form-label">SKU</label>
+            <input type="text" class="form-control" id="sku" name="sku">
+          </div>
+          <div class="mb-3">
+            <label for="dimensi" class="form-label">Dimensi</label>
+            <input type="text" class="form-control" id="dimensi" name="dimensi">
+          </div>
+          <div class="mb-3">
+            <label for="harga" class="form-label">Harga</label>
+            <input type="text" class="form-control" id="harga" name="harga">
+          </div>
+          <div class="mb-3">
+            <label for="spesifikasi" class="form-label">Spesifikasi</label>
+            <input type="text" class="form-control" id="spesifikasi" name="spesifikasi">
+          </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
     </div>
     <div class="app-content-actions">
       <input class="search-bar" placeholder="Search..." type="text">
@@ -268,6 +325,9 @@
 </div>
 <!-- partial -->
   <script  src="assets2/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 </html>
