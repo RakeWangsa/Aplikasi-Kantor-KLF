@@ -14,7 +14,7 @@ Add Produk
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-    <form action="<?= base_url('katalogProduk/addProduk'); ?>" method="post">
+    <form action="<?= base_url('katalogProduk/addProduk'); ?>" method="post" enctype="multipart/form-data">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Produk</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -23,31 +23,31 @@ Add Produk
         
           <div class="mb-3">
             <label for="nama" class="form-label">Nama Produk</label>
-            <input type="text" class="form-control" id="nama" name="nama">
+            <input type="text" class="form-control" id="nama" name="nama" required>
           </div>
           <div class="mb-3">
             <label for="gambar" class="form-label">Gambar</label>
-            <input type="text" class="form-control" id="gambar" name="gambar">
+            <input type="file" class="form-control-file" accept="image/*" id="gambar" name="gambar[]" required>
           </div>
           <div class="mb-3">
             <label for="jenis" class="form-label">Jenis</label>
-            <input type="text" class="form-control" id="jenis" name="jenis">
+            <input type="text" class="form-control" id="jenis" name="jenis" required>
           </div>
           <div class="mb-3">
             <label for="sku" class="form-label">SKU</label>
-            <input type="text" class="form-control" id="sku" name="sku">
+            <input type="text" class="form-control" id="sku" name="sku" required>
           </div>
           <div class="mb-3">
             <label for="dimensi" class="form-label">Dimensi</label>
-            <input type="text" class="form-control" id="dimensi" name="dimensi">
+            <input type="text" class="form-control" id="dimensi" name="dimensi" required>
           </div>
           <div class="mb-3">
             <label for="harga" class="form-label">Harga</label>
-            <input type="text" class="form-control" id="harga" name="harga">
+            <input type="text" class="form-control" id="harga" name="harga" required>
           </div>
           <div class="mb-3">
             <label for="spesifikasi" class="form-label">Spesifikasi</label>
-            <input type="text" class="form-control" id="spesifikasi" name="spesifikasi">
+            <input type="text" class="form-control" id="spesifikasi" name="spesifikasi" required>
           </div>
         
       </div>

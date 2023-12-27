@@ -19,9 +19,31 @@ class KatalogProduk extends BaseController
         $dimensi = $this->request->getPost('dimensi');
         $harga = $this->request->getPost('harga');
         $spesifikasi = $this->request->getPost('spesifikasi');
+
+
+        $gambarFiles = $this->request->getFiles();
+
+        
+        foreach ($gambarFiles['gambar'] as $gambar) {
+            // Pastikan ada file yang diunggah
+            if ($gambar->isValid() && !$gambar->hasMoved()) {
+                // Pastikan nama file unik
+                // $namaFile = base64_encode($gambar->getRandomName());
+
+                $uuid = uniqid(); // Generate a unique ID
+                $ekstensiAsli = pathinfo($gambar->getName(), PATHINFO_EXTENSION); // Dapatkan ekstensi asli dari nama file
+
+                $namaFile = $uuid . '.' . $ekstensiAsli; // Gabungkan ID unik dan ekstensi asli untuk nama file
+
+
+                // Pindahkan file ke direktori penyimpanan
+                $gambar->move(ROOTPATH . 'public/uploads', $namaFile);
+            }
+        }
+
         $data = [
             'nama' => $nama,      
-            'gambar' => $gambar,    
+            'gambar' => $namaFile,    
             'jenis' => $jenis,  
             'sku' => $sku,  
             'dimensi' => $dimensi,  
